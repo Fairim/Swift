@@ -11,7 +11,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		D5F26A6A2E831D9500BFD567 /* Exceptions for "moneyAnalytics" folder in "moneyAnalytics" target */ = {
+		E5F639112E85567E00D7C8C1 /* Exceptions for "View" folder in "moneyAnalytics" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -21,12 +21,22 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		D5F26A5A2E831D9300BFD567 /* moneyAnalytics */ = {
+		E5F6390E2E85564E00D7C8C1 /* Model */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E5F639102E85567700D7C8C1 /* View */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				D5F26A6A2E831D9500BFD567 /* Exceptions for "moneyAnalytics" folder in "moneyAnalytics" target */,
+				E5F639112E85567E00D7C8C1 /* Exceptions for "View" folder in "moneyAnalytics" target */,
 			);
-			path = moneyAnalytics;
+			path = View;
+			sourceTree = "<group>";
+		};
+		E5F639122E85572700D7C8C1 /* ViewModel */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -45,7 +55,9 @@
 		D5F26A4F2E831D9300BFD567 = {
 			isa = PBXGroup;
 			children = (
-				D5F26A5A2E831D9300BFD567 /* moneyAnalytics */,
+				E5F639122E85572700D7C8C1 /* ViewModel */,
+				E5F639102E85567700D7C8C1 /* View */,
+				E5F6390E2E85564E00D7C8C1 /* Model */,
 				D5F26A592E831D9300BFD567 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -74,7 +86,9 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				D5F26A5A2E831D9300BFD567 /* moneyAnalytics */,
+				E5F6390E2E85564E00D7C8C1 /* Model */,
+				E5F639102E85567700D7C8C1 /* View */,
+				E5F639122E85572700D7C8C1 /* ViewModel */,
 			);
 			name = moneyAnalytics;
 			packageProductDependencies = (
@@ -147,7 +161,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = HRHUB7F2W3;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = moneyAnalytics/Info.plist;
+				INFOPLIST_FILE = View/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -155,6 +169,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_MAP_FILE_PATH = "$(TARGET_TEMP_DIR)/$(PRODUCT_NAME)-LinkMap-$(CURRENT_VARIANT)-$(CURRENT_ARCH).txt";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -177,7 +192,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = HRHUB7F2W3;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = moneyAnalytics/Info.plist;
+				INFOPLIST_FILE = View/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
