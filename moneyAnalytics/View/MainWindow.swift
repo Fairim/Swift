@@ -14,7 +14,14 @@ class MainWindow: UIViewController {
     @IBOutlet weak var weekDay: UILabel!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var toolbar: UIToolbar!
+    private var toolbarItem1: UIBarButtonItem!
+    private var toolbarItem2: UIBarButtonItem!
+    private var toolbarItem3: UIBarButtonItem!
+    private var toolbarText1: UIBarButtonItem!
+    private var toolbarText2: UIBarButtonItem!
+    private var toolbarText3: UIBarButtonItem!
     let backgroundViewMoneyLabel = UIView()
+    let processingClickToolbar = clickToolbar()
     var allSum : Decimal = 0
     
     var activeDate = Date()
@@ -23,6 +30,7 @@ class MainWindow: UIViewController {
         super.viewDidLoad()
         initialViewDidloadMainPage()
         updateTexts()
+        createToolBar()
     }
     
     @IBAction func clickSpendingButton(_ sender: UIButton) {
@@ -49,6 +57,64 @@ class MainWindow: UIViewController {
         dataButton.tintColor = UIColor(named: "IntenseWhite")
         dataButton.sizeToFit()
         moneyLabel.addBackground(color: UIColor(named: "DarkGreyBlue")!, cornerRadius: 10, padding: UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 15))
+    }
+    
+    private func createToolBar(){
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let fixedSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        fixedSpace.width = 20
+        toolbarItem1 = UIBarButtonItem(image: UIImage(systemName: "chart.bar.horizontal.page"), style: .plain, target: self, action: #selector(clickMainItem))
+        toolbarText1 = UIBarButtonItem(title: "Транзакции", style: .plain, target: self, action: #selector(clickMainItem))
+        toolbarItem1.tintColor = UIColor(named: "Gold")
+        toolbarText1.tintColor = UIColor(named: "Gold")
+        toolbarItem2 = UIBarButtonItem(image: UIImage(systemName: "chart.xyaxis.line"), style: .plain, target: self, action: #selector(clickAnaliticItem))
+       toolbarText2 = UIBarButtonItem(title: "Аналитика", style: .plain, target: self, action: #selector(clickAnaliticItem))
+        toolbarItem2.tintColor = .white
+        toolbarText2.tintColor = UIColor(named: "Gold")
+        toolbarText2.isHidden = true
+        toolbarItem3 = UIBarButtonItem(image: UIImage(systemName: "person"), style: .plain, target: self, action: #selector(clickProfileItem))
+        toolbarItem3.tintColor = .white
+        toolbarText3 = UIBarButtonItem(title: "Профиль", style: .plain, target: self, action: #selector(clickProfileItem))
+        toolbarText3.tintColor = UIColor(named: "Gold")
+        toolbarText3.isHidden = true
+        toolbar.items = [fixedSpace, toolbarItem1, toolbarText1, flexibleSpace, toolbarItem2, toolbarText2, flexibleSpace, toolbarItem3, toolbarText3, fixedSpace, fixedSpace]
+        
+    }
+    
+    @objc func clickMainItem() {
+        toolbarItem1.tintColor = UIColor(named: "Gold")
+        toolbarText1.tintColor = UIColor(named: "Gold")
+        toolbarText1.isHidden = false
+        toolbarItem2.tintColor = .white
+        toolbarText2.tintColor = .white
+        toolbarText2.isHidden = true
+        toolbarItem3.tintColor = .white
+        toolbarText3.tintColor = .white
+        toolbarText3.isHidden = true
+    }
+    
+    @objc func clickAnaliticItem() {
+        toolbarItem2.tintColor = UIColor(named: "Gold")
+        toolbarText2.tintColor = UIColor(named: "Gold")
+        toolbarText2.isHidden = false
+        toolbarItem1.tintColor = .white
+        toolbarText1.tintColor = .white
+        toolbarText1.isHidden = true
+        toolbarItem3.tintColor = .white
+        toolbarText3.tintColor = .white
+        toolbarText3.isHidden = true
+    }
+    
+    @objc func clickProfileItem() {
+        toolbarItem3.tintColor = UIColor(named: "Gold")
+        toolbarText3.tintColor = UIColor(named: "Gold")
+        toolbarText3.isHidden = false
+        toolbarItem2.tintColor = .white
+        toolbarText2.tintColor = .white
+        toolbarText2.isHidden = true
+        toolbarItem1.tintColor = .white
+        toolbarText1.tintColor = .white
+        toolbarText1.isHidden = true
     }
     
     private func updateTexts(){
