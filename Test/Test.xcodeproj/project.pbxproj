@@ -6,54 +6,33 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		E54265552E88372C00B0C124 /* MainListsEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54265532E88372C00B0C124 /* MainListsEntity+CoreDataClass.swift */; };
-		E54265562E88372C00B0C124 /* MainListsEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54265542E88372C00B0C124 /* MainListsEntity+CoreDataProperties.swift */; };
-		E5713A212E8837D3001BBFFB /* CategoriesEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5713A1F2E8837D3001BBFFB /* CategoriesEntity+CoreDataClass.swift */; };
-		E5713A222E8837D3001BBFFB /* CategoriesEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5713A202E8837D3001BBFFB /* CategoriesEntity+CoreDataProperties.swift */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
-		D5F26A582E831D9300BFD567 /* moneyAnalytics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = moneyAnalytics.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		E54265532E88372C00B0C124 /* MainListsEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MainListsEntity+CoreDataClass.swift"; path = "Model/Entities/MainListsEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		E54265542E88372C00B0C124 /* MainListsEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MainListsEntity+CoreDataProperties.swift"; path = "Model/Entities/MainListsEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		E5713A1F2E8837D3001BBFFB /* CategoriesEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CategoriesEntity+CoreDataClass.swift"; path = "Model/Entities/CategoriesEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		E5713A202E8837D3001BBFFB /* CategoriesEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CategoriesEntity+CoreDataProperties.swift"; path = "Model/Entities/CategoriesEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		E5653C702E8845D900EF35CC /* Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		E5F639112E85567E00D7C8C1 /* Exceptions for "View" folder in "moneyAnalytics" target */ = {
+		E5653C852E8845DC00EF35CC /* Exceptions for "Test" folder in "Test" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = D5F26A572E831D9300BFD567 /* moneyAnalytics */;
+			target = E5653C6F2E8845D900EF35CC /* Test */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		E5F6390E2E85564E00D7C8C1 /* Model */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Model;
-			sourceTree = "<group>";
-		};
-		E5F639102E85567700D7C8C1 /* View */ = {
+		E5653C722E8845D900EF35CC /* Test */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				E5F639112E85567E00D7C8C1 /* Exceptions for "View" folder in "moneyAnalytics" target */,
+				E5653C852E8845DC00EF35CC /* Exceptions for "Test" folder in "Test" target */,
 			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		E5F639122E85572700D7C8C1 /* ViewModel */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = ViewModel;
+			path = Test;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		D5F26A552E831D9300BFD567 /* Frameworks */ = {
+		E5653C6D2E8845D900EF35CC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -63,24 +42,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		D5F26A4F2E831D9300BFD567 = {
+		E5653C672E8845D900EF35CC = {
 			isa = PBXGroup;
 			children = (
-				E5713A1F2E8837D3001BBFFB /* CategoriesEntity+CoreDataClass.swift */,
-				E5713A202E8837D3001BBFFB /* CategoriesEntity+CoreDataProperties.swift */,
-				E54265532E88372C00B0C124 /* MainListsEntity+CoreDataClass.swift */,
-				E54265542E88372C00B0C124 /* MainListsEntity+CoreDataProperties.swift */,
-				E5F639122E85572700D7C8C1 /* ViewModel */,
-				E5F639102E85567700D7C8C1 /* View */,
-				E5F6390E2E85564E00D7C8C1 /* Model */,
-				D5F26A592E831D9300BFD567 /* Products */,
+				E5653C722E8845D900EF35CC /* Test */,
+				E5653C712E8845D900EF35CC /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		D5F26A592E831D9300BFD567 /* Products */ = {
+		E5653C712E8845D900EF35CC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D5F26A582E831D9300BFD567 /* moneyAnalytics.app */,
+				E5653C702E8845D900EF35CC /* Test.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -88,66 +61,64 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D5F26A572E831D9300BFD567 /* moneyAnalytics */ = {
+		E5653C6F2E8845D900EF35CC /* Test */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D5F26A6B2E831D9500BFD567 /* Build configuration list for PBXNativeTarget "moneyAnalytics" */;
+			buildConfigurationList = E5653C862E8845DC00EF35CC /* Build configuration list for PBXNativeTarget "Test" */;
 			buildPhases = (
-				D5F26A542E831D9300BFD567 /* Sources */,
-				D5F26A552E831D9300BFD567 /* Frameworks */,
-				D5F26A562E831D9300BFD567 /* Resources */,
+				E5653C6C2E8845D900EF35CC /* Sources */,
+				E5653C6D2E8845D900EF35CC /* Frameworks */,
+				E5653C6E2E8845D900EF35CC /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				E5F6390E2E85564E00D7C8C1 /* Model */,
-				E5F639102E85567700D7C8C1 /* View */,
-				E5F639122E85572700D7C8C1 /* ViewModel */,
+				E5653C722E8845D900EF35CC /* Test */,
 			);
-			name = moneyAnalytics;
+			name = Test;
 			packageProductDependencies = (
 			);
-			productName = moneyAnalytics;
-			productReference = D5F26A582E831D9300BFD567 /* moneyAnalytics.app */;
+			productName = Test;
+			productReference = E5653C702E8845D900EF35CC /* Test.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		D5F26A502E831D9300BFD567 /* Project object */ = {
+		E5653C682E8845D900EF35CC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1640;
-				LastUpgradeCheck = 1640;
+				LastSwiftUpdateCheck = 1620;
+				LastUpgradeCheck = 1620;
 				TargetAttributes = {
-					D5F26A572E831D9300BFD567 = {
-						CreatedOnToolsVersion = 16.4;
+					E5653C6F2E8845D900EF35CC = {
+						CreatedOnToolsVersion = 16.2;
 					};
 				};
 			};
-			buildConfigurationList = D5F26A532E831D9300BFD567 /* Build configuration list for PBXProject "moneyAnalytics" */;
+			buildConfigurationList = E5653C6B2E8845D900EF35CC /* Build configuration list for PBXProject "Test" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = D5F26A4F2E831D9300BFD567;
+			mainGroup = E5653C672E8845D900EF35CC;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = D5F26A592E831D9300BFD567 /* Products */;
+			productRefGroup = E5653C712E8845D900EF35CC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D5F26A572E831D9300BFD567 /* moneyAnalytics */,
+				E5653C6F2E8845D900EF35CC /* Test */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		D5F26A562E831D9300BFD567 /* Resources */ = {
+		E5653C6E2E8845D900EF35CC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -157,44 +128,36 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		D5F26A542E831D9300BFD567 /* Sources */ = {
+		E5653C6C2E8845D900EF35CC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E5713A212E8837D3001BBFFB /* CategoriesEntity+CoreDataClass.swift in Sources */,
-				E5713A222E8837D3001BBFFB /* CategoriesEntity+CoreDataProperties.swift in Sources */,
-				E54265552E88372C00B0C124 /* MainListsEntity+CoreDataClass.swift in Sources */,
-				E54265562E88372C00B0C124 /* MainListsEntity+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		D5F26A6C2E831D9500BFD567 /* Debug */ = {
+		E5653C872E8845DC00EF35CC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = HRHUB7F2W3;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = View/Info.plist;
+				INFOPLIST_FILE = Test/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
-				LD_MAP_FILE_PATH = "$(TARGET_TEMP_DIR)/$(PRODUCT_NAME)-LinkMap-$(CURRENT_VARIANT)-$(CURRENT_ARCH).txt";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = jorgenbo.moneyAnalytics;
+				PRODUCT_BUNDLE_IDENTIFIER = Power.Test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -202,29 +165,26 @@
 			};
 			name = Debug;
 		};
-		D5F26A6D2E831D9500BFD567 /* Release */ = {
+		E5653C882E8845DC00EF35CC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = HRHUB7F2W3;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = View/Info.plist;
+				INFOPLIST_FILE = Test/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = jorgenbo.moneyAnalytics;
+				PRODUCT_BUNDLE_IDENTIFIER = Power.Test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -232,7 +192,7 @@
 			};
 			name = Release;
 		};
-		D5F26A6E2E831D9500BFD567 /* Debug */ = {
+		E5653C892E8845DC00EF35CC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -267,7 +227,6 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = HRHUB7F2W3;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -285,7 +244,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -296,7 +255,7 @@
 			};
 			name = Debug;
 		};
-		D5F26A6F2E831D9500BFD567 /* Release */ = {
+		E5653C8A2E8845DC00EF35CC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -331,7 +290,6 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = HRHUB7F2W3;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -343,7 +301,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -356,25 +314,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D5F26A532E831D9300BFD567 /* Build configuration list for PBXProject "moneyAnalytics" */ = {
+		E5653C6B2E8845D900EF35CC /* Build configuration list for PBXProject "Test" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D5F26A6E2E831D9500BFD567 /* Debug */,
-				D5F26A6F2E831D9500BFD567 /* Release */,
+				E5653C892E8845DC00EF35CC /* Debug */,
+				E5653C8A2E8845DC00EF35CC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D5F26A6B2E831D9500BFD567 /* Build configuration list for PBXNativeTarget "moneyAnalytics" */ = {
+		E5653C862E8845DC00EF35CC /* Build configuration list for PBXNativeTarget "Test" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D5F26A6C2E831D9500BFD567 /* Debug */,
-				D5F26A6D2E831D9500BFD567 /* Release */,
+				E5653C872E8845DC00EF35CC /* Debug */,
+				E5653C882E8845DC00EF35CC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = D5F26A502E831D9300BFD567 /* Project object */;
+	rootObject = E5653C682E8845D900EF35CC /* Project object */;
 }
