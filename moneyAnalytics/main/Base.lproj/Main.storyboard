@@ -18,22 +18,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="День недели" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W1T-zf-Cpz">
-                                <rect key="frame" x="30" y="71" width="102" height="21"/>
+                                <rect key="frame" x="30.000000000000007" y="71" width="101.66666666666669" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" systemColor="groupTableViewBackgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qoV-Nz-fiE">
-                                <rect key="frame" x="20" y="358" width="391" height="491"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="485" id="h5I-wN-FPf"/>
-                                    <constraint firstAttribute="width" constant="391" id="l7F-vJ-78O"/>
-                                </constraints>
-                                <viewLayoutGuide key="contentLayoutGuide" id="R53-F2-arD"/>
-                                <viewLayoutGuide key="frameLayoutGuide" id="scC-b5-rWd"/>
-                            </scrollView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="onm-dU-yUa">
-                                <rect key="frame" x="0.0" y="849" width="430" height="49"/>
+                                <rect key="frame" x="0.0" y="849" width="429.66666666666669" height="49"/>
                                 <color key="backgroundColor" name="Graphite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="430" id="5k4-xY-lyd"/>
@@ -68,16 +59,40 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MJY-go-gse">
-                                <rect key="frame" x="305" y="63" width="75" height="35"/>
+                                <rect key="frame" x="304.66666666666669" y="63" width="75" height="34.333333333333343"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Button"/>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 P " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P7l-Ru-SsS">
-                                <rect key="frame" x="200" y="187" width="30" height="20.333333333333343"/>
+                                <rect key="frame" x="200" y="187" width="29.666666666666657" height="20.333333333333343"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" systemColor="systemBackgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qoV-Nz-fiE">
+                                <rect key="frame" x="21" y="358" width="391" height="491"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="efd-6n-FLt">
+                                        <rect key="frame" x="0.0" y="0.0" width="388" height="70"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KBR-BR-g6A">
+                                                <rect key="frame" x="0.0" y="0.0" width="388" height="70"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            </view>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="483" id="BPW-M8-KE1"/>
+                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="391" id="UVD-OZ-y52"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="485" id="h5I-wN-FPf"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="391" id="l7F-vJ-78O"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="R53-F2-arD"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="scC-b5-rWd"/>
+                            </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="graphite"/>
@@ -95,6 +110,7 @@
                             <constraint firstItem="P7l-Ru-SsS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="200" id="Vmi-pp-5fd"/>
                             <constraint firstItem="qoV-Nz-fiE" firstAttribute="top" secondItem="S5U-gM-pg7" secondAttribute="bottom" constant="13.666666666666686" id="a63-n3-Af5"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="P7l-Ru-SsS" secondAttribute="trailing" constant="163" id="d9w-H0-LVT"/>
+                            <constraint firstItem="qoV-Nz-fiE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="21" id="hF2-TG-O2z"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="onm-dU-yUa" secondAttribute="bottom" id="hl6-cI-cAI"/>
                             <constraint firstItem="vIZ-41-VOn" firstAttribute="top" secondItem="P7l-Ru-SsS" secondAttribute="bottom" constant="102.66666666666666" id="lFR-jw-xxz"/>
                             <constraint firstItem="onm-dU-yUa" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="mS5-oa-MEM"/>
@@ -117,7 +133,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-11" y="-46"/>
+            <point key="canvasLocation" x="-11.162790697674419" y="-46.351931330472105"/>
         </scene>
         <!--Profile Window-->
         <scene sceneID="W2g-tp-b9l">

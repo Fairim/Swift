@@ -6,48 +6,59 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		E54265552E88372C00B0C124 /* MainListsEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54265532E88372C00B0C124 /* MainListsEntity+CoreDataClass.swift */; };
-		E54265562E88372C00B0C124 /* MainListsEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54265542E88372C00B0C124 /* MainListsEntity+CoreDataProperties.swift */; };
-		E5713A212E8837D3001BBFFB /* CategoriesEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5713A1F2E8837D3001BBFFB /* CategoriesEntity+CoreDataClass.swift */; };
-		E5713A222E8837D3001BBFFB /* CategoriesEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5713A202E8837D3001BBFFB /* CategoriesEntity+CoreDataProperties.swift */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
 		D5F26A582E831D9300BFD567 /* moneyAnalytics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = moneyAnalytics.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		E54265532E88372C00B0C124 /* MainListsEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MainListsEntity+CoreDataClass.swift"; path = "Model/Entities/MainListsEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		E54265542E88372C00B0C124 /* MainListsEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MainListsEntity+CoreDataProperties.swift"; path = "Model/Entities/MainListsEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		E5713A1F2E8837D3001BBFFB /* CategoriesEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CategoriesEntity+CoreDataClass.swift"; path = "Model/Entities/CategoriesEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		E5713A202E8837D3001BBFFB /* CategoriesEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CategoriesEntity+CoreDataProperties.swift"; path = "Model/Entities/CategoriesEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		E5F639112E85567E00D7C8C1 /* Exceptions for "View" folder in "moneyAnalytics" target */ = {
+		E58444A42E8980450084D449 /* Exceptions for "main" folder in "moneyAnalytics" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Info.plist,
+				"/Localized: LaunchScreen.storyboard",
+				"/Localized: Main.storyboard",
+				AppDelegate.swift,
+				Assets.xcassets,
+				Extensions/Extenshions.swift,
+				Model/CoreDataStack.swift,
+				"Model/Entities/CategoriesEntity+CoreDataClass.swift",
+				"Model/Entities/CategoriesEntity+CoreDataProperties.swift",
+				"Model/Entities/MainListsEntity+CoreDataClass.swift",
+				"Model/Entities/MainListsEntity+CoreDataProperties.swift",
+				Model/mainCategories.plist,
+				Model/toolbarState.swift,
+				Model/TransactionsClass.swift,
+				SceneDelegate.swift,
+				SettingsManagers/AppSettingManager.swift,
+				SettingsManagers/AppSettingsViewModel.swift,
+				SettingsManagers/DataManagerList.swift,
+				View/MainWindow.swift,
+				View/PageIncome.swift,
+				View/PageSpending.swift,
+				View/ProfileWindow.swift,
+				ViewModel/ListTransactions.swift,
 			);
 			target = D5F26A572E831D9300BFD567 /* moneyAnalytics */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		E5F6390E2E85564E00D7C8C1 /* Model */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Model;
-			sourceTree = "<group>";
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		E58444A52E8980450084D449 /* Exceptions for "main" folder in "Compile Sources" phase from "moneyAnalytics" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = D5F26A542E831D9300BFD567 /* Sources */;
+			membershipExceptions = (
+				Model/transactionStorage.xcdatamodeld,
+			);
 		};
-		E5F639102E85567700D7C8C1 /* View */ = {
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		E58444A32E8980380084D449 /* main */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				E5F639112E85567E00D7C8C1 /* Exceptions for "View" folder in "moneyAnalytics" target */,
+				E58444A42E8980450084D449 /* Exceptions for "main" folder in "moneyAnalytics" target */,
+				E58444A52E8980450084D449 /* Exceptions for "main" folder in "Compile Sources" phase from "moneyAnalytics" target */,
 			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		E5F639122E85572700D7C8C1 /* ViewModel */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = ViewModel;
+			path = main;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -66,13 +77,7 @@
 		D5F26A4F2E831D9300BFD567 = {
 			isa = PBXGroup;
 			children = (
-				E5713A1F2E8837D3001BBFFB /* CategoriesEntity+CoreDataClass.swift */,
-				E5713A202E8837D3001BBFFB /* CategoriesEntity+CoreDataProperties.swift */,
-				E54265532E88372C00B0C124 /* MainListsEntity+CoreDataClass.swift */,
-				E54265542E88372C00B0C124 /* MainListsEntity+CoreDataProperties.swift */,
-				E5F639122E85572700D7C8C1 /* ViewModel */,
-				E5F639102E85567700D7C8C1 /* View */,
-				E5F6390E2E85564E00D7C8C1 /* Model */,
+				E58444A32E8980380084D449 /* main */,
 				D5F26A592E831D9300BFD567 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -99,11 +104,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				E5F6390E2E85564E00D7C8C1 /* Model */,
-				E5F639102E85567700D7C8C1 /* View */,
-				E5F639122E85572700D7C8C1 /* ViewModel */,
 			);
 			name = moneyAnalytics;
 			packageProductDependencies = (
@@ -161,10 +161,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E5713A212E8837D3001BBFFB /* CategoriesEntity+CoreDataClass.swift in Sources */,
-				E5713A222E8837D3001BBFFB /* CategoriesEntity+CoreDataProperties.swift in Sources */,
-				E54265552E88372C00B0C124 /* MainListsEntity+CoreDataClass.swift in Sources */,
-				E54265562E88372C00B0C124 /* MainListsEntity+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,7 +176,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = HRHUB7F2W3;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = View/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/main/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -211,7 +207,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = HRHUB7F2W3;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = View/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/main/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
