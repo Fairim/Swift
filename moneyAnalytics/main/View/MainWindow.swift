@@ -13,6 +13,7 @@ class MainWindow: UIViewController {
     @IBOutlet weak var moneyLabel: UILabel!
     @IBOutlet weak var weekDay: UILabel!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var toolbar: UIToolbar!
     private var toolbarItem1: UIBarButtonItem!
     private var toolbarItem2: UIBarButtonItem!
@@ -22,7 +23,7 @@ class MainWindow: UIViewController {
     private var toolbarText3: UIBarButtonItem!
     let backgroundViewMoneyLabel = UIView()
     var allSum : Decimal = 0
-    
+    var transactionsViewModel = TransactionsViewModel()
     var activeDate = Date()
     
     override func viewDidLoad() {
@@ -30,11 +31,20 @@ class MainWindow: UIViewController {
         initialViewDidloadMainPage()
         updateTexts()
         createToolBar()
+        showTransactions()
     }
     
     @IBAction func clickSpendingButton(_ sender: UIButton) {
         performSegue(withIdentifier:"showSpending", sender: nil)
     }
+    
+    private func showTransactions(){
+        var allTransactions = transactionsViewModel.transactions
+        for item in allTransactions{
+            addViewTransaction(itemTransaction: item)
+        }
+    }
+    
     
     private func initialViewDidloadMainPage() {
         spendingButton.backgroundColor = UIColor(named: "IntenseRed")

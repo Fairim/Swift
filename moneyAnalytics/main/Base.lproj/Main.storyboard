@@ -13,18 +13,18 @@
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="MainWindow" customModule="moneyAnalytics" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="8bC-Xf-vdC">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="День недели" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W1T-zf-Cpz">
-                                <rect key="frame" x="30.000000000000007" y="71" width="101.66666666666669" height="21"/>
+                                <rect key="frame" x="30" y="71" width="139" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" systemColor="groupTableViewBackgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="onm-dU-yUa">
-                                <rect key="frame" x="0.0" y="849" width="429.66666666666669" height="49"/>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="onm-dU-yUa">
+                                <rect key="frame" x="0.0" y="849" width="467" height="49"/>
                                 <color key="backgroundColor" name="Graphite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="430" id="5k4-xY-lyd"/>
@@ -58,13 +58,13 @@
                                     <segue destination="o3I-iJ-194" kind="show" identifier="showSpending" id="8Wg-BF-9fu"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MJY-go-gse">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MJY-go-gse">
                                 <rect key="frame" x="304.66666666666669" y="63" width="75" height="34.333333333333343"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Button"/>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 P " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P7l-Ru-SsS">
-                                <rect key="frame" x="200" y="187" width="29.666666666666657" height="20.333333333333343"/>
+                                <rect key="frame" x="200" y="187" width="67" height="20.333333333333343"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" systemColor="systemBackgroundColor"/>
                                 <nil key="highlightedColor"/>
@@ -127,6 +127,7 @@
                         <outlet property="moneyLabel" destination="P7l-Ru-SsS" id="hHc-2n-Flw"/>
                         <outlet property="scrollView" destination="qoV-Nz-fiE" id="xKD-E9-wj0"/>
                         <outlet property="spendingButton" destination="S5U-gM-pg7" id="fbD-d0-l4U"/>
+                        <outlet property="stackView" destination="efd-6n-FLt" id="MTR-bm-IBD"/>
                         <outlet property="toolbar" destination="onm-dU-yUa" id="oDz-OT-rwD"/>
                         <outlet property="weekDay" destination="W1T-zf-Cpz" id="U9g-Dc-T9O"/>
                     </connections>

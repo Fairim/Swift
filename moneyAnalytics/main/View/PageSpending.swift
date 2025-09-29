@@ -20,6 +20,7 @@ class ViewSpendingWindow: UIViewController {
     @IBOutlet weak var fieldPrice: UITextField!
     lazy var allLabels : [UILabel] = [spendingName, categorieName, reasonSpendingTitle, priceTitle]
     lazy var allFields : [UITextField] = [fieldSpending, fieldReason, fieldPrice]
+    var transactionsViewModel = TransactionsViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +33,8 @@ class ViewSpendingWindow: UIViewController {
     }
     
     @IBAction func clickSaveButton(_ sender: UIButton) {
+        transactionsViewModel.addTransaction(title: spendingName.text ?? "", category: categorieName.text ?? "", date: Date(), price: NSDecimalNumber(string: priceTitle.text) as Decimal, priceSign: false)
+        dismiss(animated: true, completion: nil)
     }
     
     private func initialSpendingPage(){

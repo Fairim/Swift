@@ -20,6 +20,38 @@ extension UILabel {
             backgroundView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: rightPadding),
             backgroundView.topAnchor.constraint(equalTo: self.topAnchor, constant: -topPadding),
             backgroundView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: bottomPadding)
-               ])
+        ])
+    }
+}
+
+extension MainWindow {
+    
+    func addViewTransaction(itemTransaction: TransactionEntity){
+        let itemView = UIView()
+        itemView.backgroundColor = UIColor(named: "DarkGreyBlue")
+        itemView.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        
+        let titleLabel = UILabel()
+        titleLabel.text = itemTransaction.title
+        itemView.addSubview(titleLabel)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.textColor = UIColor(named: "IntenseWhite")
+        
+        let priceLabel = UILabel()
+        priceLabel.text = String(describing: itemTransaction.price)
+        priceLabel.textColor = itemTransaction.priceSign ? UIColor(named: "IntenseGreen") : UIColor(named: "IntenseRed")
+        
+        let categoryLabel = UILabel()
+        categoryLabel.text = itemTransaction.category
+        categoryLabel.textColor = .gray
+        
+        NSLayoutConstraint.activate([titleLabel.centerXAnchor.constraint(equalTo: itemView.centerXAnchor),
+                                     titleLabel.centerYAnchor.constraint(equalTo: itemView.centerYAnchor),
+                                     priceLabel.centerXAnchor.constraint(equalTo: itemView.centerXAnchor),
+                                     priceLabel.centerYAnchor.constraint(equalTo: itemView.centerYAnchor),
+                                     categoryLabel.centerXAnchor.constraint(equalTo: itemView.centerXAnchor),
+                                     categoryLabel.centerYAnchor.constraint(equalTo: itemView.centerYAnchor)])
+        
+        stackView.addArrangedSubview(itemView)
     }
 }

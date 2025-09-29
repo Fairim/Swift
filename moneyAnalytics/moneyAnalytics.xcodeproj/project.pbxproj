@@ -19,44 +19,32 @@
 				AppDelegate.swift,
 				Assets.xcassets,
 				Extensions/Extenshions.swift,
-				Model/CoreDataStack.swift,
+				Model/AppSettingManager.swift,
+				Model/AppSettingsViewModel.swift,
+				Model/DataManagerList.swift,
 				"Model/Entities/CategoriesEntity+CoreDataClass.swift",
 				"Model/Entities/CategoriesEntity+CoreDataProperties.swift",
-				"Model/Entities/MainListsEntity+CoreDataClass.swift",
-				"Model/Entities/MainListsEntity+CoreDataProperties.swift",
+				"Model/Entities/TransactionEntity+CoreDataClass.swift",
+				"Model/Entities/TransactionEntity+CoreDataProperties.swift",
 				Model/mainCategories.plist,
 				Model/toolbarState.swift,
-				Model/TransactionsClass.swift,
+				Model/transactionStorage.xcdatamodeld,
 				SceneDelegate.swift,
-				SettingsManagers/AppSettingManager.swift,
-				SettingsManagers/AppSettingsViewModel.swift,
-				SettingsManagers/DataManagerList.swift,
 				View/MainWindow.swift,
 				View/PageIncome.swift,
 				View/PageSpending.swift,
 				View/ProfileWindow.swift,
-				ViewModel/ListTransactions.swift,
+				ViewModel/TransactionsViewModel.swift,
 			);
 			target = D5F26A572E831D9300BFD567 /* moneyAnalytics */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
-/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-		E58444A52E8980450084D449 /* Exceptions for "main" folder in "Compile Sources" phase from "moneyAnalytics" target */ = {
-			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
-			buildPhase = D5F26A542E831D9300BFD567 /* Sources */;
-			membershipExceptions = (
-				Model/transactionStorage.xcdatamodeld,
-			);
-		};
-/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		E58444A32E8980380084D449 /* main */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				E58444A42E8980450084D449 /* Exceptions for "main" folder in "moneyAnalytics" target */,
-				E58444A52E8980450084D449 /* Exceptions for "main" folder in "Compile Sources" phase from "moneyAnalytics" target */,
 			);
 			path = main;
 			sourceTree = "<group>";

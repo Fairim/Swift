@@ -10,10 +10,10 @@ import Foundation
 import CoreData
 
 
-extension MainListsEntity {
+extension TransactionEntity {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<MainListsEntity> {
-        return NSFetchRequest<MainListsEntity>(entityName: "MainListsEntity")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<TransactionEntity> {
+        return NSFetchRequest<TransactionEntity>(entityName: "TransactionEntity")
     }
 
     @NSManaged public var category: String?
@@ -24,10 +24,6 @@ extension MainListsEntity {
 
 }
 
-extension MainListsEntity : Identifiable {
-    func deleteItemList(){
-        managedObjectContext?.delete(self)
-        
-        try? managedObjectContext?.saveContext()
-    }
+extension TransactionEntity : Identifiable {
+    
 }

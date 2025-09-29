@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-@objc(MainListsEntity)
-public class MainListsEntity: NSManagedObject {
-
+@objc(TransactionEntity)
+public class TransactionEntity: NSManagedObject {
+    
 }
