@@ -42,7 +42,7 @@ extension MainWindow {
         priceLabel.textColor = itemTransaction.priceSign ? UIColor(named: "IntenseGreen") : UIColor(named: "IntenseRed")
         
         let categoryLabel = UILabel()
-        categoryLabel.text = itemTransaction.category
+        categoryLabel.text = itemTransaction.category?.nameCategory
         categoryLabel.textColor = .gray
         
         NSLayoutConstraint.activate([titleLabel.centerXAnchor.constraint(equalTo: itemView.centerXAnchor),

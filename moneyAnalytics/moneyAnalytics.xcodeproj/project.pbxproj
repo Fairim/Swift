@@ -6,8 +6,15 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		E5C44C772E8EC04700C40CE5 /* TransactionEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C44C752E8EC04700C40CE5 /* TransactionEntity+CoreDataClass.swift */; };
+		E5C44C782E8EC04700C40CE5 /* TransactionEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C44C762E8EC04700C40CE5 /* TransactionEntity+CoreDataProperties.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		D5F26A582E831D9300BFD567 /* moneyAnalytics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = moneyAnalytics.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E5C44C752E8EC04700C40CE5 /* TransactionEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TransactionEntity+CoreDataClass.swift"; path = "main/Model/Entities/TransactionEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		E5C44C762E8EC04700C40CE5 /* TransactionEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TransactionEntity+CoreDataProperties.swift"; path = "main/Model/Entities/TransactionEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -18,14 +25,11 @@
 				"/Localized: Main.storyboard",
 				AppDelegate.swift,
 				Assets.xcassets,
-				Extensions/Extenshions.swift,
+				Extensions/Extensions.swift,
 				Model/AppSettingManager.swift,
-				Model/AppSettingsViewModel.swift,
-				Model/DataManagerList.swift,
+				Model/DataManager.swift,
 				"Model/Entities/CategoriesEntity+CoreDataClass.swift",
 				"Model/Entities/CategoriesEntity+CoreDataProperties.swift",
-				"Model/Entities/TransactionEntity+CoreDataClass.swift",
-				"Model/Entities/TransactionEntity+CoreDataProperties.swift",
 				Model/mainCategories.plist,
 				Model/toolbarState.swift,
 				Model/transactionStorage.xcdatamodeld,
@@ -34,6 +38,8 @@
 				View/PageIncome.swift,
 				View/PageSpending.swift,
 				View/ProfileWindow.swift,
+				ViewModel/AppSettingsViewModel.swift,
+				ViewModel/CategoryViewModel.swift,
 				ViewModel/TransactionsViewModel.swift,
 			);
 			target = D5F26A572E831D9300BFD567 /* moneyAnalytics */;
@@ -65,6 +71,8 @@
 		D5F26A4F2E831D9300BFD567 = {
 			isa = PBXGroup;
 			children = (
+				E5C44C752E8EC04700C40CE5 /* TransactionEntity+CoreDataClass.swift */,
+				E5C44C762E8EC04700C40CE5 /* TransactionEntity+CoreDataProperties.swift */,
 				E58444A32E8980380084D449 /* main */,
 				D5F26A592E831D9300BFD567 /* Products */,
 			);
@@ -149,6 +157,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5C44C772E8EC04700C40CE5 /* TransactionEntity+CoreDataClass.swift in Sources */,
+				E5C44C782E8EC04700C40CE5 /* TransactionEntity+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

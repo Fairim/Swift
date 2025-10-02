@@ -17,6 +17,8 @@ extension CategoriesEntity {
     }
 
     @NSManaged public var nameCategory: String?
+    @NSManaged public var id: UUID?
+
 
 }
 

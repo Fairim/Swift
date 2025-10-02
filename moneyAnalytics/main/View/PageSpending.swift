@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class ViewSpendingWindow: UIViewController {
+class ViewSpendingWindow: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var spendingName: UILabel!
@@ -18,9 +18,12 @@ class ViewSpendingWindow: UIViewController {
     @IBOutlet weak var fieldSpending: UITextField!
     @IBOutlet weak var fieldReason: UITextField!
     @IBOutlet weak var fieldPrice: UITextField!
+    @IBOutlet weak var pickerView: UIPickerView!
     lazy var allLabels : [UILabel] = [spendingName, categorieName, reasonSpendingTitle, priceTitle]
     lazy var allFields : [UITextField] = [fieldSpending, fieldReason, fieldPrice]
     var transactionsViewModel = TransactionsViewModel()
+    var categoriesViewModel = CategoryViewModel()
+    var selectedCategory : String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,9 +36,15 @@ class ViewSpendingWindow: UIViewController {
     }
     
     @IBAction func clickSaveButton(_ sender: UIButton) {
-        transactionsViewModel.addTransaction(title: spendingName.text ?? "", category: categorieName.text ?? "", date: Date(), price: NSDecimalNumber(string: priceTitle.text) as Decimal, priceSign: false)
-        dismiss(animated: true, completion: nil)
-    }
+           transactionsViewModel.addTransaction(
+               title: fieldSpending.text ?? "",
+               category: selectedCategory ?? "",
+               date: Date(),
+               price: NSDecimalNumber(string: fieldPrice.text) as Decimal,
+               priceSign: false
+           )
+           dismiss(animated: true, completion: nil)
+       }
     
     private func initialSpendingPage(){
         cancelButton.backgroundColor = UIColor(named: "CharcoalBlue")
@@ -56,6 +65,25 @@ class ViewSpendingWindow: UIViewController {
             field.layer.borderColor = UIColor(named: "CharcoalBlue")?.cgColor
         }
         
+        pickerView.delegate = self
+        pickerView.dataSource = self
+        
         fieldPrice.keyboardType = .decimalPad
+        
+        if !categoriesViewModel.categoriesList.isEmpty {
+            selectedCategory = categoriesViewModel.categoriesList[0].nameCategory
+        }
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return categoriesViewModel.categoriesList.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        selectedCategory = categoriesViewModel.categoriesList[row].nameCategory
     }
 }

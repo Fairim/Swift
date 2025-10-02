@@ -1,8 +1,8 @@
 //
-//  MainListsEntity+CoreDataClass.swift
+//  TransactionEntity+CoreDataClass.swift
 //  moneyAnalytics
 //
-//  Created by Jorgen Boring on 27/09/2025.
+//  Created by Jorgen Boring on 02/10/2025.
 //
 //
 
@@ -11,5 +11,5 @@ import CoreData
 
 @objc(TransactionEntity)
 public class TransactionEntity: NSManagedObject {
-    
+
 }

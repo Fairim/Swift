@@ -35,16 +35,17 @@ class MainWindow: UIViewController {
     }
     
     @IBAction func clickSpendingButton(_ sender: UIButton) {
-        performSegue(withIdentifier:"showSpending", sender: nil)
+        DispatchQueue.main.async {
+            self.performSegue(withIdentifier: "showSpending", sender: nil)
+        }
     }
     
     private func showTransactions(){
-        var allTransactions = transactionsViewModel.transactions
+        let allTransactions = transactionsViewModel.transactions
         for item in allTransactions{
             addViewTransaction(itemTransaction: item)
         }
     }
-    
     
     private func initialViewDidloadMainPage() {
         spendingButton.backgroundColor = UIColor(named: "IntenseRed")
