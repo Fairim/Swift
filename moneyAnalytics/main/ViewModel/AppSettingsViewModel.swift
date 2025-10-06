@@ -57,9 +57,9 @@ class SettingViewModel: ObservableObject {
     }
     
     func replaceBuild(){
-        if firstBuild == true{
-            settingsManager.firstBuild = false
-            firstBuild = false
+        if firstBuild == false{
+            settingsManager.firstBuild = true
+            firstBuild = true
         }
     }
 }

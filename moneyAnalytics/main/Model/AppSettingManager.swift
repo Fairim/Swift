@@ -9,7 +9,7 @@ class SettingManager{
     }
     
     var firstBuild: Bool{
-        get { defaults.bool(forKey: "firstBuild") }
+        get { defaults.bool(forKey: "firstBuild")}
         set { defaults.set(newValue, forKey: "firstBuild") }
     }
 }

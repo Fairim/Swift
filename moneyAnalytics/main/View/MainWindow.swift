@@ -31,20 +31,52 @@ class MainWindow: UIViewController {
         initialViewDidloadMainPage()
         updateTexts()
         createToolBar()
+        setupScrollView()
         showTransactions()
     }
     
     @IBAction func clickSpendingButton(_ sender: UIButton) {
-        DispatchQueue.main.async {
-            self.performSegue(withIdentifier: "showSpending", sender: nil)
+        self.performSegue(withIdentifier: "showSpending", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showSpending",
+           let spendingVC = segue.destination as? ViewSpendingWindow {
+            spendingVC.delegate = self
         }
     }
     
-    private func showTransactions(){
+    func showTransactions(){
+        stackView.arrangedSubviews.forEach { view in
+           stackView.removeArrangedSubview(view)
+           view.removeFromSuperview()
+        }
         let allTransactions = transactionsViewModel.transactions
         for item in allTransactions{
             addViewTransaction(itemTransaction: item)
         }
+    }
+    
+    func setupScrollView(){
+        stackView.axis = .vertical
+        stackView.distribution = .equalSpacing
+        stackView.alignment = .fill
+        stackView.spacing = 10
+
+        stackView.constraints.forEach { constraint in
+           if constraint.firstAttribute == .height {
+               constraint.isActive = false
+           }
+       }
+        
+        NSLayoutConstraint.activate([
+           stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
+           stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16),
+           stackView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 16),
+           stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -16),
+           stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -32)
+           
+        ])
     }
     
     private func initialViewDidloadMainPage() {
@@ -78,7 +110,7 @@ class MainWindow: UIViewController {
         toolbarItem1.tintColor = UIColor(named: "Gold")
         toolbarText1.tintColor = UIColor(named: "Gold")
         toolbarItem2 = UIBarButtonItem(image: UIImage(systemName: "chart.xyaxis.line"), style: .plain, target: self, action: #selector(clickAnaliticItem))
-       toolbarText2 = UIBarButtonItem(title: "Аналитика", style: .plain, target: self, action: #selector(clickAnaliticItem))
+        toolbarText2 = UIBarButtonItem(title: "Аналитика", style: .plain, target: self, action: #selector(clickAnaliticItem))
         toolbarItem2.tintColor = .white
         toolbarText2.tintColor = UIColor(named: "Gold")
         toolbarText2.isHidden = true

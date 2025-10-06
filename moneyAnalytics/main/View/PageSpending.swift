@@ -8,7 +8,12 @@
 import Foundation
 import UIKit
 
+protocol SpendingViewControllerDelegate: AnyObject {
+    func didAddNewTransaction()
+}
+
 class ViewSpendingWindow: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+    weak var delegate: SpendingViewControllerDelegate?
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var spendingName: UILabel!
@@ -36,15 +41,16 @@ class ViewSpendingWindow: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     }
     
     @IBAction func clickSaveButton(_ sender: UIButton) {
-           transactionsViewModel.addTransaction(
-               title: fieldSpending.text ?? "",
-               category: selectedCategory ?? "",
-               date: Date(),
-               price: NSDecimalNumber(string: fieldPrice.text) as Decimal,
-               priceSign: false
-           )
-           dismiss(animated: true, completion: nil)
-       }
+        transactionsViewModel.addTransaction(
+            title: fieldSpending.text ?? "",
+            category: selectedCategory ?? "",
+            date: Date(),
+            price: NSDecimalNumber(string: fieldPrice.text) as Decimal,
+            priceSign: false
+        )
+        delegate?.didAddNewTransaction()
+        dismiss(animated: true, completion: nil)
+    }
     
     private func initialSpendingPage(){
         cancelButton.backgroundColor = UIColor(named: "CharcoalBlue")
@@ -67,6 +73,7 @@ class ViewSpendingWindow: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         
         pickerView.delegate = self
         pickerView.dataSource = self
+//        pickerView.locale = Locale(identifier: "ru_RU")
         
         fieldPrice.keyboardType = .decimalPad
         

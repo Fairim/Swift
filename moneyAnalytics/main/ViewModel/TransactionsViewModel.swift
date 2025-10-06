@@ -8,7 +8,7 @@ class TransactionsViewModel: ObservableObject {
         loadTransactions()
     }
     
-    private func loadTransactions(){
+    func loadTransactions(){
         transactions = dataManager.fetchTransactions()
     }
     
