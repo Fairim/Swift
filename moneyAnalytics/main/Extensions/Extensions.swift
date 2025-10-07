@@ -1,25 +1,26 @@
 import UIKit
 
 extension UILabel {
-    func addBackground(color: UIColor, cornerRadius: CGFloat = 8, padding: UIEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)){
+    func addBackground(color: UIColor, cornerRadius: CGFloat = 8, verticalPadding: CGFloat = 5) {
         let backgroundView = UIView()
         backgroundView.backgroundColor = color
         backgroundView.layer.cornerRadius = cornerRadius
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         
+        // Вставляем фон под текущий элемент
         self.superview?.insertSubview(backgroundView, belowSubview: self)
         
-        let screenWidth = UIScreen.main.bounds.width
-        let leftPadding = (screenWidth / 2) - (backgroundView.bounds.width / 2) - padding.left
-        let rightPadding = (screenWidth / 2) - (backgroundView.bounds.width / 2) - padding.right - 35
-        let bottomPadding = 92 - padding.bottom
-        let topPadding = 87 - padding.top
+        // Получаем супервью для привязки к ширине экрана
+        guard let superview = self.superview else { return }
         
         NSLayoutConstraint.activate([
-            backgroundView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: -leftPadding),
-            backgroundView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: rightPadding),
-            backgroundView.topAnchor.constraint(equalTo: self.topAnchor, constant: -topPadding),
-            backgroundView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: bottomPadding)
+            // Растягиваем на всю ширину супервью (экрана)
+            backgroundView.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: 16),
+            backgroundView.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -16),
+            
+            // Вертикальные отступы относительно текста
+            backgroundView.topAnchor.constraint(equalTo: self.topAnchor, constant: -verticalPadding),
+            backgroundView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: verticalPadding)
         ])
     }
 }
@@ -41,7 +42,7 @@ extension MainWindow {
         titleLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         
         let priceLabel = UILabel()
-        priceLabel.text = "\(itemTransaction.price ?? 0)"
+        priceLabel.text = "\(itemTransaction.price)"
         priceLabel.textColor = itemTransaction.priceSign ? UIColor(named: "IntenseGreen") : UIColor(named: "IntenseRed")
         priceLabel.textAlignment = .right
         priceLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
@@ -87,5 +88,11 @@ extension MainWindow: SpendingViewControllerDelegate {
     func didAddNewTransaction() {
         transactionsViewModel.loadTransactions()
         showTransactions()
+    }
+}
+
+extension String {
+    var containsOnlyDigits: Bool {
+        return rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil
     }
 }

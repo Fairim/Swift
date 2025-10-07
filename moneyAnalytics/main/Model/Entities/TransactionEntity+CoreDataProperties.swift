@@ -17,7 +17,7 @@ extension TransactionEntity {
     }
 
     @NSManaged public var date: Date?
-    @NSManaged public var price: NSDecimalNumber?
+    @NSManaged public var price: NSDecimalNumber
     @NSManaged public var priceSign: Bool
     @NSManaged public var title: String?
     @NSManaged public var category: CategoriesEntity?

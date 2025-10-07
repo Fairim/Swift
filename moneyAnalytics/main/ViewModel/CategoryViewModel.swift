@@ -2,6 +2,7 @@ import Foundation
 
 class CategoryViewModel: ObservableObject{
     @Published var categoriesList: [CategoriesEntity] = []
+    @Published var categoriesListNamed: [String] = []
     private let dataManager = DataManager.shared
     
     init(){
@@ -10,6 +11,10 @@ class CategoryViewModel: ObservableObject{
     
     private func loadCategories(){
         categoriesList = dataManager.fetchCategories()
+        categoriesListNamed.removeAll()
+        for entity in categoriesList{
+            categoriesListNamed.append(entity.nameCategory)
+        }
     }
     
     func addCategory(nameCategory: String){

@@ -7,6 +7,8 @@ import UIKit
 
 class MainWindow: UIViewController {
 
+    
+    @IBOutlet weak var myView: UIView!
     @IBOutlet weak var spendingButton: UIButton!
     @IBOutlet weak var dataButton: UIButton!
     @IBOutlet weak var incomeButton: UIButton!
@@ -22,14 +24,13 @@ class MainWindow: UIViewController {
     private var toolbarText2: UIBarButtonItem!
     private var toolbarText3: UIBarButtonItem!
     let backgroundViewMoneyLabel = UIView()
-    var allSum : Decimal = 0
+    var allSum : Int = 0
     var transactionsViewModel = TransactionsViewModel()
     var activeDate = Date()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initialViewDidloadMainPage()
-        updateTexts()
         createToolBar()
         setupScrollView()
         showTransactions()
@@ -53,7 +54,13 @@ class MainWindow: UIViewController {
         }
         let allTransactions = transactionsViewModel.transactions
         for item in allTransactions{
-            addViewTransaction(itemTransaction: item)
+            if checkDate(item.date!){
+                if item.priceSign{
+                    allSum += Int(truncating: item.price)
+                }else{allSum -= Int(truncating: item.price)}
+                updateSumLabel()
+                addViewTransaction(itemTransaction: item)
+            }
         }
     }
     
@@ -79,6 +86,15 @@ class MainWindow: UIViewController {
         ])
     }
     
+    func checkDate(_ currentDate: Date) -> Bool{
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        if formatter.string(from: currentDate) == formatter.string(from: Date()){
+            return true
+        }
+        return false
+    }
+    
     private func initialViewDidloadMainPage() {
         spendingButton.backgroundColor = UIColor(named: "IntenseRed")
         spendingButton.layer.cornerRadius = 10
@@ -98,8 +114,9 @@ class MainWindow: UIViewController {
         dataButton.layer.cornerRadius = 15
         dataButton.tintColor = UIColor(named: "IntenseWhite")
         dataButton.sizeToFit()
-        moneyLabel.addBackground(color: UIColor(named: "DarkGreyBlue")!, cornerRadius: 10, padding: UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 15))
+        moneyLabel.addBackground(color: UIColor(named: "DarkGreyBlue")!, cornerRadius: 10, verticalPadding: moneyLabel.bounds.height + 60)
     }
+    
     
     private func createToolBar(){
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
@@ -160,8 +177,14 @@ class MainWindow: UIViewController {
         showProfile()
     }
     
-    private func updateTexts(){
+    private func updateSumLabel(){
+        if allSum < 0{
+            moneyLabel.textColor = UIColor(named: "IntenseRed")
+        } else {moneyLabel.textColor = UIColor(named: "IntenseGreen")}
         moneyLabel.text = "\(allSum) ₽"
+        NSLayoutConstraint.activate([
+            moneyLabel.centerXAnchor.constraint(equalTo: myView.centerXAnchor)
+        ])
     }
     
     private func showProfile() {
