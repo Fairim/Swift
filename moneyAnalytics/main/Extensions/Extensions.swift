@@ -84,12 +84,14 @@ extension MainWindow {
     }
 }
 
-extension MainWindow: SpendingViewControllerDelegate {
+extension MainWindow:
+    ViewControllerDelegate {
     func didAddNewTransaction() {
         transactionsViewModel.loadTransactions()
-        showTransactions()
+        showTransactionsEntitis()
     }
 }
+
 
 extension String {
     var containsOnlyDigits: Bool {

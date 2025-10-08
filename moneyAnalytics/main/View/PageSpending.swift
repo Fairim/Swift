@@ -8,12 +8,8 @@
 import Foundation
 import UIKit
 
-protocol SpendingViewControllerDelegate: AnyObject {
-    func didAddNewTransaction()
-}
-
 class ViewSpendingWindow: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
-    weak var delegate: SpendingViewControllerDelegate?
+    weak var delegate: ViewControllerDelegate?
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var spendingName: UILabel!
@@ -56,27 +52,26 @@ class ViewSpendingWindow: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     }
     
     @IBAction func clickSaveButton(_ sender: UIButton) {
-        let priceText: String = fieldPrice.text ?? ""
-        let spendText: String = fieldSpending.text ?? ""
         let reasonText: String = fieldReason.text ?? ""
-        
-        if !priceText.containsOnlyDigits || priceText.isEmpty{
-            present(alertPrice, animated: true, completion: nil)
-        }else if spendText.isEmpty{
-            present(alertSpending, animated: true, completion: nil)
-        }else if reasonText.isEmpty{
+        if reasonText.isEmpty{
             present(alertReason, animated: true, completion: nil)
         }
         else{
-            transactionsViewModel.addTransaction(
-                title: spendText,
+            let flag: Int = transactionsViewModel.addTransaction(
+                title: fieldSpending.text ?? "",
                 category: selectedCategory ?? "Not Category",
                 date: Date(),
-                price: NSDecimalNumber(string: priceText) as Decimal,
+                price: fieldPrice.text ?? "",
                 priceSign: false
             )
-            delegate?.didAddNewTransaction()
-            dismiss(animated: true, completion: nil)
+            if flag == 1{
+                present(alertPrice, animated: true, completion: nil)
+            }else if flag == 2{
+                present(alertSpending, animated: true, completion: nil)
+            }else{
+                delegate?.didAddNewTransaction()
+                dismiss(animated: true, completion: nil)
+            }
         }
     }
     

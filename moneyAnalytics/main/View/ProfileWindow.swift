@@ -1,16 +1,137 @@
 import Foundation
 import UIKit
 
-class profileWindow: UIViewController {
+class profileWindow: BaseToolbarViewModel {
     
     @IBOutlet weak var profileLabel: UILabel!
     @IBOutlet weak var userName: UILabel!
-    @IBOutlet weak var categoriLabel: UILabel!
-    @IBOutlet weak var categoriesStackView: UIStackView!
+    @IBOutlet weak var redactUserNameButton: UIButton!
     @IBOutlet weak var addButtonCategories: UIButton!
-    @IBOutlet weak var toolbar: UIToolbar!
+    @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet weak var categoriesScrollView: UIScrollView!
+    @IBOutlet weak var categoriesStackView: UIStackView!
+    @IBOutlet weak var textAvailableCat: UILabel!
+    @IBOutlet weak var categoryField: UITextField!
+    @IBOutlet weak var saveCategoryButton: UIButton!
+
+    let alertTrueCategory = UIAlertController(title: "Ошибка",
+                                  message: "Перед сохранением, необходимо ввести название категории!",
+                                  preferredStyle: .alert)
+    
+    let okAction = UIAlertAction(title: "Ок", style: .default, handler: nil)
+    
+    lazy var allButton: [UIButton] = [redactUserNameButton, addButtonCategories, deleteButton, saveCategoryButton]
+    lazy var allLabels: [UILabel] = [profileLabel, userName, textAvailableCat]
+    
+    var allButtonSV: [UIButton] = []
+    
+    let categoriesViewModel = CategoryViewModel()
+    var currInd: Int = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setToolbarSelectedItem(.profile)
+        initialProfileWindow()
+    }
+    
+    func initialProfileWindow(){
+        alertTrueCategory.addAction(okAction)
+        redactUserNameButton.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
+        redactUserNameButton.setTitle("", for: .normal)
+        deleteButton.isHidden = true
+        saveCategoryButton.isHidden = true
+        saveCategoryButton.setTitle("", for: .normal)
+        saveCategoryButton.setImage(UIImage(systemName: "checkmark.circle"), for: .normal)
+        categoryField.isHidden = true
+        categoryField.textColor = UIColor(named: "IntenseWhite")
+        categoryField.backgroundColor = .darkGray
+        for button in allButton {
+            button.backgroundColor = UIColor(named: "CharcoalBlue")
+            button.tintColor = UIColor(named: "IntenseWhite")
+            button.layer.cornerRadius = 10
+        }
+        saveCategoryButton.backgroundColor = UIColor(named: "IntenseGreen")
+        
+        for label in allLabels {
+            label.textColor = UIColor(named: "IntenseWhite")
+        }
+        
+        categoriesStackView.axis = .vertical
+        categoriesStackView.spacing = 8
+        categoriesStackView.distribution = .fillEqually
+        categoriesStackView.alignment = .fill
+        
+        showAllCategories()
+    }
+    
+    func showAllCategories(){
+        allButtonSV.removeAll()
+        categoriesStackView.arrangedSubviews.forEach { view in
+            categoriesStackView.removeArrangedSubview(view)
+            view.removeFromSuperview()
+        }
+        let categoriesList = categoriesViewModel.categoriesList
+        for (index, category) in categoriesList.enumerated(){
+            addCategoryStackView(category, index)
+        }
+        
+        currInd = -1
+        deleteButton.isHidden = true
+    }
+    
+    private func addCategoryStackView(_ category: CategoriesEntity, _ index: Int){
+        let button = UIButton() // ← Убираем лишний UIView
+        button.setTitle(category.nameCategory, for: .normal)
+        button.setTitleColor(UIColor(named: "IntenseWhite"), for: .normal)
+        button.backgroundColor = .gray
+        button.layer.cornerRadius = 10
+        button.tag = index
+        button.addTarget(self, action: #selector(categoryTapped(_:)), for: .touchUpInside)
+        allButtonSV.append(button)
+        
+        categoriesStackView.addArrangedSubview(button)
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            button.heightAnchor.constraint(equalToConstant: 44)
+        ])
+    }
+    
+    @objc func categoryTapped(_ sender: UIButton){
+        for tButton in allButtonSV {
+            tButton.backgroundColor = .gray
+        }
+        
+        sender.backgroundColor = UIColor(named: "CharcoalBlue")
+        
+        currInd = sender.tag
+        deleteButton.isHidden = false
+    }
+    
+    @IBAction func deleteButton(_ sender: Any) {
+        guard currInd >= 0 && currInd < categoriesViewModel.categoriesList.count else { return }
+        
+        let categoryToDelete = categoriesViewModel.categoriesList[currInd]
+        categoriesViewModel.deleteCategory(category: categoryToDelete)
+        
+        showAllCategories()
+    }
+    
+    @IBAction func tapAddButton(_ sender: Any) {
+        saveCategoryButton.isHidden = false
+        categoryField.isHidden = false
+    }
+    
+    @IBAction func tapSaveCategoryButton(_ sender: Any) {
+        let textInCategoryField = categoryField.text ?? ""
+        if !textInCategoryField.isEmpty{
+            categoriesViewModel.addCategory(nameCategory: textInCategoryField)
+            categoryField.text = ""
+            saveCategoryButton.isHidden = true
+            categoryField.isHidden = true
+            showAllCategories()
+        }else{
+            present(alertTrueCategory, animated: true, completion: nil)
+        }
     }
 }

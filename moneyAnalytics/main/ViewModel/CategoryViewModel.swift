@@ -18,8 +18,16 @@ class CategoryViewModel: ObservableObject{
     }
     
     func addCategory(nameCategory: String){
-        dataManager.addNewCategory(nameCategory: nameCategory)
-        loadCategories()
+        var flag: Bool = true
+        for name in categoriesListNamed{
+            if name == nameCategory{
+                flag = false
+            }
+        }
+        if flag{
+            dataManager.addNewCategory(nameCategory: nameCategory)
+            loadCategories()
+        }
     }
     
     func deleteCategory(category: CategoriesEntity){

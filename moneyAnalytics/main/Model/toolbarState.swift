@@ -15,7 +15,7 @@ enum ToolbarItems: CaseIterable{
         switch self{
         case.transaction: return "chart.bar.horizontal.page"
         case.analytic: return "chart.xyaxis.line"
-        case .profile: return "person"
+        case.profile: return "person"
         }
     }
 }

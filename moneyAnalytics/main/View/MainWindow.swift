@@ -5,9 +5,8 @@
 //  Created by Jorgen Boring on 26/09/2025.
 import UIKit
 
-class MainWindow: UIViewController {
+class MainWindow: BaseToolbarViewModel {
 
-    
     @IBOutlet weak var myView: UIView!
     @IBOutlet weak var spendingButton: UIButton!
     @IBOutlet weak var dataButton: UIButton!
@@ -31,23 +30,29 @@ class MainWindow: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initialViewDidloadMainPage()
-        createToolBar()
+        setToolbarSelectedItem(.transaction)
         setupScrollView()
-        showTransactions()
+        showTransactionsEntitis()
     }
     
     @IBAction func clickSpendingButton(_ sender: UIButton) {
         self.performSegue(withIdentifier: "showSpending", sender: nil)
     }
     
+    @IBAction func clickIncomeButton(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "showIncome", sender: nil)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showSpending",
            let spendingVC = segue.destination as? ViewSpendingWindow {
             spendingVC.delegate = self
+        }else if segue.identifier == "showIncome",  let incomeVC = segue.destination as? ViewIncomeWindow {
+            incomeVC.delegate = self
         }
     }
     
-    func showTransactions(){
+    func showTransactionsEntitis(){
         stackView.arrangedSubviews.forEach { view in
            stackView.removeArrangedSubview(view)
            view.removeFromSuperview()
@@ -117,66 +122,6 @@ class MainWindow: UIViewController {
         moneyLabel.addBackground(color: UIColor(named: "DarkGreyBlue")!, cornerRadius: 10, verticalPadding: moneyLabel.bounds.height + 60)
     }
     
-    
-    private func createToolBar(){
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let fixedSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-        fixedSpace.width = 20
-        toolbarItem1 = UIBarButtonItem(image: UIImage(systemName: "chart.bar.horizontal.page"), style: .plain, target: self, action: #selector(clickMainItem))
-        toolbarText1 = UIBarButtonItem(title: "Транзакции", style: .plain, target: self, action: #selector(clickMainItem))
-        toolbarItem1.tintColor = UIColor(named: "Gold")
-        toolbarText1.tintColor = UIColor(named: "Gold")
-        toolbarItem2 = UIBarButtonItem(image: UIImage(systemName: "chart.xyaxis.line"), style: .plain, target: self, action: #selector(clickAnaliticItem))
-        toolbarText2 = UIBarButtonItem(title: "Аналитика", style: .plain, target: self, action: #selector(clickAnaliticItem))
-        toolbarItem2.tintColor = .white
-        toolbarText2.tintColor = UIColor(named: "Gold")
-        toolbarText2.isHidden = true
-        toolbarItem3 = UIBarButtonItem(image: UIImage(systemName: "person"), style: .plain, target: self, action: #selector(clickProfileItem))
-        toolbarItem3.tintColor = .white
-        toolbarText3 = UIBarButtonItem(title: "Профиль", style: .plain, target: self, action: #selector(clickProfileItem))
-        toolbarText3.tintColor = UIColor(named: "Gold")
-        toolbarText3.isHidden = true
-        toolbar.items = [fixedSpace, toolbarItem1, toolbarText1, flexibleSpace, toolbarItem2, toolbarText2, flexibleSpace, toolbarItem3, toolbarText3, fixedSpace, fixedSpace]
-        
-    }
-    
-    @objc func clickMainItem() {
-        toolbarItem1.tintColor = UIColor(named: "Gold")
-        toolbarText1.tintColor = UIColor(named: "Gold")
-        toolbarText1.isHidden = false
-        toolbarItem2.tintColor = .white
-        toolbarText2.tintColor = .white
-        toolbarText2.isHidden = true
-        toolbarItem3.tintColor = .white
-        toolbarText3.tintColor = .white
-        toolbarText3.isHidden = true
-    }
-    
-    @objc func clickAnaliticItem() {
-        toolbarItem2.tintColor = UIColor(named: "Gold")
-        toolbarText2.tintColor = UIColor(named: "Gold")
-        toolbarText2.isHidden = false
-        toolbarItem1.tintColor = .white
-        toolbarText1.tintColor = .white
-        toolbarText1.isHidden = true
-        toolbarItem3.tintColor = .white
-        toolbarText3.tintColor = .white
-        toolbarText3.isHidden = true
-    }
-    
-    @objc func clickProfileItem() {
-        toolbarItem3.tintColor = UIColor(named: "Gold")
-        toolbarText3.tintColor = UIColor(named: "Gold")
-        toolbarText3.isHidden = false
-        toolbarItem2.tintColor = .white
-        toolbarText2.tintColor = .white
-        toolbarText2.isHidden = true
-        toolbarItem1.tintColor = .white
-        toolbarText1.tintColor = .white
-        toolbarText1.isHidden = true
-        showProfile()
-    }
-    
     private func updateSumLabel(){
         if allSum < 0{
             moneyLabel.textColor = UIColor(named: "IntenseRed")
@@ -186,22 +131,6 @@ class MainWindow: UIViewController {
             moneyLabel.centerXAnchor.constraint(equalTo: myView.centerXAnchor)
         ])
     }
-    
-    private func showProfile() {
-        DispatchQueue.main.async {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            guard let profileVC = storyboard.instantiateViewController(
-                withIdentifier: "profile"
-            ) as? profileWindow else { return }
-            
-            // Устанавливаем стиль модальной презентации
-            profileVC.modalPresentationStyle = .fullScreen
-            profileVC.modalTransitionStyle = .coverVertical
-            
-            self.present(profileVC, animated: true)
-        }
-    }
-
     
 }
 
