@@ -5,7 +5,7 @@ class SettingViewModel: ObservableObject {
     private let settingsManager = SettingManager()
     private let dm = DataManager.shared
     
-    @Published var userName: String = ""
+    @Published var userName: String = "Гость"
     @Published var firstBuild: Bool = false
     
     init() {

@@ -13,7 +13,10 @@ class profileWindow: BaseToolbarViewModel {
     @IBOutlet weak var textAvailableCat: UILabel!
     @IBOutlet weak var categoryField: UITextField!
     @IBOutlet weak var saveCategoryButton: UIButton!
-
+    @IBOutlet weak var userNameField: UITextField!
+    
+    var textLabelIsHidden : Bool = false
+    
     let alertTrueCategory = UIAlertController(title: "Ошибка",
                                   message: "Перед сохранением, необходимо ввести название категории!",
                                   preferredStyle: .alert)
@@ -26,6 +29,7 @@ class profileWindow: BaseToolbarViewModel {
     var allButtonSV: [UIButton] = []
     
     let categoriesViewModel = CategoryViewModel()
+    let appSettingsVM = SettingViewModel()
     var currInd: Int = -1
     
     override func viewDidLoad() {
@@ -35,6 +39,8 @@ class profileWindow: BaseToolbarViewModel {
     }
     
     func initialProfileWindow(){
+        userName.text = appSettingsVM.getNameUser()
+        userNameField.isHidden = true
         alertTrueCategory.addAction(okAction)
         redactUserNameButton.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
         redactUserNameButton.setTitle("", for: .normal)
@@ -45,6 +51,9 @@ class profileWindow: BaseToolbarViewModel {
         categoryField.isHidden = true
         categoryField.textColor = UIColor(named: "IntenseWhite")
         categoryField.backgroundColor = .darkGray
+        userNameField.isHidden = true
+        userNameField.textColor = UIColor(named: "IntenseWhite")
+        userNameField.backgroundColor = .darkGray
         for button in allButton {
             button.backgroundColor = UIColor(named: "CharcoalBlue")
             button.tintColor = UIColor(named: "IntenseWhite")
@@ -132,6 +141,19 @@ class profileWindow: BaseToolbarViewModel {
             showAllCategories()
         }else{
             present(alertTrueCategory, animated: true, completion: nil)
+        }
+    }
+    
+    @IBAction func tapRedactButton(_ sender: Any) {
+        if userName.isHidden{
+            userName.isHidden = false
+            userName.text = userNameField.text
+            appSettingsVM.saveUserName(userNameField.text ?? "")
+            userNameField.isHidden = true
+        }else{
+            userName.isHidden = true
+            userNameField.text = userName.text
+            userNameField.isHidden = false
         }
     }
 }
