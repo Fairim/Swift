@@ -75,13 +75,12 @@ extension DataManager {
     func findCategory(byName name: String) -> CategoriesEntity? {
         let request: NSFetchRequest<CategoriesEntity> = CategoriesEntity.fetchRequest()
         request.predicate = NSPredicate(format: "nameCategory == %@", name)
-        
         do {
             let categories = try context.fetch(request)
             return categories.first
         } catch {
-            print("Ошибка поиска категории: \(error)")
-            return nil
+            addNewCategory(nameCategory: name)
+            return findCategory(byName: name)
         }
     }
     

@@ -59,7 +59,7 @@ class MainWindow: BaseToolbarViewModel {
         }
         let allTransactions = transactionsViewModel.transactions
         for item in allTransactions{
-            if checkDate(item.date!){
+            if checkDate(item.date){
                 if item.priceSign{
                     allSum += Int(truncating: item.price)
                 }else{allSum -= Int(truncating: item.price)}
@@ -67,6 +67,7 @@ class MainWindow: BaseToolbarViewModel {
                 addViewTransaction(itemTransaction: item)
             }
         }
+        updateSumLabel()
     }
     
     func setupScrollView(){

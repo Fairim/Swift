@@ -38,6 +38,7 @@
 				Protocols/ViewControllerDelegate.swift,
 				SceneDelegate.swift,
 				View/AnalyticWindow.swift,
+				View/ExpensesCircleView.swift,
 				View/MainWindow.swift,
 				View/PageIncome.swift,
 				View/PageSpending.swift,
@@ -45,6 +46,7 @@
 				ViewModel/AppSettingsViewModel.swift,
 				ViewModel/BaseToolbarViewModel.swift,
 				ViewModel/CategoryViewModel.swift,
+				ViewModel/ExpenseCategoryModel.swift,
 				ViewModel/TransactionsViewModel.swift,
 			);
 			target = D5F26A572E831D9300BFD567 /* moneyAnalytics */;

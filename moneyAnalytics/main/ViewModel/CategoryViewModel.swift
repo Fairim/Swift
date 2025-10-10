@@ -13,7 +13,9 @@ class CategoryViewModel: ObservableObject{
         categoriesList = dataManager.fetchCategories()
         categoriesListNamed.removeAll()
         for entity in categoriesList{
-            categoriesListNamed.append(entity.nameCategory)
+            if entity.nameCategory != "Доход"{
+                categoriesListNamed.append(entity.nameCategory)
+            }
         }
     }
     

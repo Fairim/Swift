@@ -67,7 +67,7 @@ class ViewIncomeWindow: UIViewController{
     }
     
     @IBAction func tapSaveButton(_ sender: Any) {
-        let flag: Int = transactionsViewModel.addTransaction(title: incomeTextField.text ?? "", category: "Not Category", date: Date(), price: sumIncomeField.text ?? "", priceSign: true)
+        let flag: Int = transactionsViewModel.addTransaction(title: incomeTextField.text ?? "", category: "Доход", date: Date(), price: sumIncomeField.text ?? "", priceSign: true)
         if flag == 1{
             present(alertPrice, animated: true, completion: nil)
         }else if flag == 2{
