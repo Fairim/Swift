@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-class profileWindow: BaseToolbarViewModel {
+class profileWindow: UIViewController{
     
     @IBOutlet weak var profileLabel: UILabel!
     @IBOutlet weak var userName: UILabel!
@@ -34,9 +34,24 @@ class profileWindow: BaseToolbarViewModel {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setToolbarSelectedItem(.profile)
         initialProfileWindow()
+        setupScrollViewConstraints()
     }
+    
+    private func setupScrollViewConstraints() {
+        categoriesStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.deactivate(categoriesScrollView.constraints)
+        
+        NSLayoutConstraint.activate([
+            categoriesStackView.topAnchor.constraint(equalTo: categoriesScrollView.contentLayoutGuide.topAnchor),
+            categoriesStackView.leadingAnchor.constraint(equalTo: categoriesScrollView.contentLayoutGuide.leadingAnchor),
+            categoriesStackView.trailingAnchor.constraint(equalTo: categoriesScrollView.contentLayoutGuide.trailingAnchor),
+            categoriesStackView.bottomAnchor.constraint(equalTo: categoriesScrollView.contentLayoutGuide.bottomAnchor),
+            categoriesStackView.widthAnchor.constraint(equalTo: categoriesScrollView.frameLayoutGuide.widthAnchor)
+        ])
+    }
+    
     
     func initialProfileWindow(){
         userName.text = appSettingsVM.getNameUser()
@@ -89,7 +104,7 @@ class profileWindow: BaseToolbarViewModel {
     }
     
     private func addCategoryStackView(_ category: CategoriesEntity, _ index: Int){
-        let button = UIButton() // ← Убираем лишний UIView
+        let button = UIButton()
         button.setTitle(category.nameCategory, for: .normal)
         button.setTitleColor(UIColor(named: "IntenseWhite"), for: .normal)
         button.backgroundColor = .gray
@@ -102,8 +117,12 @@ class profileWindow: BaseToolbarViewModel {
         
         button.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            button.heightAnchor.constraint(equalToConstant: 44)
+            button.heightAnchor.constraint(equalToConstant: 40)
         ])
+        
+        DispatchQueue.main.async {
+           self.categoriesStackView.layoutIfNeeded()
+       }
     }
     
     @objc func categoryTapped(_ sender: UIButton){

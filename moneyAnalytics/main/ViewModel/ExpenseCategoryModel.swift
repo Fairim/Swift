@@ -44,8 +44,10 @@ class ExpenseCategoryViewModel{
                 }else{
                     let index = expensesCategoryes.count + 1
                     print(index)
-                    var category = expenseCategory(nameCategory: category, amount: (price as NSDecimalNumber).doubleValue, color: colorPalette[index % colorPalette.count])
-                    expensesCategoryes.append(category)
+                    let category = expenseCategory(nameCategory: category, amount: (price as NSDecimalNumber).doubleValue, color: colorPalette[index % colorPalette.count])
+                    if !(category.nameCategory == "Доход"){
+                        expensesCategoryes.append(category)
+                    }
                 }
             }
         }

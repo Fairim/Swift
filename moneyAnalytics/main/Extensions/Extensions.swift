@@ -36,7 +36,7 @@ extension MainWindow {
         heightConstraint.priority = .required
         
         let titleLabel = UILabel()
-        titleLabel.text = itemTransaction.title ?? "No Title"
+        titleLabel.text = itemTransaction.title
         titleLabel.textColor = UIColor(named: "IntenseWhite")
         titleLabel.numberOfLines = 1
         titleLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)

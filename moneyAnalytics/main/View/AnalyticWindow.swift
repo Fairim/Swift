@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AnalyticWindow: BaseToolbarViewModel {
+class AnalyticWindow: UIViewController {
 
     private let expensesViewModel = ExpenseCategoryViewModel()
     private let transactionsVM = TransactionsViewModel()
@@ -17,7 +17,6 @@ class AnalyticWindow: BaseToolbarViewModel {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setToolbarSelectedItem(.analytic)
         initialPage()
         DispatchQueue.global(qos: .background).async {
             self.updateSampleData()

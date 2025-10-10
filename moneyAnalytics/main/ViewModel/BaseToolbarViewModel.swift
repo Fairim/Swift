@@ -15,6 +15,8 @@ class BaseToolbarViewModel: UIViewController, CustomToolbarDelegate{
         return toolbar
     }()
     
+    private var currentViewController: UIViewController?
+    
     override func viewDidLoad(){
         super.viewDidLoad()
         setupToolbar()
@@ -42,50 +44,49 @@ class BaseToolbarViewModel: UIViewController, CustomToolbarDelegate{
         }
     }
     
-    func showTransactions(){
-        DispatchQueue.main.async {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            guard let transactionsVC = storyboard.instantiateViewController(
-                withIdentifier: "transactions"
-            ) as? MainWindow else { return }
-            
-            // Устанавливаем стиль модальной презентации
-            transactionsVC.modalPresentationStyle = .fullScreen
-            transactionsVC.modalTransitionStyle = .coverVertical
-            
-            self.present(transactionsVC, animated: true)
+    private func switchToViewController(identifier: String) {
+        if let presentedVC = presentedViewController {
+            presentedVC.dismiss(animated: false)
         }
+        
+        currentViewController?.willMove(toParent: nil)
+        currentViewController?.view.removeFromSuperview()
+        currentViewController?.removeFromParent()
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let newViewController = storyboard.instantiateViewController(withIdentifier: identifier)
+        
+        addChild(newViewController)
+        view.insertSubview(newViewController.view, belowSubview: customToolbar) // Добавляем под тулбар
+        
+        // Настраиваем констрейнты
+        newViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            newViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
+            newViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            newViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            newViewController.view.bottomAnchor.constraint(equalTo: customToolbar.bottomAnchor)
+        ])
+        
+        newViewController.didMove(toParent: self)
+        currentViewController = newViewController
+    }
+    
+    func showTransactions(){
+        switchToViewController(identifier: "transactions")
+        setToolbarSelectedItem(.transaction)
     }
     
     func showAnalytic(){
-        DispatchQueue.main.async {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            guard let analyticVC = storyboard.instantiateViewController(
-                withIdentifier: "analytic"
-            ) as? AnalyticWindow else { return }
-            
-            // Устанавливаем стиль модальной презентации
-            analyticVC.modalPresentationStyle = .fullScreen
-            analyticVC.modalTransitionStyle = .coverVertical
-            
-            self.present(analyticVC, animated: true)
-        }
+        switchToViewController(identifier: "analytic")
+        setToolbarSelectedItem(.analytic)
     }
     
     func showProfile(){
-        DispatchQueue.main.async {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            guard let profileVC = storyboard.instantiateViewController(
-                withIdentifier: "profile"
-            ) as? profileWindow else { return }
-            
-            // Устанавливаем стиль модальной презентации
-            profileVC.modalPresentationStyle = .fullScreen
-            profileVC.modalTransitionStyle = .coverVertical
-            
-            self.present(profileVC, animated: true)
-        }
+        switchToViewController(identifier: "profile")
+        setToolbarSelectedItem(.profile)
     }
+        
     
     func setToolbarSelectedItem(_ item: ToolbarItems) {
         customToolbar.selectedItem(item)

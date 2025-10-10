@@ -30,7 +30,6 @@ class MainWindow: BaseToolbarViewModel {
     override func viewDidLoad() {
         super.viewDidLoad()
         initialViewDidloadMainPage()
-        setToolbarSelectedItem(.transaction)
         setupScrollView()
         showTransactionsEntitis()
     }
