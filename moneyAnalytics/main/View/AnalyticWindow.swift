@@ -15,6 +15,7 @@ class AnalyticWindow: UIViewController {
     var currentDate : Date = Date()
     private let scrollView: UIScrollView = UIScrollView()
     private let stackView: UIStackView = UIStackView()
+    private let segments: UISegmentedControl = UISegmentedControl()
     private var expensesCategoryes: [expenseCategory] = []
     
     override func viewDidLoad() {
@@ -34,6 +35,11 @@ class AnalyticWindow: UIViewController {
         title = "Анализ транзакций"
         circleView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(circleView)
+        segments.insertSegment(withTitle: "за день", at: 0, animated: true)
+        segments.insertSegment(withTitle: "за месяц", at: 1, animated: true)
+        segments.translatesAutoresizingMaskIntoConstraints = false
+        segments.selectedSegmentIndex = 0
+        view.addSubview(segments)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(scrollView)
         stackView.axis = .vertical
@@ -50,16 +56,21 @@ class AnalyticWindow: UIViewController {
             circleView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             circleView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             circleView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            
-            scrollView.topAnchor.constraint(equalTo: circleView.bottomAnchor, constant: 50),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            circleView.heightAnchor.constraint(equalToConstant: 400),
+
+            segments.topAnchor.constraint(equalTo: circleView.bottomAnchor),
+            segments.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            segments.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+
+            scrollView.topAnchor.constraint(equalTo: segments.bottomAnchor, constant: 10),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-            
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50),
+
             stackView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
-            stackView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
             stackView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
+            stackView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
             stackView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor)
         ])
     }
@@ -72,8 +83,7 @@ class AnalyticWindow: UIViewController {
             
             itemView.backgroundColor = UIColor(named: "OxfordBlue")
             itemView.layer.cornerRadius = 10
-            let heightConstraint = itemView.heightAnchor.constraint(equalToConstant: 40)
-            heightConstraint.isActive = true; heightConstraint.priority = .required
+            itemView.heightAnchor.constraint(equalToConstant: 40).isActive = true
             
             titleCategory.text = expense.nameCategory
             titleCategory.textColor = expense.color
