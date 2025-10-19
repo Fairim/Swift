@@ -12,13 +12,6 @@ struct itemList{
 class DataManager{
     static let shared = DataManager()
     
-    private init(){
-        guard context.persistentStoreCoordinator != nil else {
-            print("Context is not ready")
-            return
-        }
-    }
-    
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "transactionStorage")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
@@ -34,6 +27,14 @@ class DataManager{
         return persistentContainer.viewContext
     }
     // MARK: - Core Data Saving support
+    
+    
+    private init(){
+        guard context.persistentStoreCoordinator != nil else {
+            print("Context is not ready")
+            return
+        }
+    }
     
     func saveContext () {
         if context.hasChanges {

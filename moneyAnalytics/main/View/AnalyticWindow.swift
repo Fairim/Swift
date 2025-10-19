@@ -13,7 +13,9 @@ class AnalyticWindow: UIViewController {
     private let transactionsVM = TransactionsViewModel()
     private let circleView = ExpensesCircleView()
     var currentDate : Date = Date()
-    
+    private let scrollView: UIScrollView = UIScrollView()
+    private let stackView: UIStackView = UIStackView()
+    private var expensesCategoryes: [expenseCategory] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +25,7 @@ class AnalyticWindow: UIViewController {
             // Возвращаемся в главный поток для обновления UI
             DispatchQueue.main.async {
                 self.loadSampleData()
+                self.showStackCategories()
             }
         }
     }
@@ -31,17 +34,81 @@ class AnalyticWindow: UIViewController {
         title = "Анализ транзакций"
         circleView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(circleView)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(scrollView)
+        stackView.axis = .vertical
+        stackView.spacing = 10
+        stackView.alignment = .fill
+        stackView.distribution = .fill
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.addSubview(stackView)
+        let heightConstraintCircleView = circleView.heightAnchor.constraint(equalToConstant: 400)
+        heightConstraintCircleView.isActive = true
+        heightConstraintCircleView.priority = .required
         
         NSLayoutConstraint.activate([
             circleView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             circleView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             circleView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            circleView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
+            
+            scrollView.topAnchor.constraint(equalTo: circleView.bottomAnchor, constant: 50),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            
+            stackView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
+            stackView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
+            stackView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
+            stackView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor)
         ])
     }
 
+    private func showStackCategories(){
+        for expense in expensesCategoryes{
+            let itemView = UIView()
+            let titleCategory = UILabel()
+            let priceLabel = UILabel()
+            
+            itemView.backgroundColor = UIColor(named: "OxfordBlue")
+            itemView.layer.cornerRadius = 10
+            let heightConstraint = itemView.heightAnchor.constraint(equalToConstant: 40)
+            heightConstraint.isActive = true; heightConstraint.priority = .required
+            
+            titleCategory.text = expense.nameCategory
+            titleCategory.textColor = expense.color
+            titleCategory.numberOfLines = 1
+            titleCategory.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+            
+            priceLabel.text = "\(expense.amount)"
+            priceLabel.textColor = UIColor(named: "IntenseWhite")
+            priceLabel.textAlignment = .right
+            priceLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+            
+            [titleCategory, priceLabel].forEach{
+                $0.translatesAutoresizingMaskIntoConstraints = false
+                itemView.addSubview($0)
+            }
+            stackView.addArrangedSubview(itemView)
+            
+            NSLayoutConstraint.activate([
+                itemView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
+                itemView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
+                
+                titleCategory.topAnchor.constraint(equalTo: itemView.topAnchor, constant: 10),
+                titleCategory.leadingAnchor.constraint(equalTo: itemView.leadingAnchor, constant: 20),
+                titleCategory.trailingAnchor.constraint(greaterThanOrEqualTo: priceLabel.trailingAnchor, constant: -10),
+                
+                priceLabel.topAnchor.constraint(equalTo: itemView.topAnchor, constant: 10),
+                priceLabel.trailingAnchor.constraint(equalTo: itemView.trailingAnchor, constant: -20),
+                priceLabel.leadingAnchor.constraint(lessThanOrEqualTo: titleCategory.trailingAnchor, constant: 10),
+            ])
+            
+        }
+    }
+    
     private func updateSampleData(){
-        let _ = expensesViewModel.CalcExpensesCategoryes(currentDate: currentDate, transactions: transactionsVM.transactions, turn: false)
+        expensesCategoryes = expensesViewModel.CalcExpensesCategoryes(currentDate: currentDate, transactions: transactionsVM.transactions, turn: false)
     }
     
     private func loadSampleData(){
@@ -49,6 +116,8 @@ class AnalyticWindow: UIViewController {
         circleView.expenses = expensesViewModel.CalcExpensesCategoryes(currentDate: currentDate, transactions: transactionsVM.transactions, turn: false)
         circleView.updateCircle()
     }
+    
+    
     
 
 }
