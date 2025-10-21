@@ -22,7 +22,7 @@ class AnalyticWindow: UIViewController {
         super.viewDidLoad()
         initialPage()
         DispatchQueue.global(qos: .background).async {
-            self.updateSampleData(true)
+            self.updateSampleData(false)
             // Возвращаемся в главный поток для обновления UI
             DispatchQueue.main.async {
                 self.loadSampleData()
@@ -127,7 +127,7 @@ class AnalyticWindow: UIViewController {
         switch sender.selectedSegmentIndex {
         case 0:
             DispatchQueue.global(qos: .background).async {
-                self.updateSampleData(false)
+                self.updateSampleData(true)
                 DispatchQueue.main.async {
                     self.loadSampleData()
                     self.showStackCategories()
@@ -135,7 +135,7 @@ class AnalyticWindow: UIViewController {
             }
         case 1:
             DispatchQueue.global(qos: .background).async {
-                self.updateSampleData(true)
+                self.updateSampleData(false)
                 DispatchQueue.main.async {
                     self.loadSampleData()
                     self.showStackCategories()

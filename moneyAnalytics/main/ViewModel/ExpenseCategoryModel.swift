@@ -28,18 +28,20 @@ class ExpenseCategoryViewModel{
         //turn: true - Check day, else Check mounth
         expensesCategoryes.removeAll()
         let formatter = DateFormatter()
-        if !turn{
+        if turn{
             formatter.dateFormat = "yyyy-MM-dd"
         }else{
             formatter.dateFormat = "yyyy-MM"
         }
-        print(formatter.string(from: Date()))
+        let targetDateString = formatter.string(from: currentDate)
         for transaction in transactions {
             let category: String = transaction.category?.nameCategory ?? ""
-            let _ : Date = transaction.date
+            let transactionDate : Date = transaction.date
             let price: Decimal = transaction.price as Decimal
             
-            if formatter.string(from: currentDate) == formatter.string(from: Date()){
+            let transactionDateString = formatter.string(from: transactionDate)
+            
+            if targetDateString == transactionDateString {
                 let indexElement = findExpensesInd(category)
                 if indexElement != -1{
                     expensesCategoryes[indexElement].amount += (price as NSDecimalNumber).doubleValue
