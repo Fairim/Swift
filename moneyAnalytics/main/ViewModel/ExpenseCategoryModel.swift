@@ -27,23 +27,24 @@ class ExpenseCategoryViewModel{
     func CalcExpensesCategoryes(currentDate: Date, transactions: [TransactionEntity], turn: Bool) -> [expenseCategory]{
         //turn: true - Check day, else Check mounth
         expensesCategoryes.removeAll()
+        let formatter = DateFormatter()
+        if !turn{
+            formatter.dateFormat = "yyyy-MM-dd"
+        }else{
+            formatter.dateFormat = "yyyy-MM"
+        }
+        print(formatter.string(from: Date()))
         for transaction in transactions {
             let category: String = transaction.category?.nameCategory ?? ""
             let _ : Date = transaction.date
             let price: Decimal = transaction.price as Decimal
-            let formatter = DateFormatter()
-            if !turn{
-                formatter.dateFormat = "yyyy-MM-dd"
-            }else{
-                formatter.dateFormat = "yyyy-MM"
-            }
+            
             if formatter.string(from: currentDate) == formatter.string(from: Date()){
                 let indexElement = findExpensesInd(category)
                 if indexElement != -1{
                     expensesCategoryes[indexElement].amount += (price as NSDecimalNumber).doubleValue
                 }else{
                     let index = expensesCategoryes.count + 1
-                    print(index)
                     let category = expenseCategory(nameCategory: category, amount: (price as NSDecimalNumber).doubleValue, color: colorPalette[index % colorPalette.count])
                     if !(category.nameCategory == "Доход"){
                         expensesCategoryes.append(category)

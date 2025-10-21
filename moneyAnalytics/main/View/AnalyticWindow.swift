@@ -22,7 +22,7 @@ class AnalyticWindow: UIViewController {
         super.viewDidLoad()
         initialPage()
         DispatchQueue.global(qos: .background).async {
-            self.updateSampleData()
+            self.updateSampleData(true)
             // Возвращаемся в главный поток для обновления UI
             DispatchQueue.main.async {
                 self.loadSampleData()
@@ -38,7 +38,8 @@ class AnalyticWindow: UIViewController {
         segments.insertSegment(withTitle: "за день", at: 0, animated: true)
         segments.insertSegment(withTitle: "за месяц", at: 1, animated: true)
         segments.translatesAutoresizingMaskIntoConstraints = false
-        segments.selectedSegmentIndex = 0
+        segments.selectedSegmentIndex = 1
+        segments.addTarget(self, action: #selector(segmentChanged), for: .valueChanged)
         view.addSubview(segments)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(scrollView)
@@ -76,6 +77,11 @@ class AnalyticWindow: UIViewController {
     }
 
     private func showStackCategories(){
+        stackView.arrangedSubviews.forEach { view in
+            stackView.removeArrangedSubview(view)
+            view.removeFromSuperview()
+        }
+        
         for expense in expensesCategoryes{
             let itemView = UIView()
             let titleCategory = UILabel()
@@ -117,8 +123,31 @@ class AnalyticWindow: UIViewController {
         }
     }
     
-    private func updateSampleData(){
-        expensesCategoryes = expensesViewModel.CalcExpensesCategoryes(currentDate: currentDate, transactions: transactionsVM.transactions, turn: false)
+    @objc func segmentChanged(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            DispatchQueue.global(qos: .background).async {
+                self.updateSampleData(false)
+                DispatchQueue.main.async {
+                    self.loadSampleData()
+                    self.showStackCategories()
+                }
+            }
+        case 1:
+            DispatchQueue.global(qos: .background).async {
+                self.updateSampleData(true)
+                DispatchQueue.main.async {
+                    self.loadSampleData()
+                    self.showStackCategories()
+                }
+            }
+        default:
+            break
+        }
+    }
+    
+    private func updateSampleData(_ flag_month: Bool){
+        expensesCategoryes = expensesViewModel.CalcExpensesCategoryes(currentDate: currentDate, transactions: transactionsVM.transactions, turn: flag_month)
     }
     
     private func loadSampleData(){
