@@ -12,6 +12,7 @@ class BaseToolbarViewModel: UIViewController, CustomToolbarDelegate{
         let toolbar = CustomToolbar()
         toolbar.delegate = self
         toolbar.translatesAutoresizingMaskIntoConstraints = false
+        toolbar.backgroundColor = UIColor(named: "DarkBlueGrey")
         return toolbar
     }()
     

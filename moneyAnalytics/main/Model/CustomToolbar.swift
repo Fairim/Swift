@@ -17,6 +17,7 @@ class CustomToolbar: UIView{
         stack.alignment = .center
         stack.distribution = .fillEqually
         stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.backgroundColor = UIColor(named: "DarkBlueGray")
         return stack
     }()
     
