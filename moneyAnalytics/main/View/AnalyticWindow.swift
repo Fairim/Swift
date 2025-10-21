@@ -152,7 +152,6 @@ class AnalyticWindow: UIViewController {
     
     private func loadSampleData(){
         circleView.expenses = expensesViewModel.expensesCategoryes
-        circleView.expenses = expensesViewModel.CalcExpensesCategoryes(currentDate: currentDate, transactions: transactionsVM.transactions, turn: false)
         circleView.updateCircle()
     }
     
