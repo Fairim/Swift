@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		E53A7C4D2EAE6A3D00A0B0B4 /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E53A7C4C2EAE6A3D00A0B0B4 /* AppAuth */; };
+		E55E55A42EAA7F8300B91C36 /* SecretManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55E55A22EAA7F8300B91C36 /* SecretManager.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		D505F4E02EA7F2FA004FD0D1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,11 +32,25 @@
 		D505F4CD2EA7F2F8004FD0D1 /* StudentAssistents.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudentAssistents.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D505F4DF2EA7F2FA004FD0D1 /* StudentAssistentsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudentAssistentsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D505F4E92EA7F2FA004FD0D1 /* StudentAssistentsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudentAssistentsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E55E55A22EAA7F8300B91C36 /* SecretManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		E55E559E2EAA68D600B91C36 /* Exceptions for "StudentAssistents" folder in "StudentAssistents" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = D505F4CC2EA7F2F8004FD0D1 /* StudentAssistents */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		D505F4CF2EA7F2F8004FD0D1 /* StudentAssistents */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				E55E559E2EAA68D600B91C36 /* Exceptions for "StudentAssistents" folder in "StudentAssistents" target */,
+			);
 			path = StudentAssistents;
 			sourceTree = "<group>";
 		};
@@ -52,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E53A7C4D2EAE6A3D00A0B0B4 /* AppAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,6 +95,7 @@
 		D505F4C42EA7F2F8004FD0D1 = {
 			isa = PBXGroup;
 			children = (
+				E55E55A32EAA7F8300B91C36 /* SecretInformations */,
 				D505F4CF2EA7F2F8004FD0D1 /* StudentAssistents */,
 				D505F4E22EA7F2FA004FD0D1 /* StudentAssistentsTests */,
 				D505F4EC2EA7F2FA004FD0D1 /* StudentAssistentsUITests */,
@@ -90,6 +111,14 @@
 				D505F4E92EA7F2FA004FD0D1 /* StudentAssistentsUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		E55E55A32EAA7F8300B91C36 /* SecretInformations */ = {
+			isa = PBXGroup;
+			children = (
+				E55E55A22EAA7F8300B91C36 /* SecretManager.swift */,
+			);
+			path = SecretInformations;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -112,6 +141,7 @@
 			);
 			name = StudentAssistents;
 			packageProductDependencies = (
+				E53A7C4C2EAE6A3D00A0B0B4 /* AppAuth */,
 			);
 			productName = StudentAssistents;
 			productReference = D505F4CD2EA7F2F8004FD0D1 /* StudentAssistents.app */;
@@ -195,6 +225,9 @@
 			);
 			mainGroup = D505F4C42EA7F2F8004FD0D1;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				E53A7C4B2EAE6A3D00A0B0B4 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D505F4CE2EA7F2F8004FD0D1 /* Products */;
 			projectDirPath = "";
@@ -236,6 +269,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E55E55A42EAA7F8300B91C36 /* SecretManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,6 +434,7 @@
 				DEVELOPMENT_TEAM = HRHUB7F2W3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = StudentAssistents/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -429,6 +464,7 @@
 				DEVELOPMENT_TEAM = HRHUB7F2W3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = StudentAssistents/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -560,6 +596,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E53A7C4B2EAE6A3D00A0B0B4 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/openid/AppAuth-iOS.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E53A7C4C2EAE6A3D00A0B0B4 /* AppAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E53A7C4B2EAE6A3D00A0B0B4 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
+			productName = AppAuth;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D505F4C52EA7F2F8004FD0D1 /* Project object */;
 }

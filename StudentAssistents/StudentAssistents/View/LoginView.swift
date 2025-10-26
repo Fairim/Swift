@@ -2,36 +2,42 @@ import SwiftUI
 import CoreData
 
 struct LoginView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-    @State private var login = ""
-    @State private var password = ""
-    
+    @ObservedObject var viewModel: AuthViewModel
     var body: some View {
-        VStack{
+        VStack(spacing: 30) {
             HeaderView()
-            LoginPasswordFields(login: $login, password: $password)
-            Button(action:
-            {
-                //Будет запускаться анимация лучей и попытка зайти в аккаунт через async
-            }, label: {
-                Text("Войти")
-                    .frame(maxWidth: UIScreen.main.bounds.width / 2, maxHeight: UIScreen.main.bounds.width / 14)
-                    .background(
-                        RoundedRectangle(cornerRadius: 5)
-                            .fill(Color("DarkBlue")))
-                    .foregroundStyle(.white)
-                    
-            })
+            
+            Button(action: {
+                Task {
+                    await viewModel.login()
+                }
+            }) {
+                Text("Войти через OAuth2")
+                    .font(.title2)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity, minHeight: 55)
+                    .background(Color.blue)
+                    .cornerRadius(12)
+                    .overlay {
+                        if viewModel.isLoading {
+                            ProgressView()
+                                .tint(.white)
+                        }
+                    }
+            }
+            .disabled(viewModel.isLoading)
+            .padding(.horizontal, 40)
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(
-            LinearGradient(
-                gradient: Gradient(colors: [Color("DarkBlue"), .blue, .white]),
-                startPoint: .top,
-                endPoint: .bottom
-            )
-        )
+                    LinearGradient(
+                        gradient: Gradient(colors: [Color("DarkBlue"), .blue, .white]),
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                )
     }
 }
 
@@ -53,41 +59,7 @@ struct HeaderView: View {
     }
 }
 
-//Отображение полей логин, пароль
-struct LoginPasswordFields : View {
-    @Binding var login: String
-    @Binding var password: String
-    @State private var isPasswordVisible: Bool = false
-    
-    var body: some View {
-        TextField("Логин без @kpfu", text: $login)
-            .textFieldStyle(.roundedBorder)
-            .overlay(
-                RoundedRectangle(cornerRadius: 5)
-                    .strokeBorder(Color("DarkBlue"), lineWidth: 2)
-            )
-        HStack{
-            Group {
-                if isPasswordVisible {
-                    TextField("Пароль", text: $password)
-                } else {
-                    SecureField("Пароль", text: $password)
-                }
-            }
-            .textFieldStyle(.roundedBorder)
-            .overlay(
-                RoundedRectangle(cornerRadius: 5)
-                    .strokeBorder(Color("DarkBlue"), lineWidth: 2)
-            )
-            Button(action: {isPasswordVisible.toggle()}) {
-                Image(systemName: isPasswordVisible ? "eye" : "eye.slash")
-                    .foregroundColor(.black)
-            }
-        }
-    }
-}
-
 //Необходимо для отображения в нашего кода непосредственно в визуализации
 #Preview {
-    LoginView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    LoginView(viewModel: AuthViewModel()).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }

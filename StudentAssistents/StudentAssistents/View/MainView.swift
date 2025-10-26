@@ -1,18 +1,27 @@
-//
-//  MainView.swift
-//  StudentAssistents
-//
-//  Created by Jorgen Boring on 22/10/2025.
-//
-
 import SwiftUI
 
 struct MainView: View {
+    @ObservedObject var viewModel: AuthViewModel
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        TabView {
+            ScheduleView(viewModel: viewModel)
+                .tabItem {
+                    Image(systemName: "calendar")
+                    Text("Расписание")
+                }
+                .tag(0)
+            
+            ProfileView(viewModel: viewModel)
+                .tabItem{
+                    Image(systemName: "person")
+                    Text("Профиль")
+                }
+                .tag(1)
+        }
     }
 }
 
 #Preview {
-    MainView()
+    MainView(viewModel: AuthViewModel())
 }
