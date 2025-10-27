@@ -42,7 +42,38 @@ class ProfileViewModel: ObservableObject {
         }
     }
     
-    func getUsername() -> String? {
-        return userInfo?.username
+    func getUsername() -> String {
+        return userInfo?.username ?? ""
+    }
+    
+    func getFullName() -> String {
+        return "\(userInfo?.firstName ?? "") \(userInfo?.middleName ?? "") \(userInfo?.lastName ?? "")"
+    }
+    
+    func getGender() -> String {
+        return userInfo?.gender ?? ""
+    }
+    
+    func getGroupName() -> String {
+        return userInfo?.group.name ?? ""
+    }
+    
+    func getInstituteName() -> String {
+        return userInfo?.group.instituteName ?? ""
+    }
+    
+    func getSpecialization() -> String {
+        return userInfo?.group.specialization ?? ""
+    }
+    
+    func getPhotoPath() -> String{
+        return userInfo?.photoPath ?? ""
+    }
+    
+    func checkLoadUserData() -> Bool {
+        if userInfo != nil{
+            return true
+        }
+        return false
     }
 }

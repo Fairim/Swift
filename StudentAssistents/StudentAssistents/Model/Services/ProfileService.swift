@@ -99,11 +99,6 @@ class ProfileService: NSObject, ObservableObject {
                 group: apiResponse.user.group
             )
             
-            
-            print("✅ Profile loaded successfully!")
-            print("👤 User: \(userProfile.username)")
-            print("🎓 Group: \(userProfile.group.name)")
-            
             return userProfile
         } catch {
             throw APIError.decodingError

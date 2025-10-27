@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D505F55F2EAEA8D2004FD0D1 /* SecretManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D505F55E2EAEA8D2004FD0D1 /* SecretManager.swift */; };
 		E53A7C4D2EAE6A3D00A0B0B4 /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E53A7C4C2EAE6A3D00A0B0B4 /* AppAuth */; };
-		E55E55A42EAA7F8300B91C36 /* SecretManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55E55A22EAA7F8300B91C36 /* SecretManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,7 +32,7 @@
 		D505F4CD2EA7F2F8004FD0D1 /* StudentAssistents.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudentAssistents.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D505F4DF2EA7F2FA004FD0D1 /* StudentAssistentsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudentAssistentsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D505F4E92EA7F2FA004FD0D1 /* StudentAssistentsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudentAssistentsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E55E55A22EAA7F8300B91C36 /* SecretManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretManager.swift; sourceTree = "<group>"; };
+		D505F55E2EAEA8D2004FD0D1 /* SecretManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretManager.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -116,7 +116,7 @@
 		E55E55A32EAA7F8300B91C36 /* SecretInformations */ = {
 			isa = PBXGroup;
 			children = (
-				E55E55A22EAA7F8300B91C36 /* SecretManager.swift */,
+				D505F55E2EAEA8D2004FD0D1 /* SecretManager.swift */,
 			);
 			path = SecretInformations;
 			sourceTree = "<group>";
@@ -269,7 +269,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E55E55A42EAA7F8300B91C36 /* SecretManager.swift in Sources */,
+				D505F55F2EAEA8D2004FD0D1 /* SecretManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

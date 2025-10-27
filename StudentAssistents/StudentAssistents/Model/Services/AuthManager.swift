@@ -152,7 +152,6 @@ class AuthManager: NSObject, ObservableObject {
     
     private func handleAuthorizationResponse(authState: OIDAuthState) {
         saveAuthState(authState)
-        print(authState)
         if let idToken = authState.lastTokenResponse?.idToken,
            let _ = OIDIDToken(idTokenString: idToken) {
             Task { @MainActor in
