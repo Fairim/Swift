@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D5BDF1832EF440B000F75381 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D5BDF1822EF440A500F75381 /* README.md */; };
 		E5C44C772E8EC04700C40CE5 /* TransactionEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C44C752E8EC04700C40CE5 /* TransactionEntity+CoreDataClass.swift */; };
 		E5C44C782E8EC04700C40CE5 /* TransactionEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C44C762E8EC04700C40CE5 /* TransactionEntity+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D5BDF1822EF440A500F75381 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D5F26A582E831D9300BFD567 /* moneyAnalytics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = moneyAnalytics.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5C44C752E8EC04700C40CE5 /* TransactionEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TransactionEntity+CoreDataClass.swift"; path = "main/Model/Entities/TransactionEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		E5C44C762E8EC04700C40CE5 /* TransactionEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TransactionEntity+CoreDataProperties.swift"; path = "main/Model/Entities/TransactionEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -54,6 +56,11 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		D5BDF1842EF4421100F75381 /* screens */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = screens;
+			sourceTree = "<group>";
+		};
 		E58444A32E8980380084D449 /* main */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -78,6 +85,8 @@
 		D5F26A4F2E831D9300BFD567 = {
 			isa = PBXGroup;
 			children = (
+				D5BDF1842EF4421100F75381 /* screens */,
+				D5BDF1822EF440A500F75381 /* README.md */,
 				E5C44C752E8EC04700C40CE5 /* TransactionEntity+CoreDataClass.swift */,
 				E5C44C762E8EC04700C40CE5 /* TransactionEntity+CoreDataProperties.swift */,
 				E58444A32E8980380084D449 /* main */,
@@ -107,6 +116,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				D5BDF1842EF4421100F75381 /* screens */,
 			);
 			name = moneyAnalytics;
 			packageProductDependencies = (
@@ -154,6 +166,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5BDF1832EF440B000F75381 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
