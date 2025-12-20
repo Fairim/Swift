@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <Group
+      location = "group:moneyAnalytics"
+      name = "moneyAnalytics">
+      <Group
+         location = "group:moneyAnalytics"
+         name = "moneyAnalytics">
+      </Group>
+      <Group
+         location = "group:screens"
+         name = "screens">
+         <FileRef
+            location = "group:addCategory.png">
+         </FileRef>
+         <FileRef
+            location = "group:choiceCategory.png">
+         </FileRef>
+         <FileRef
+            location = "group:profileNameRedact.png">
+         </FileRef>
+         <FileRef
+            location = "group:toolbarProfile.png">
+         </FileRef>
+         <FileRef
+            location = "group:incomePage.png">
+         </FileRef>
+         <FileRef
+            location = "group:profilePage.png">
+         </FileRef>
+         <FileRef
+            location = "group:analyticPage.png">
+         </FileRef>
+         <FileRef
+            location = "group:mainPage.png">
+         </FileRef>
+         <FileRef
+            location = "group:toolbarAnalytic.png">
+         </FileRef>
+         <FileRef
+            location = "group:wastePage.png">
+         </FileRef>
+      </Group>
+      <FileRef
+         location = "group:README.md">
+      </FileRef>
+      <FileRef
+         location = "group:moneyAnalytics.xcodeproj">
+      </FileRef>
+      <Group
+         location = "group:main"
+         name = "main">
+         <Group
+            location = "group:ViewModel"
+            name = "ViewModel">
+            <FileRef
+               location = "group:TransactionsViewModel.swift">
+            </FileRef>
+            <FileRef
+               location = "group:ExpenseCategoryModel.swift">
+            </FileRef>
+            <FileRef
+               location = "group:CategoryViewModel.swift">
+            </FileRef>
+            <FileRef
+               location = "group:AppSettingsViewModel.swift">
+            </FileRef>
+            <FileRef
+               location = "group:BaseToolbarViewModel.swift">
+            </FileRef>
+         </Group>
+         <FileRef
+            location = "group:Assets.xcassets">
+         </FileRef>
+         <Group
+            location = "group:Base.lproj"
+            name = "Base.lproj">
+            <FileRef
+               location = "group:LaunchScreen.storyboard">
+            </FileRef>
+            <FileRef
+               location = "group:Main.storyboard">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Extensions"
+            name = "Extensions">
+            <FileRef
+               location = "group:Extensions.swift">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Model"
+            name = "Model">
+            <FileRef
+               location = "group:DataManager.swift">
+            </FileRef>
+            <FileRef
+               location = "group:CustomToolbar.swift">
+            </FileRef>
+            <FileRef
+               location = "group:AppSettingManager.swift">
+            </FileRef>
+            <FileRef
+               location = "group:transactionStorage.xcdatamodeld">
+            </FileRef>
+            <FileRef
+               location = "group:toolbarState.swift">
+            </FileRef>
+            <FileRef
+               location = "group:mainCategories.plist">
+            </FileRef>
+            <Group
+               location = "group:Entities"
+               name = "Entities">
+               <FileRef
+                  location = "group:CategoriesEntity+CoreDataClass.swift">
+               </FileRef>
+               <FileRef
+                  location = "group:TransactionEntity+CoreDataProperties.swift">
+               </FileRef>
+               <FileRef
+                  location = "group:TransactionEntity+CoreDataClass.swift">
+               </FileRef>
+               <FileRef
+                  location = "group:CategoriesEntity+CoreDataProperties.swift">
+               </FileRef>
+            </Group>
+         </Group>
+         <Group
+            location = "group:View"
+            name = "View">
+            <FileRef
+               location = "group:ExpensesCircleView.swift">
+            </FileRef>
+            <FileRef
+               location = "group:ProfileWindow.swift">
+            </FileRef>
+            <FileRef
+               location = "group:PageSpending.swift">
+            </FileRef>
+            <FileRef
+               location = "group:MainWindow.swift">
+            </FileRef>
+            <FileRef
+               location = "group:AnalyticWindow.swift">
+            </FileRef>
+            <FileRef
+               location = "group:PageIncome.swift">
+            </FileRef>
+         </Group>
+         <FileRef
+            location = "group:AppDelegate.swift">
+         </FileRef>
+         <Group
+            location = "group:Protocols"
+            name = "Protocols">
+            <FileRef
+               location = "group:CustomToolbarDelegate.swift">
+            </FileRef>
+            <FileRef
+               location = "group:ViewControllerDelegate.swift">
+            </FileRef>
+         </Group>
+         <FileRef
+            location = "group:Info.plist">
+         </FileRef>
+         <FileRef
+            location = "group:SceneDelegate.swift">
+         </FileRef>
+      </Group>
+   </Group>
+</Workspace>
