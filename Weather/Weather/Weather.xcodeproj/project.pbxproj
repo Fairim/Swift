@@ -11,7 +11,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		E5D710D52F5092D4006BE1E2 /* Exceptions for "Weather" folder in "Weather" target */ = {
+		E5D710DE2F509821006BE1E2 /* Exceptions for "View" folder in "Weather" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -21,12 +21,22 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		E5D710C22F5092D1006BE1E2 /* Weather */ = {
+		E5D710DB2F5097D5006BE1E2 /* View */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				E5D710D52F5092D4006BE1E2 /* Exceptions for "Weather" folder in "Weather" target */,
+				E5D710DE2F509821006BE1E2 /* Exceptions for "View" folder in "Weather" target */,
 			);
-			path = Weather;
+			path = View;
+			sourceTree = "<group>";
+		};
+		E5D710DC2F5097DE006BE1E2 /* Model */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E5D710DD2F5097E6006BE1E2 /* ViewModel */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -45,7 +55,9 @@
 		E5D710B72F5092D1006BE1E2 = {
 			isa = PBXGroup;
 			children = (
-				E5D710C22F5092D1006BE1E2 /* Weather */,
+				E5D710DD2F5097E6006BE1E2 /* ViewModel */,
+				E5D710DC2F5097DE006BE1E2 /* Model */,
+				E5D710DB2F5097D5006BE1E2 /* View */,
 				E5D710C12F5092D1006BE1E2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -74,7 +86,9 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				E5D710C22F5092D1006BE1E2 /* Weather */,
+				E5D710DB2F5097D5006BE1E2 /* View */,
+				E5D710DC2F5097DE006BE1E2 /* Model */,
+				E5D710DD2F5097E6006BE1E2 /* ViewModel */,
 			);
 			name = Weather;
 			packageProductDependencies = (
@@ -146,12 +160,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Weather/Info.plist;
+				INFOPLIST_FILE = View/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -173,12 +188,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Weather/Info.plist;
+				INFOPLIST_FILE = View/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
