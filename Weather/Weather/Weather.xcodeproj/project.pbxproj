@@ -21,6 +21,11 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		D54ACAA32F50A81E0082F339 /* ViewModel */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		E5D710DB2F5097D5006BE1E2 /* View */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -32,11 +37,6 @@
 		E5D710DC2F5097DE006BE1E2 /* Model */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = Model;
-			sourceTree = "<group>";
-		};
-		E5D710DD2F5097E6006BE1E2 /* ViewModel */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -55,7 +55,7 @@
 		E5D710B72F5092D1006BE1E2 = {
 			isa = PBXGroup;
 			children = (
-				E5D710DD2F5097E6006BE1E2 /* ViewModel */,
+				D54ACAA32F50A81E0082F339 /* ViewModel */,
 				E5D710DC2F5097DE006BE1E2 /* Model */,
 				E5D710DB2F5097D5006BE1E2 /* View */,
 				E5D710C12F5092D1006BE1E2 /* Products */,
@@ -86,9 +86,9 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				D54ACAA32F50A81E0082F339 /* ViewModel */,
 				E5D710DB2F5097D5006BE1E2 /* View */,
 				E5D710DC2F5097DE006BE1E2 /* Model */,
-				E5D710DD2F5097E6006BE1E2 /* ViewModel */,
 			);
 			name = Weather;
 			packageProductDependencies = (
