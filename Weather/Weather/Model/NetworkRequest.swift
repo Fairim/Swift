@@ -2,7 +2,7 @@ import Foundation
 
 class NetworkRequest {
     
-    func createURL(latitude: String, longitude: String) throws -> URL {
+    private func createURL(latitude: String, longitude: String) throws -> URL {
         var components = URLComponents()
         components.scheme = "https"
         components.host = "api.open-meteo.com"
@@ -18,13 +18,16 @@ class NetworkRequest {
                     
             URLQueryItem(name: "timezone", value: "auto"),
             URLQueryItem(name: "forecast_days", value: "7")
+            
+            
         ]
-        
+        print("Сделали ссылку")
         
         guard let url = components.url else {
             throw NetworkErrors.invalidURL
         }
         
+        print(url)
         return url
     }
     
@@ -49,16 +52,14 @@ class NetworkRequest {
             }
             
             let weatherResponse = try JSONDecoder().decode(WeatherResponse.self, from: data)
+            print("Сделали запрос")
             return weatherResponse
             
         } catch let decodingError as DecodingError {
-            // Специфичная обработка ошибок декодирования
             throw NetworkErrors.decodingError(decodingError.localizedDescription)
         } catch let networkError as NetworkErrors {
-            // Пробрасываем наши кастомные ошибки дальше
             throw networkError
         } catch {
-            // Любые другие ошибки (например, отсутствие соединения)
             throw NetworkErrors.networkError(error.localizedDescription)
         }
     }

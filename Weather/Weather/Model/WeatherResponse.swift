@@ -8,10 +8,10 @@ struct WeatherResponse: Codable {
     let timezone: String
     let timezoneAbbreviation: String
     let elevation: Double
-    let currentWeatherUtils: CurrentWeatherUtils
+    let currentWeatherUtils: CurrentWeatherUnits
     let currentWeather: CurrentWeather
-    let houtlyUtils: HourlyDataUtils
-    let hourlyData: [HourlyData]
+    let hourlyUtils: HourlyDataUnits
+    let hourlyData: HourlyData
     
     enum CodingKeys: String, CodingKey {
         case lat = "latitude"
@@ -21,14 +21,14 @@ struct WeatherResponse: Codable {
         case timezone
         case timezoneAbbreviation = "timezone_abbreviation"
         case elevation
-        case currentWeatherUtils = "current_weather_utils"
+        case currentWeatherUtils = "current_weather_units"
         case currentWeather = "current_weather"
-        case houtlyUtils = "hourly_utils"
+        case hourlyUtils = "hourly_units"
         case hourlyData = "hourly"
     }
 }
 
-struct CurrentWeatherUtils: Codable {
+struct CurrentWeatherUnits: Codable {
     let time: String
     let interval: String
     let temperature: String
@@ -68,7 +68,7 @@ struct CurrentWeather: Codable {
     }
 }
 
-struct HourlyDataUtils: Codable {
+struct HourlyDataUnits: Codable {
     let time: String
     let temperature: String
     let apparentTemperature: String
