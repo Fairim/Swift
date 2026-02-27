@@ -1,6 +1,6 @@
 import Foundation
 
-class NetworkRequest {
+class WeatherRequestModel {
     
     private func createURL(latitude: String, longitude: String) throws -> URL {
         var components = URLComponents()
@@ -21,40 +21,20 @@ class NetworkRequest {
             
             
         ]
-        print("Сделали ссылку")
         
         guard let url = components.url else {
             throw NetworkErrors.invalidURL
         }
-        
-        print(url)
         return url
     }
     
     func requestToServer(lat: String, lon: String) async throws -> WeatherResponse {
         do {
             let url = try createURL(latitude: lat, longitude: lon)
-            let (data, response) = try await URLSession.shared.data(from: url)
-            
-            guard let httpResponse = response as? HTTPURLResponse else {
-                throw NetworkErrors.invalidResponse
-            }
-            
-            guard httpResponse.statusCode == 200 else {
-                switch httpResponse.statusCode {
-                case 400..<500:
-                    throw NetworkErrors.clientError(httpResponse.statusCode)
-                case 500..<600:
-                    throw NetworkErrors.serverError(httpResponse.statusCode)
-                default:
-                    throw NetworkErrors.unexpectedStatusCode(httpResponse.statusCode)
-                }
-            }
+            let data = try await requestToServer(url: url)
             
             let weatherResponse = try JSONDecoder().decode(WeatherResponse.self, from: data)
-            print("Сделали запрос")
             return weatherResponse
-            
         } catch let decodingError as DecodingError {
             throw NetworkErrors.decodingError(decodingError.localizedDescription)
         } catch let networkError as NetworkErrors {
@@ -62,5 +42,26 @@ class NetworkRequest {
         } catch {
             throw NetworkErrors.networkError(error.localizedDescription)
         }
+    }
+    
+    func requestToServer(url: URL) async throws -> Data {
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw NetworkErrors.invalidResponse
+        }
+        
+        guard httpResponse.statusCode == 200 else {
+            switch httpResponse.statusCode {
+            case 400..<500:
+                throw NetworkErrors.clientError(httpResponse.statusCode)
+            case 500..<600:
+                throw NetworkErrors.serverError(httpResponse.statusCode)
+            default:
+                throw NetworkErrors.unexpectedStatusCode(httpResponse.statusCode)
+            }
+        }
+        
+        return data
     }
 }

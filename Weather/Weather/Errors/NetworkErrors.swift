@@ -6,4 +6,5 @@ enum NetworkErrors: Error {
     case decodingError(String)
     case networkError(String)
     case invalidURL
+    case notInitializedWeather
 }

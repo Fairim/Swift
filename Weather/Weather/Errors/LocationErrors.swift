@@ -4,4 +4,6 @@ enum LocationError: Error {
     case unableToGetLocation
     case authorizationTimeout
     case locationTimeout
+    case cityNotFound
+    case notInitializedCoordinates
 }

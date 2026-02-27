@@ -1,22 +1,38 @@
-//
-//  ViewController.swift
-//  Weather
-//
-//  Created by Jorgen Boring on 26/02/2026.
-//
-
 import UIKit
 
 class ViewController: UIViewController {
-
-    private let weatherService = NetworkRequest()
-    private let locationManager = LocationManager()
+    
+    private let networkManager = NetworkManager.shared
+    
+    @IBOutlet weak var viewCity: UIButton!
+    
+    @IBAction func viewCoordinates(_ sender: UIButton) {
+        Task {
+            do {
+                let coordinates = try await networkManager.cityToCoordinatesRequest(with: "Moscow")
+                print(coordinates)
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
+    @IBAction func viewCity(_ sender: UIButton) {
+        Task {
+            do {
+                try await networkManager.coordinatesToCityRequest("34", "21")
+                print(networkManager.takeCity())
+            } catch {
+                print(error)
+            }
+        }
+    }
     
     @IBAction func checkWeather(_ sender: Any) {
         Task {
             do {
-                let locationData = try await locationManager.getCurrentLocation()
-                print(try await weatherService.requestToServer(lat: String(locationData.coordinate.latitude), lon: String(locationData.coordinate.longitude)))
+                try await networkManager.weatherRequest()
+                try print(networkManager.getWeather())
             } catch {
                 print(error)
             }
@@ -26,7 +42,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
-
+    
+    
 }
-

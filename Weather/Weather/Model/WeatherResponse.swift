@@ -26,6 +26,10 @@ struct WeatherResponse: Codable {
         case hourlyUtils = "hourly_units"
         case hourlyData = "hourly"
     }
+    
+    func takeCoordinates() -> [String] {
+        return [String(lat), String(lon)]
+    }
 }
 
 struct CurrentWeatherUnits: Codable {
@@ -139,5 +143,3 @@ struct HourlyData: Codable {
         case isDay = "is_day"
     }
 }
-
-

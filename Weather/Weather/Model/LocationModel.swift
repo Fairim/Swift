@@ -1,7 +1,6 @@
 import CoreLocation
 
-@MainActor
-final class LocationManager: NSObject {
+final class LocationModel: NSObject {
 
     private let manager = CLLocationManager()
 
@@ -74,7 +73,7 @@ final class LocationManager: NSObject {
     }
 }
 
-extension LocationManager: CLLocationManagerDelegate {
+extension LocationModel: CLLocationManagerDelegate {
 
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         let status = manager.authorizationStatus
