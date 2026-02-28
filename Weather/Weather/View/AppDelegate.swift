@@ -11,13 +11,21 @@ import CoreData
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    static var shared: AppDelegate {
+        return UIApplication.shared.delegate as! AppDelegate
+    }
 
-
+    var window: UIWindow?
+    var tabBarController: UITabBarController?
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         return true
     }
-
+    
+    static func getTabBarController() -> UITabBarController? {
+        return AppDelegate.shared.tabBarController
+    }
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
@@ -78,4 +86,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 }
-

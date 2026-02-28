@@ -3,7 +3,6 @@ import UIKit
 class ViewController: UIViewController {
     
     private let networkManager = NetworkManager.shared
-    
     @IBOutlet weak var viewCity: UIButton!
     
     @IBAction func viewCoordinates(_ sender: UIButton) {
@@ -42,6 +41,4 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
-    
 }

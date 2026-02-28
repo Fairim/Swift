@@ -89,6 +89,20 @@ struct HourlyDataUnits: Codable {
     let weatherCode: String
     let isDay: String
     
+    var weatherIcon: String {
+        switch Int(weatherCode) {
+        case 0: return "sun.max.fill"
+        case 1,2,3: return "cloud.sun.fill"
+        case 45,48: return "cloud.fog.fill"
+        case 51,53,55: return "cloud.drizzle.fill"
+        case 61,63,65: return "cloud.rain.fill"
+        case 71,73,75: return "cloud.snow.fill"
+        case 80,81,82: return "cloud.heavyrain.fill"
+        case 95: return "cloud.bolt.fill"
+        default: return "questionmark"
+        }
+    }
+    
     enum CodingKeys: String, CodingKey {
         case time
         case temperature = "temperature_2m"
