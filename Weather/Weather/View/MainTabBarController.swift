@@ -40,12 +40,56 @@ final class MainTabBarController: UITabBarController{
             imageName: "location.fill",
             tag: 0,
             position: .center,
+            iconSize: 9
+        )
+        
+        let firstVC1 = ViewController()
+        let firstVC2 = ViewController()
+        let firstVC3 = ViewController()
+        let firstVC4 = ViewController()
+        let firstVC5 = ViewController()
+        
+        middleVC.tabBarItem = CustomTabBarItem(
+            title: "",
+            imageName: "circle.fill",
+            tag: 0,
+            position: .center,
             iconSize: 7
         )
         
-        firstVC.tabBarItem.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
+        firstVC1.tabBarItem = CustomTabBarItem(
+            title: "",
+            imageName: "circle.fill",
+            tag: 0,
+            position: .center,
+            iconSize: 7
+        )
         
-        middleVC.tabBarItem = CustomTabBarItem(
+        firstVC2.tabBarItem = CustomTabBarItem(
+            title: "",
+            imageName: "circle.fill",
+            tag: 0,
+            position: .center,
+            iconSize: 7
+        )
+        
+        firstVC3.tabBarItem = CustomTabBarItem(
+            title: "",
+            imageName: "circle.fill",
+            tag: 0,
+            position: .center,
+            iconSize: 7
+        )
+        
+        firstVC4.tabBarItem = CustomTabBarItem(
+            title: "",
+            imageName: "circle.fill",
+            tag: 0,
+            position: .center,
+            iconSize: 7
+        )
+        
+        firstVC5.tabBarItem = CustomTabBarItem(
             title: "",
             imageName: "circle.fill",
             tag: 0,
@@ -66,8 +110,14 @@ final class MainTabBarController: UITabBarController{
         let firstNav = UINavigationController(rootViewController: firstVC)
         let secondNav = UINavigationController(rootViewController: secondVC)
         let middleNav = UINavigationController(rootViewController: middleVC)
+        let firstNav1 = UINavigationController(rootViewController: firstVC1)
+        let firstNav2 = UINavigationController(rootViewController: firstVC2)
+        let firstNav3 = UINavigationController(rootViewController: firstVC3)
+        let firstNav4 = UINavigationController(rootViewController: firstVC4)
+        let firstNav5 = UINavigationController(rootViewController: firstVC5)
+
         
-        self.viewControllers = [firstNav, secondNav, middleNav]
+        self.viewControllers = [firstNav, secondNav, middleNav, firstNav1, firstNav2, firstNav3, firstNav4, firstNav5]
         self.tabBar.isTranslucent = false
     }
     
