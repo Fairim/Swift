@@ -1,10 +1,3 @@
-//
-//  MainTabBarController.swift
-//  Weather
-//
-//  Created by Jorgen Boring on 28/02/2026.
-//
-
 import UIKit
 
 final class MainTabBarController: UITabBarController{
@@ -16,21 +9,15 @@ final class MainTabBarController: UITabBarController{
     
     private func configTabBar(){
         let smallConfig = UIImage.SymbolConfiguration(pointSize: 16)
-        let firstVC = ViewController()
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let firstVC = storyboard.instantiateViewController(withIdentifier: "pageForWeather") as! ViewController
         firstVC.view.backgroundColor = .yellow
         firstVC.tabBarItem.title = "First VC"
         firstVC.tabBarItem.image = UIImage(systemName: "1.circle", withConfiguration: smallConfig)
-
-        // 2
+        
         let middleVC = ViewController()
         middleVC.view.backgroundColor = .green
         middleVC.tabBarItem.title = "Middle VC"
-
-        // 3
-        let secondVC = ViewController()
-        secondVC.view.backgroundColor = .blue
-        secondVC.tabBarItem.title = "Second VC"
-        secondVC.tabBarItem.image = UIImage(systemName: "2.circle", withConfiguration: smallConfig)
         
         let customTabBar = CustomTabBar()
         setValue(customTabBar, forKey: "tabBar")
@@ -44,10 +31,6 @@ final class MainTabBarController: UITabBarController{
         )
         
         let firstVC1 = ViewController()
-        let firstVC2 = ViewController()
-        let firstVC3 = ViewController()
-        let firstVC4 = ViewController()
-        let firstVC5 = ViewController()
         
         middleVC.tabBarItem = CustomTabBarItem(
             title: "",
@@ -65,60 +48,27 @@ final class MainTabBarController: UITabBarController{
             iconSize: 7
         )
         
-        firstVC2.tabBarItem = CustomTabBarItem(
-            title: "",
-            imageName: "circle.fill",
-            tag: 0,
-            position: .center,
-            iconSize: 7
-        )
-        
-        firstVC3.tabBarItem = CustomTabBarItem(
-            title: "",
-            imageName: "circle.fill",
-            tag: 0,
-            position: .center,
-            iconSize: 7
-        )
-        
-        firstVC4.tabBarItem = CustomTabBarItem(
-            title: "",
-            imageName: "circle.fill",
-            tag: 0,
-            position: .center,
-            iconSize: 7
-        )
-        
-        firstVC5.tabBarItem = CustomTabBarItem(
-            title: "",
-            imageName: "circle.fill",
-            tag: 0,
-            position: .center,
-            iconSize: 7
-        )
-        
         middleVC.tabBarItem.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
         
-        secondVC.tabBarItem = CustomTabBarItem(
-            title: "",
-            imageName: "list.bullet",
-            tag: 0,
-            position: .right
-        )
-        
+        var config = UIButton.Configuration.filled()
+        config.title = ""
+        config.image = UIImage(systemName: "list.bullet")
+        let buttonList = UIButton(configuration: config)
+        buttonList.tintColor = UIColor.white
         
         let firstNav = UINavigationController(rootViewController: firstVC)
-        let secondNav = UINavigationController(rootViewController: secondVC)
         let middleNav = UINavigationController(rootViewController: middleVC)
         let firstNav1 = UINavigationController(rootViewController: firstVC1)
-        let firstNav2 = UINavigationController(rootViewController: firstVC2)
-        let firstNav3 = UINavigationController(rootViewController: firstVC3)
-        let firstNav4 = UINavigationController(rootViewController: firstVC4)
-        let firstNav5 = UINavigationController(rootViewController: firstVC5)
-
         
-        self.viewControllers = [firstNav, secondNav, middleNav, firstNav1, firstNav2, firstNav3, firstNav4, firstNav5]
+        self.viewControllers = [firstNav, middleNav, firstNav1]
         self.tabBar.isTranslucent = false
+        buttonList.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(buttonList)
+        NSLayoutConstraint.activate([
+            buttonList.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            buttonList.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -(10))
+            
+        ])
     }
     
     private func createAllBarBottomItem() -> [UIBarButtonItem] {

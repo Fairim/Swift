@@ -40,6 +40,7 @@ class NetworkManager {
     
     func coordinatesToCityRequest(_ lat: String, _ lon: String) async throws {
         do {
+            try await weatherRequestModel.test()
             cityResponse = try await cityRequestModel.coordinatesToCity(lat: lat, lon: lon)
         } catch {
             print(error)
