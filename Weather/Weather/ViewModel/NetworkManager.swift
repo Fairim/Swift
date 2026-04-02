@@ -7,6 +7,7 @@ class NetworkManager {
     private let weatherRequestModel = WeatherRequestModel()
     private var weatherResponse: WeatherResponse?
     private var cityResponse: CityResponse?
+    private let weatherStore: WeatherStore = .shared
     private var lat: String?
     private var lon: String?
     
@@ -23,6 +24,7 @@ class NetworkManager {
             lat = String(locationData.coordinate.latitude)
             lon = String(locationData.coordinate.longitude)
             weatherResponse = try await weatherRequestModel.requestToServer(lat: lat!, lon: lon!)
+            weatherStore.response = weatherResponse
         } catch {
             print(error)
         }
@@ -40,7 +42,6 @@ class NetworkManager {
     
     func coordinatesToCityRequest(_ lat: String, _ lon: String) async throws {
         do {
-            try await weatherRequestModel.test()
             cityResponse = try await cityRequestModel.coordinatesToCity(lat: lat, lon: lon)
         } catch {
             print(error)
@@ -113,5 +114,12 @@ class NetworkManager {
             throw LocationError.notInitializedCoordinates
         }
         return [latTemp, lonTemp]
+    }
+    
+    func takeMassTemperature() -> [Double] {
+        guard let temperature = weatherResponse?.hourlyData.temperature else {
+            return []
+        }
+        return temperature
     }
 }

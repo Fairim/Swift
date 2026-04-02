@@ -157,3 +157,10 @@ struct HourlyData: Codable {
         case isDay = "is_day"
     }
 }
+
+final class WeatherStore{
+    static let shared = WeatherStore()
+    private init() {}
+    
+    var response: WeatherResponse?
+}

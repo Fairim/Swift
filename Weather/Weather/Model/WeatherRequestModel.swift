@@ -29,23 +29,6 @@ class WeatherRequestModel {
         return url
     }
     
-    func test() async throws{
-        var component = URLComponents()
-        component.scheme = "https"
-        component.host = "api.openweathermap.org"
-        component.path = "/data/3.0/onecall"
-        component.queryItems = [
-            URLQueryItem(name: "lat", value: "121"),
-            URLQueryItem(name: "lon", value: "123"),
-            URLQueryItem(name: "exclude", value: """
-                hourly,daily
-            """),
-            
-            URLQueryItem(name: "appid", value: "90769f062facfa76c0553e4575333445"),
-        ]
-        print(try await requestToServer(url: component.url!))
-    }
-    
     func requestToServer(lat: String, lon: String) async throws -> WeatherResponse {
         do {
             let url = try createURL(latitude: lat, longitude: lon)
