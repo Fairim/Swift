@@ -74,22 +74,22 @@ struct CurrentWeather: Codable {
 
 struct HourlyDataUnits: Codable {
     let time: String
-    let temperature: String
-    let apparentTemperature: String
-    let relativeHumidity: String
-    let precipitation: String
-    let precipitationProbability: String
-    let rain: String
-    let showers: String
-    let snowfall: String
-    let windSpeed: String
-    let windDirection: String
-    let windGusts: String
-    let cloudCover: String
-    let weatherCode: String
-    let isDay: String
+    let temperature: String                //Температура
+    let apparentTemperature: String        //Ощущаемость
+    let relativeHumidity: String           //Относительная влажность
+    let precipitation: String              //Осадки
+    let precipitationProbability: String   //Вероятность осадков
+    let rain: String                       //Дождь
+    let showers: String                    //Ливень
+    let snowfall: String                   //Снегопад
+    let windSpeed: String                  //Скорость ветра
+    let windDirection: String              //Направление ветра
+    let windGusts: String                  //Порывы ветра
+    let cloudCover: String                 //Облака покров
+    let weatherCode: String                //Код погоды
+    let isDay: String                      //День/Ночь
     
-    var weatherIcon: String {
+    var weatherIcon: String { //Иконка погоды
         switch Int(weatherCode) {
         case 0: return "sun.max.fill"
         case 1,2,3: return "cloud.sun.fill"
