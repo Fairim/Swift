@@ -116,10 +116,108 @@ class NetworkManager {
         return [latTemp, lonTemp]
     }
     
+    func takeMassTime() -> [String] {
+        guard let time = weatherResponse?.hourlyData.time else {
+            return []
+        }
+        return time
+    }
+    
     func takeMassTemperature() -> [Double] {
         guard let temperature = weatherResponse?.hourlyData.temperature else {
             return []
         }
-        return temperature
+        return temperature.compactMap(Double.init)
+    }
+    
+    func takeApparentTemperature() -> [Double] {
+        guard let apparentTemperature = weatherResponse?.hourlyData.time else {
+            return []
+        }
+        return apparentTemperature.compactMap(Double.init)
+    }
+    
+    func takeRelativeHumidity() -> [Int] {
+        guard let relativeHumidity = weatherResponse?.hourlyData.relativeHumidity else {
+            return []
+        }
+        return relativeHumidity
+    }
+    
+    func takeMassPrecipitation() -> [Double] {
+        guard let precipitation = weatherResponse?.hourlyData.precipitation else {
+            return []
+        }
+        return precipitation
+    }
+    
+    func takeMassPrecipitationProbability() -> [Int] {
+        guard let precipitationProbability = weatherResponse?.hourlyData.precipitationProbability else {
+            return []
+        }
+        return precipitationProbability
+    }
+    
+    func takeMassRain() -> [Double] {
+        guard let rain = weatherResponse?.hourlyData.rain else {
+            return []
+        }
+        return rain
+    }
+    
+    func takeMassShowers() -> [Double] {
+        guard let showers = weatherResponse?.hourlyData.showers else {
+            return []
+        }
+        return showers
+    }
+    
+    func takeMassSnowfall() -> [Double] {
+        guard let snowfall = weatherResponse?.hourlyData.snowfall else {
+            return []
+        }
+        return snowfall
+    }
+    
+    func takeMassWindSpeed() -> [Double] {
+        guard let windSpeed = weatherResponse?.hourlyData.windSpeed else {
+            return []
+        }
+        return windSpeed
+    }
+    
+    func takeMassWindDirection() -> [Int] {
+        guard let windDirection = weatherResponse?.hourlyData.windDirection else {
+            return []
+        }
+        return windDirection
+    }
+    
+    func takeMassWindGusts() -> [Double] {
+        guard let windGusts = weatherResponse?.hourlyData.windGusts else {
+            return []
+        }
+        return windGusts
+    }
+    
+    func takeMassCloudCover() -> [Int] {
+        guard let cloudCover = weatherResponse?.hourlyData.cloudCover else {
+            return []
+        }
+        return cloudCover
+    }
+    
+    func takeMassWeatherCode() -> [Int] {
+        guard let weatherCode = weatherResponse?.hourlyData.weatherCode else {
+            return []
+        }
+        return weatherCode
+    }
+    
+    func takeMassIsDay() -> [Int] {
+        guard let isDay = weatherResponse?.hourlyData.isDay else {
+            return []
+        }
+        return isDay
     }
 }

@@ -59,7 +59,9 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="viewCity" destination="n7O-2i-ovt" id="8FE-nb-yGB"/>
+                        <outlet property="checkWeatherButton" destination="CCa-gN-yd6" id="s1P-0m-en2"/>
+                        <outlet property="viewCityButton" destination="n7O-2i-ovt" id="ioa-5e-LOi"/>
+                        <outlet property="viewCoorButton" destination="Io1-qs-wpz" id="TOb-hB-FAB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

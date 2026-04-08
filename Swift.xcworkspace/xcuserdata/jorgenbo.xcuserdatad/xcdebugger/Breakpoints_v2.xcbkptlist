@@ -14,13 +14,13 @@
             filePath = "Weather/Weather/View/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
             landmarkName = "checkWeather(_:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "3922E0E5-3CC0-4664-A1D0-2FF231B0E4D4 - c6392dbdf1996921"
+                  uuid = "3922E0E5-3CC0-4664-A1D0-2FF231B0E4D4 - c6392dbdf19969c4"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -30,11 +30,11 @@
                   urlString = "file:///Users/jorgenbo/Documents/Swift/Weather/Weather/View/ViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "36"
-                  endingLineNumber = "36">
+                  startingLineNumber = "41"
+                  endingLineNumber = "41">
                </Location>
                <Location
-                  uuid = "3922E0E5-3CC0-4664-A1D0-2FF231B0E4D4 - dacf07100c86cb26"
+                  uuid = "3922E0E5-3CC0-4664-A1D0-2FF231B0E4D4 - dacf07100c86cbc3"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -44,8 +44,8 @@
                   urlString = "file:///Users/jorgenbo/Documents/Swift/Weather/Weather/View/ViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "36"
-                  endingLineNumber = "36">
+                  startingLineNumber = "41"
+                  endingLineNumber = "41">
                </Location>
             </Locations>
          </BreakpointContent>
