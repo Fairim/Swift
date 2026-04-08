@@ -15,13 +15,14 @@ struct locWeatherView: View {
     let UFIndex: Int = 0
     let windSpeed: Double = 10
     let windDirection: String = "Север"
-    let apparentTemperature: Double = 12
+    let apparentTemperature: Double = 20
     let precipitation: String = "3мм"
     var body: some View {
         
         ZStack{
             //Покраска всего заднего фона
-            Color.blue.edgesIgnoringSafeArea(.all)
+            Image("sunnyBack").edgesIgnoringSafeArea(.all)
+//            Color.blue.edgesIgnoringSafeArea(.all)
             
             //Главная панель, отображения состояния погоды на данный момент
             VStack(spacing: 5){
@@ -42,12 +43,28 @@ struct locWeatherView: View {
                                 .padding(.leading, screenWidth / 12)
                             ZStack{
                                 RoundedRectangle(cornerRadius: 22)
-                                    .fill(Color.white)
+                                    .fill(Color(temperatureColor(currTemp: apparentTemperature)))
                                     .padding(3)
                                     .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 22))
-                                    .opacity(0.6)
+                                    .opacity(0.3)
                                     .frame(minWidth: screenWidth / 2 , maxWidth: screenWidth / 1.5, maxHeight: screenHeight / 7, alignment: .leading)
                                     .padding(.leading, 20)
+                                
+                                VStack{
+                                    HStack{
+                                        Image(systemName: "thermometer.variable")
+                                        Text("Ощущается как:")
+                                    }
+                                    .padding(.top, 15)
+                                    .padding(.leading, 10)
+                                    Text(String(Int(apparentTemperature)))
+                                        .font(.system(size: screenWidth / 10, weight: .bold, design: .default))
+                                    Text("ТУПщзуьпщзущзьау щьуцзщ ьузцщ щь цущ ьцущзь щзць зщу")
+                                        .font(.system(size: screenWidth / 40, weight: .bold, design: .default))
+                                        .padding(.leading, 27)
+                                        .padding(.trailing, 5)
+                                        .padding(.bottom, 10)
+                                }
                             }
                         }
                         .frame(maxWidth: screenWidth / 2.2)
@@ -79,7 +96,7 @@ struct locWeatherView: View {
                             .padding(3)
                             .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 22))
                             .opacity(0.2)
-                            .frame(width: .infinity, height: screenHeight / 7.9, alignment: .leading)
+                            .frame(width: screenWidth, height: screenHeight / 7.9, alignment: .leading)
                         
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 2){
@@ -160,15 +177,7 @@ struct locWeatherView: View {
                                 .frame(width: screenWidth / 2 - 15, height: screenHeight / 5)
                                 .opacity(0.3)
                             
-                            VStack{
-                                HStack{
-                                    Image(systemName: "thermometer.variable")
-                                    Text("Ощущается как:")
-                                }
-                                .frame(width: .infinity, alignment: .top)
-                                Text(String(Int(apparentTemperature)))
-                                    .font(.system(size: screenWidth / 5, weight: .bold, design: .default))
-                            }
+                            
                         }
                         
                         ZStack{
@@ -182,7 +191,6 @@ struct locWeatherView: View {
                                     Image(systemName: "sun.max.fill")
                                     Text("УФ-индекс:")
                                 }
-                                .frame(width: .infinity, alignment: .top)
                                 Text(String(UFIndex))
                                     .font(.system(size: screenWidth / 5, weight: .bold, design: .default))
                             }
@@ -242,7 +250,6 @@ struct locWeatherView: View {
                                     Image(systemName: "drop.fill")
                                     Text("Влажность:")
                                 }
-                                .frame(width: .infinity, alignment: .top)
                                 Text(String(UFIndex))
                                     .font(.system(size: screenWidth / 5, weight: .bold, design: .default))
                             }
@@ -280,6 +287,23 @@ struct locWeatherView: View {
             startPoint: .leading,
             endPoint: .trailing
         )
+    }
+    
+    private func temperatureColor(currTemp: Double) -> UIColor{
+        switch(currTemp){
+        case (-30)...(-20):
+            return UIColor(.blue)
+        case (-19)...(-1):
+            return UIColor(.cyan)
+        case 1...15:
+            return UIColor(.yellow)
+        case 16...25:
+            return UIColor(.orange)
+        case 26...50:
+            return UIColor(.red)
+        default:
+            return UIColor(.white)
+        }
     }
 }
 

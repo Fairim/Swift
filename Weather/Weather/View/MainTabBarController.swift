@@ -1,4 +1,5 @@
 import UIKit
+import SwiftUI
 
 final class MainTabBarController: UITabBarController{
     
@@ -10,6 +11,18 @@ final class MainTabBarController: UITabBarController{
     private func configTabBar(){
         let smallConfig = UIImage.SymbolConfiguration(pointSize: 16)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let weatherSwiftUIView = locWeatherView()
+        let weatherHostingController = UIHostingController(rootView: weatherSwiftUIView)
+        weatherHostingController.tabBarItem.title = "Погода"
+        weatherHostingController.tabBarItem = CustomTabBarItem(
+            title: "",
+            imageName: "circle.fill",
+            tag: 0,
+            position: .center,
+            iconSize: 7
+        )
+        
         let firstVC = storyboard.instantiateViewController(withIdentifier: "pageForWeather") as! ViewController
         firstVC.view.backgroundColor = .yellow
         firstVC.tabBarItem.title = "First VC"
@@ -30,17 +43,7 @@ final class MainTabBarController: UITabBarController{
             iconSize: 9
         )
         
-        let firstVC1 = ViewController()
-        
         middleVC.tabBarItem = CustomTabBarItem(
-            title: "",
-            imageName: "circle.fill",
-            tag: 0,
-            position: .center,
-            iconSize: 7
-        )
-        
-        firstVC1.tabBarItem = CustomTabBarItem(
             title: "",
             imageName: "circle.fill",
             tag: 0,
@@ -56,11 +59,11 @@ final class MainTabBarController: UITabBarController{
         let buttonList = UIButton(configuration: config)
         buttonList.tintColor = UIColor.white
         
+        let weatherNav = UINavigationController(rootViewController: weatherHostingController)
         let firstNav = UINavigationController(rootViewController: firstVC)
         let middleNav = UINavigationController(rootViewController: middleVC)
-        let firstNav1 = UINavigationController(rootViewController: firstVC1)
         
-        self.viewControllers = [firstNav, middleNav, firstNav1]
+        self.viewControllers = [firstNav, middleNav, weatherNav]
         self.tabBar.isTranslucent = false
         buttonList.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(buttonList)
