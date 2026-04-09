@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "suunyBack.PNG",
+      "filename" : "sunnyBack.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "suunyBack 1.PNG",
+      "filename" : "sunnyBack 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "suunyBack 2.PNG",
+      "filename" : "sunnyBack 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

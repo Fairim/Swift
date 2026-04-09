@@ -21,7 +21,7 @@ struct locWeatherView: View {
         
         ZStack{
             //Покраска всего заднего фона
-            Image("sunnyBack").edgesIgnoringSafeArea(.all)
+            Image("simpleCloudBack").edgesIgnoringSafeArea(.all)
 //            Color.blue.edgesIgnoringSafeArea(.all)
             
             //Главная панель, отображения состояния погоды на данный момент
@@ -29,6 +29,7 @@ struct locWeatherView: View {
                 Text("Город")
                     .font(.system(size: 30, weight: .bold, design: .default))
                     .frame(maxWidth: .infinity, alignment: .top)
+                    .padding(.top, screenHeight / 15)
                 ZStack{
                     RoundedRectangle(cornerRadius: 22)
                         .fill(Color.white)
@@ -289,7 +290,7 @@ struct locWeatherView: View {
         )
     }
     
-    private func temperatureColor(currTemp: Double) -> UIColor{
+    private func temperatureColor(currTemp: Double) -> UIColor {
         switch(currTemp){
         case (-30)...(-20):
             return UIColor(.blue)
@@ -303,6 +304,23 @@ struct locWeatherView: View {
             return UIColor(.red)
         default:
             return UIColor(.white)
+        }
+    }
+    
+    private func currentBack(state: String) -> Image {
+        switch(state) {
+        case "cloudy-sunny":
+            return Image("simpleCloudBack")
+        case "simpleRain":
+            return Image("simpleRainBack")
+        case "strongRain":
+            return Image("strongRainBack")
+        case "simpleSnow":
+            return Image("simpleSnowBack")
+        case "strongSnow":
+            return Image("strongSnowBack")
+        default:
+            return Image("sunnyBack")
         }
     }
 }
