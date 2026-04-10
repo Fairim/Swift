@@ -307,22 +307,35 @@ struct locWeatherView: View {
         }
     }
     
-    private func currentBack(state: String) -> Image {
+    private func currentBack(state: String, isDay: Bool) -> Image {
         switch(state) {
         case "cloudy-sunny":
-            return Image("simpleCloudBack")
+            if isDay{ return Image("simpleCloudBack") }
+            return Image("cloudNightBack")
+        case "rain-ice":
+            if isDay{ return Image("rainIceBack") }
+            return Image("rainIceNightBack")
         case "simpleRain":
-            return Image("simpleRainBack")
+            if isDay{ return Image("simpleRainBack") }
+            return Image("simpleRainNightBack")
         case "strongRain":
-            return Image("strongRainBack")
+            if isDay{ return Image("strongRainBack") }
+            return Image("strongRainNightBack")
         case "simpleSnow":
-            return Image("simpleSnowBack")
+            if isDay{ return Image("simpleSnowBack") }
+            return Image("simpleSnowNightBack")
         case "strongSnow":
-            return Image("strongSnowBack")
+            if isDay{ return Image("strongSnowBack") }
+            return Image("strongSnowNightBack")
+        case "wind":
+            if isDay{ return Image("strongSnowBack") }
+            return Image("strongSnowNightBack")
         default:
+            if isDay{ return Image("cloudNightBack") }
             return Image("sunnyBack")
         }
     }
+    
 }
 
 
