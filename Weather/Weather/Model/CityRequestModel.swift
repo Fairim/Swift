@@ -49,4 +49,35 @@ final class DaDataGeocoder {
             lon: lon
         )
     }
+    
+    func reverseGeocode(lat: String, lon: String) async throws -> String? {
+        guard let url = URL(string: "https://cleaner.dadata.ru/api/v1/clean/address") else {
+            throw LocationError.invalidURL
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue("Token \(token)", forHTTPHeaderField: "Authorization")
+        request.setValue(secret, forHTTPHeaderField: "X-Secret")
+
+        let body = ["\(lat),\(lon)"]
+        request.httpBody = try JSONEncoder().encode(body)
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+
+        guard let http = response as? HTTPURLResponse,
+              (200...299).contains(http.statusCode) else {
+            throw LocationError.invalidResponse
+        }
+
+        let decoded = try JSONDecoder().decode([DaDataAddress].self, from: data)
+
+        guard let first = decoded.first else {
+            throw LocationError.emptyResult
+        }
+
+        return first.city
+    }
 }

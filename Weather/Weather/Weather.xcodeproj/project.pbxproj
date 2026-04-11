@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E566DF832F7EBC3E00BF6CA3 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = E566DF822F7EBC3E00BF6CA3 /* SnapKit */; };
+		D54F37CB2F8AA6110048C3B6 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = D54F37CA2F8AA6110048C3B6 /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,7 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E566DF832F7EBC3E00BF6CA3 /* SnapKit in Frameworks */,
+				D54F37CB2F8AA6110048C3B6 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,7 +111,7 @@
 			);
 			name = Weather;
 			packageProductDependencies = (
-				E566DF822F7EBC3E00BF6CA3 /* SnapKit */,
+				D54F37CA2F8AA6110048C3B6 /* SnapKit */,
 			);
 			productName = Weather;
 			productReference = E5D710C02F5092D1006BE1E2 /* Weather.app */;
@@ -142,7 +142,7 @@
 			mainGroup = E5D710B72F5092D1006BE1E2;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				E566DF812F7EBC3E00BF6CA3 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				D54F37C92F8AA6100048C3B6 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E5D710C12F5092D1006BE1E2 /* Products */;
@@ -374,7 +374,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		E566DF812F7EBC3E00BF6CA3 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+		D54F37C92F8AA6100048C3B6 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
 			requirement = {
@@ -385,9 +385,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		E566DF822F7EBC3E00BF6CA3 /* SnapKit */ = {
+		D54F37CA2F8AA6110048C3B6 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E566DF812F7EBC3E00BF6CA3 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			package = D54F37C92F8AA6100048C3B6 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */

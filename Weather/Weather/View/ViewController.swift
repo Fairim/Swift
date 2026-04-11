@@ -26,8 +26,8 @@ class ViewController: UIViewController {
     @IBAction func viewCity(_ sender: UIButton) {
         Task {
             do {
-//                try await networkManager.coordinatesToCityRequest("34", "21")
-//                print(networkManager.takeCity())
+                try await networkManager.coordinatesToCityRequest("55.7540584", "37.62049")
+                print(networkManager.takeCity())
             } catch {
                 print(error)
             }

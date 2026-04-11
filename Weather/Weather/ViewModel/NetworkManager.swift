@@ -7,6 +7,7 @@ class NetworkManager {
     private let weatherService = WeatherService()
     private let geoCoderService = DaDataGeocoder()
     private var cityResponse: DaDataAddress?
+    private var currentCity: String?
     private var lat: String?
     private var lon: String?
     
@@ -60,13 +61,13 @@ class NetworkManager {
         return response.weeklyWeather()
     }
     
-//    func coordinatesToCityRequest(_ lat: String, _ lon: String) async throws {
-//        do {
-//            cityResponse = try await cityRequestModel.coordinatesToCity(lat: lat, lon: lon)
-//        } catch {
-//            print(error)
-//        }
-//    }
+    func coordinatesToCityRequest(_ lat: String, _ lon: String) async throws {
+        do {
+            currentCity = try await geoCoderService.reverseGeocode(lat: lat, lon: lon)
+        } catch {
+            print(error)
+        }
+    }
     
     func cityToCoordinatesRequest(with city: String) async throws -> [Double] {
         do {
@@ -76,7 +77,14 @@ class NetworkManager {
             throw error
         }
     }
-//    
+    
+    func takeCity() -> String {
+        guard let city = currentCity else {
+            return ""
+        }
+        return city
+    }
+//
 //    private func updateCityBody() async {
 //        let coordites = weatherResponse!.takeCoordinates()
 //        
@@ -115,12 +123,6 @@ class NetworkManager {
 //        return cityResponse!.geonames.first!.takeCountry()
 //    }
     
-//    func takeCity() -> String {
-//        guard let city = cityResponse, let firstCity = city.geonames.first else {
-//            return ""
-//        }
-//        return firstCity.takeCity()
-//    }
 //    
 //    func takeCountry() -> String {
 //        guard let city = cityResponse, let firstCity = city.geonames.first else {
