@@ -30,6 +30,11 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		D5EFD0902F8A48E500B31D2C /* SecretInformations */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = SecretInformations;
+			sourceTree = "<group>";
+		};
 		E53AAC432F51EA9000661A3F /* Errors */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = Errors;
@@ -65,6 +70,7 @@
 		E5D710B72F5092D1006BE1E2 = {
 			isa = PBXGroup;
 			children = (
+				D5EFD0902F8A48E500B31D2C /* SecretInformations */,
 				E53AAC432F51EA9000661A3F /* Errors */,
 				D54ACAA32F50A81E0082F339 /* ViewModel */,
 				E5D710DC2F5097DE006BE1E2 /* Model */,
@@ -98,6 +104,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				D54ACAA32F50A81E0082F339 /* ViewModel */,
+				D5EFD0902F8A48E500B31D2C /* SecretInformations */,
 				E53AAC432F51EA9000661A3F /* Errors */,
 				E5D710DB2F5097D5006BE1E2 /* View */,
 				E5D710DC2F5097DE006BE1E2 /* Model */,

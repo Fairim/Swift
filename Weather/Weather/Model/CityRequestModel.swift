@@ -1,80 +1,52 @@
 import Foundation
 
-class CityRequestModel{
-    func coordinatesToCity(lat: String, lon: String) async throws -> CityResponse {
-        do {
-            let url = try createURL(lat, lon, city: "")
-            let data = try await requestToServer(url: url)
-            let cityResponse = try JSONDecoder().decode(CityResponse.self, from: data)
-            return cityResponse
-        } catch let decodingError as DecodingError {
-            throw NetworkErrors.decodingError(decodingError.localizedDescription)
-        } catch let networkError as NetworkErrors {
-            throw networkError
-        } catch {
-            throw NetworkErrors.networkError(error.localizedDescription)
+final class DaDataGeocoder {
+    private let token = SecretLocation().getKey()
+    private let secret = SecretLocation().getSecret()
+
+    func geocode(city: String) async throws -> (lat: Double, lon: Double) {
+        guard let url = URL(string: "https://cleaner.dadata.ru/api/v1/clean/address") else {
+            throw LocationError.invalidURL
         }
-    }
-    
-    func cityToCoordinates(city: String) async throws -> CityResponse {
-        do {
-            let url = try createURL(city: city)
-            let data = try await requestToServer(url: url)
-            let cityResponse = try JSONDecoder().decode(CityResponse.self, from: data)
-            print(cityResponse)
-            return cityResponse
-        } catch let decodingError as DecodingError {
-            throw NetworkErrors.decodingError(decodingError.localizedDescription)
-        } catch let networkError as NetworkErrors {
-            throw networkError
-        } catch {
-            throw NetworkErrors.networkError(error.localizedDescription)
-        }
-    }
-    
-    private func createURL(_ lat: String = "", _ lon: String = "", city: String = "") throws -> URL{
-        var components = URLComponents()
-        components.scheme = "http"
-        components.host = "api.geonames.org"
-        if city.isEmpty {
-            components.path = "/findNearbyPlaceNameJSON"
-            components.queryItems = [
-                URLQueryItem(name: "lat", value: lat),
-                URLQueryItem(name: "lng", value: lon),
-                URLQueryItem(name: "username", value: "fairim"),
-            ]
-        }else {
-            components.path = "/searchJSON"
-            components.queryItems = [
-                URLQueryItem(name: "q", value: city),
-                URLQueryItem(name: "maxRows", value: "1"),
-                URLQueryItem(name: "username", value: "fairim"),
-            ]
-        }
-        guard let url = components.url else {
-            throw NetworkErrors.invalidURL
-        }
-        return url
-    }
-    
-    private func requestToServer(url: URL) async throws -> Data {
-        let (data, response) = try await URLSession.shared.data(from: url)
-        
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue("Token \(token)", forHTTPHeaderField: "Authorization")
+        request.setValue(secret, forHTTPHeaderField: "X-Secret")
+
+        let body = [city]
+        request.httpBody = try JSONEncoder().encode(body)
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+
         guard let httpResponse = response as? HTTPURLResponse else {
-            throw NetworkErrors.invalidResponse
+            throw LocationError.invalidResponse
         }
-        
-        guard httpResponse.statusCode == 200 else {
-            switch httpResponse.statusCode {
-            case 400..<500:
-                throw NetworkErrors.clientError(httpResponse.statusCode)
-            case 500..<600:
-                throw NetworkErrors.serverError(httpResponse.statusCode)
-            default:
-                throw NetworkErrors.unexpectedStatusCode(httpResponse.statusCode)
-            }
+
+        guard (200...299).contains(httpResponse.statusCode) else {
+            throw LocationError.badStatusCode(httpResponse.statusCode)
         }
-        
-        return data
+
+        let decoded = try JSONDecoder().decode([DaDataAddress].self, from: data)
+
+        guard let first = decoded.first else {
+            throw LocationError.emptyResult
+        }
+
+        guard
+            let latString = first.geoLat,
+            let lonString = first.geoLon,
+            let lat = Double(latString),
+            let lon = Double(lonString)
+        else {
+            throw LocationError.noCoordinates
+        }
+
+        return (
+            lat: lat,
+            lon: lon
+        )
     }
 }

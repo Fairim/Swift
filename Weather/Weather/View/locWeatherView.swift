@@ -12,7 +12,7 @@ struct locWeatherView: View {
     //Массив последующих дней
     let nameDays: [String] = ["Сегодня", "Вт", "Ср", "Чт", "Пт", "Сб"]
     
-    let UFIndex: Int = 0
+    let UFIndex: Double = 1
     let windSpeed: Double = 10
     let windDirection: String = "Север"
     let apparentTemperature: Double = 20
@@ -170,30 +170,64 @@ struct locWeatherView: View {
                         .padding(.vertical, 5)
                     }
                 
-                    //Ощущаемость и УФ-индекс
-                    HStack(spacing: 7){
+                    //УФ-индекс и Влажность
+                    HStack{
                         ZStack{
                             RoundedRectangle(cornerRadius: 8)
                                 .fill(Color.white)
                                 .frame(width: screenWidth / 2 - 15, height: screenHeight / 5)
-                                .opacity(0.3)
+                                .opacity(0.7)
                             
-                            
-                        }
-                        
-                        ZStack{
-                            RoundedRectangle(cornerRadius: 8)
-                                .fill(Color.white)
-                                .frame(width: screenWidth / 2 - 15, height: screenHeight / 5)
-                                .opacity(0.3)
-                            
-                            VStack{
+                            VStack(alignment: .center){
                                 HStack{
                                     Image(systemName: "sun.max.fill")
+                                        .foregroundColor(.orange)
+                                        .scaleEffect(1.3)
                                     Text("УФ-индекс:")
                                 }
-                                Text(String(UFIndex))
-                                    .font(.system(size: screenWidth / 5, weight: .bold, design: .default))
+                                ZStack{
+                                    UVSemicircleIndecator(uvIndex: UFIndex, screenWidth: screenWidth, screenHeight: screenHeight)
+                                    VStack{
+                                        Text(String(Int(UFIndex)))
+                                            .font(.system(size: screenWidth / 5, weight: .bold, design: .default))
+                                        Text("Безопасно")
+                                    }
+                                }
+                            }
+                            .padding(.top, 10)
+                        }
+                        
+                        VStack(spacing: 10){
+                            ZStack{
+                                RoundedRectangle(cornerRadius: 8)
+                                    .fill(Color.white)
+                                    .frame(width: screenWidth / 2 - 15, height: screenHeight / 10 - 5)
+                                    .opacity(0.7)
+                                
+                                VStack{
+                                    HStack{
+                                        Image(systemName: "drop.fill")
+                                            .foregroundColor(.blue)
+                                        Text(String(Int(UFIndex)) + "%")
+                                            .font(.system(size: screenWidth / 20, weight: .bold, design: .default))
+                                    }
+                                }
+                            }
+                            
+                            ZStack{
+                                RoundedRectangle(cornerRadius: 8)
+                                    .fill(Color.white)
+                                    .frame(width: screenWidth / 2 - 15, height: screenHeight / 10 - 5)
+                                    .opacity(0.7)
+                                
+                                VStack{
+                                    HStack{
+                                        Image(systemName: "drop.fill")
+                                        Text(String(UFIndex))
+                                            .font(.system(size: screenWidth / 10, weight: .bold, design: .default))
+                                    }
+//                                    Gauge(value: min(max(UFIndex / 100.0, 0.0), 1.0))
+                                }
                             }
                         }
                     }
@@ -246,14 +280,7 @@ struct locWeatherView: View {
                                 .frame(width: screenWidth / 2 - 15, height: screenHeight / 5)
                                 .opacity(0.3)
                             
-                            VStack{
-                                HStack{
-                                    Image(systemName: "drop.fill")
-                                    Text("Влажность:")
-                                }
-                                Text(String(UFIndex))
-                                    .font(.system(size: screenWidth / 5, weight: .bold, design: .default))
-                            }
+                            
                         }
                     }
                     .padding(.vertical, 1)
