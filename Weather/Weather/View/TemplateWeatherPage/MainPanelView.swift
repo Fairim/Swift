@@ -4,6 +4,9 @@ struct MainPanelView: View {
     private let screenWidth = UIScreen.main.bounds.size.width
     private let screenHeight = UIScreen.main.bounds.size.height
     var currentWeather: CurrentWeather = CurrentWeather(city: "", temperature: 0, feelsLike: 0, condition: "", humidity: 0, windSpeed: 0, windDirection: "", pressureMm: 0, icon: "")
+    var hourlyWeather: [HourlyWeather] = []
+    //На данный момент, будет стандартно мужщина, после добавим выбор
+    let characterChoose: CharacterType = .man
     var body: some View {
         Text(currentWeather.city.isEmpty ? "Город" : currentWeather.city)
             .font(.system(size: 30, weight: .bold, design: .default))
