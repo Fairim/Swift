@@ -1,4 +1,5 @@
 struct CurrentWeather {
+    let city: String
     let temperature: Int
     let feelsLike: Int
     let condition: String

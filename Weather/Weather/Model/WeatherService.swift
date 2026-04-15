@@ -25,7 +25,7 @@ final class WeatherService {
         request.setValue(secretKey, forHTTPHeaderField: "X-Yandex-Weather-Key")
 
         let (data, response) = try await URLSession.shared.data(for: request)
-
+        
         guard let httpResponse = response as? HTTPURLResponse else {
             throw NetworkErrors.invalidResponse
         }

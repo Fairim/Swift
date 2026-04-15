@@ -20,7 +20,7 @@ final class DaDataGeocoder {
         request.httpBody = try JSONEncoder().encode(body)
 
         let (data, response) = try await URLSession.shared.data(for: request)
-
+        
         guard let httpResponse = response as? HTTPURLResponse else {
             throw LocationError.invalidResponse
         }

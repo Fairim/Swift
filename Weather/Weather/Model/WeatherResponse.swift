@@ -1,15 +1,25 @@
 struct WeatherResponse: Decodable {
     let now: Int
     let nowDt: String
+    let info: WeatherInfo
     let fact: Fact
     let forecasts: [Forecast]
 
     enum CodingKeys: String, CodingKey {
         case now
         case nowDt = "now_dt"
+        case info
         case fact
         case forecasts
     }
+}
+
+struct WeatherInfo: Decodable {
+    let tzinfo: TimeZoneInfo
+}
+
+struct TimeZoneInfo: Decodable {
+    let name: String
 }
 
 struct Fact: Decodable {
@@ -107,8 +117,16 @@ struct DayPart: Decodable {
 }
 
 extension WeatherResponse {
-    func currentWeather() -> CurrentWeather {
-        CurrentWeather(
+    func currentWeather(city: String?) -> CurrentWeather {
+        let resolvedCity: String
+        if let city, !city.isEmpty {
+            resolvedCity = city
+        } else {
+            resolvedCity = cityFromResponse()
+        }
+        
+        return CurrentWeather(
+            city: resolvedCity,
             temperature: fact.temp,
             feelsLike: fact.feelsLike,
             condition: fact.condition,
@@ -116,8 +134,58 @@ extension WeatherResponse {
             windSpeed: fact.windSpeed,
             windDirection: fact.windDir,
             pressureMm: fact.pressureMm,
-            icon: fact.icon
+            icon: mapWeatherIcon(fact.icon)
         )
+    }
+    
+    private func cityFromResponse() -> String {
+        let timeZoneName = info.tzinfo.name
+        let rawCity = timeZoneName
+            .split(separator: "/")
+            .last
+            .map(String.init) ?? ""
+        
+        return rawCity.replacingOccurrences(of: "_", with: " ")
+    }
+    
+    private func mapWeatherIcon(_ code: String) -> String {
+        switch code {
+        case "skc_d":
+            return "sun.max.fill"
+        case "skc_n":
+            return "moon.stars.fill"
+        case "bkn_d":
+            return "cloud.sun.fill"
+        case "bkn_n":
+            return "cloud.moon.fill"
+        case "ovc":
+            return "cloud.fill"
+        case "ovc_-ra", "ovc_ra":
+            return "cloud.rain.fill"
+        case "ovc_+ra":
+            return "cloud.heavyrain.fill"
+        case "ovc_-sn", "ovc_sn", "ovc_+sn":
+            return "cloud.snow.fill"
+        case "ovc_-ts-ra", "ovc_ts_ra", "ovc_ts_sn":
+            return "cloud.bolt.rain.fill"
+        default:
+            if code.contains("ra") {
+                return "cloud.rain.fill"
+            }
+            if code.contains("sn") {
+                return "cloud.snow.fill"
+            }
+            if code.contains("ts") {
+                return "cloud.bolt.fill"
+            }
+            if code.contains("bkn") {
+                return "cloud.sun.fill"
+            }
+            if code.contains("ovc") {
+                return "cloud.fill"
+            }
+            return "cloud.fill"
+        }
     }
 }
 
@@ -137,7 +205,7 @@ extension WeatherResponse {
                 windDirection: $0.windDir,
                 pressureMm: $0.pressureMm,
                 precipitationProbability: $0.precProb,
-                icon: $0.icon
+                icon: mapWeatherIcon($0.icon)
             )
         }
     }
@@ -154,8 +222,8 @@ extension WeatherResponse {
                 nightCondition: $0.parts.nightShort.condition,
                 dayWindSpeed: $0.parts.dayShort.windSpeed,
                 nightWindSpeed: $0.parts.nightShort.windSpeed,
-                dayIcon: $0.parts.dayShort.icon,
-                nightIcon: $0.parts.nightShort.icon
+                dayIcon: mapWeatherIcon($0.parts.dayShort.icon),
+                nightIcon: mapWeatherIcon($0.parts.nightShort.icon)
             )
         }
     }

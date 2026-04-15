@@ -1,10 +1,3 @@
-//
-//  CoreDataStack.swift
-//  Weather
-//
-//  Created by Руслан Ахметсафин on 11.04.2026.
-//
-
 import UIKit
 import CoreData
 
@@ -13,6 +6,10 @@ class CoreDataStack{
         
     lazy var container: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "Weather")
+        if let description = container.persistentStoreDescriptions.first {
+            description.shouldMigrateStoreAutomatically = true
+            description.shouldInferMappingModelAutomatically = true
+        }
         container.loadPersistentStores { _, error in
             if let error = error {
                 fatalError(error.localizedDescription)

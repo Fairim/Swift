@@ -2,6 +2,7 @@ import UIKit
 import SwiftUI
 
 final class MainTabBarController: UITabBarController{
+    let networkManager = NetworkManager.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -9,69 +10,81 @@ final class MainTabBarController: UITabBarController{
     }
     
     private func configTabBar(){
-        let smallConfig = UIImage.SymbolConfiguration(pointSize: 16)
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let placeholderLocationNav = createLocationFallbackController()
+        self.setViewControllers([placeholderLocationNav], animated: false)
         
-        let weatherSwiftUIView = locWeatherView()
-        let weatherHostingController = UIHostingController(rootView: weatherSwiftUIView)
-        weatherHostingController.tabBarItem.title = "Погода"
-        weatherHostingController.tabBarItem = CustomTabBarItem(
-            title: "",
-            imageName: "circle.fill",
-            tag: 0,
-            position: .center,
-            iconSize: 7
-        )
-        
-        let firstVC = storyboard.instantiateViewController(withIdentifier: "pageForWeather") as! ViewController
-        firstVC.view.backgroundColor = .yellow
-        firstVC.tabBarItem.title = "First VC"
-        firstVC.tabBarItem.image = UIImage(systemName: "1.circle", withConfiguration: smallConfig)
-        
-        let middleVC = ViewController()
-        middleVC.view.backgroundColor = .green
-        middleVC.tabBarItem.title = "Middle VC"
+        Task {
+            let locationNav: UINavigationController
+            do {
+                locationNav = try await showCurrentLocationWeather()
+            } catch {
+                print("Не удалось создать экран погоды по локации: \(error)")
+                locationNav = createLocationFallbackController()
+            }
+            
+            await MainActor.run {
+                self.setViewControllers([locationNav], animated: false)
+            }
+        }
         
         let customTabBar = CustomTabBar()
         setValue(customTabBar, forKey: "tabBar")
-        
-        firstVC.tabBarItem = CustomTabBarItem(
-            title: "",
-            imageName: "location.fill",
-            tag: 0,
-            position: .center,
-            iconSize: 9
-        )
-        
-        middleVC.tabBarItem = CustomTabBarItem(
-            title: "",
-            imageName: "circle.fill",
-            tag: 0,
-            position: .center,
-            iconSize: 7
-        )
-        
-        middleVC.tabBarItem.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
+        tabBar.tintColor = .white
+        tabBar.unselectedItemTintColor = UIColor.white.withAlphaComponent(0.7)
         
         var config = UIButton.Configuration.filled()
         config.title = ""
         config.image = UIImage(systemName: "list.bullet")
+        
         let buttonList = UIButton(configuration: config)
-        buttonList.tintColor = UIColor.white
-        
-        let weatherNav = UINavigationController(rootViewController: weatherHostingController)
-        let firstNav = UINavigationController(rootViewController: firstVC)
-        let middleNav = UINavigationController(rootViewController: middleVC)
-        
-        self.viewControllers = [firstNav, middleNav, weatherNav]
+        buttonList.tintColor = UIColor(red: 0.11, green: 0.1, blue: 0.2, alpha: 0.92)
         self.tabBar.isTranslucent = false
         buttonList.translatesAutoresizingMaskIntoConstraints = false
+        buttonList.addTarget(self, action: #selector(listButtonTapped), for: .touchUpInside)
         view.addSubview(buttonList)
         NSLayoutConstraint.activate([
-            buttonList.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            buttonList.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -(10))
-            
+            buttonList.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -(30)),
+            buttonList.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 5)
         ])
+    }
+    
+    @objc private func listButtonTapped() {
+        let vc = UIHostingController(rootView: ListCityiesView())
+        vc.modalPresentationStyle = .fullScreen
+
+        present(vc, animated: true)
+    }
+    
+    private func showCurrentLocationWeather() async throws -> UINavigationController{
+        try await networkManager.weatherRequest()
+        let currWeather = try await networkManager.fetchCurrentWeather()
+        let mHourlyWeather = try await networkManager.fetchHourlyWeather24h()
+        let mDailyWeather = try await networkManager.fetchWeeklyWeather()
+        let weatherUISwift = FullWeatherView(currentWeather: currWeather, masHourlyWeather: mHourlyWeather, masDailyWeather: mDailyWeather)
+        let weatherHostingController = UIHostingController(rootView: weatherUISwift)
+        let weatherNav = UINavigationController(rootViewController: weatherHostingController)
+        weatherNav.tabBarItem = CustomTabBarItem(
+            title: "",
+            imageName: "location.fill",
+            tag: 0,
+            position: .center,
+            iconSize: 12
+        )
+        return weatherNav
+    }
+    
+    private func createLocationFallbackController() -> UINavigationController {
+        let fallbackController = UIViewController()
+        fallbackController.view.backgroundColor = .systemBackground
+        let navigationController = UINavigationController(rootViewController: fallbackController)
+        navigationController.tabBarItem = CustomTabBarItem(
+            title: "",
+            imageName: "location.fill",
+            tag: 0,
+            position: .center,
+            iconSize: 12
+        )
+        return navigationController
     }
     
     private func createAllBarBottomItem() -> [UIBarButtonItem] {
