@@ -4,14 +4,15 @@ struct HourlySectionView: View{
     private let screenWidth = UIScreen.main.bounds.size.width
     private let screenHeight = UIScreen.main.bounds.size.height
     var masHourlyWeather: [HourlyWeather] = []
+    var isDaytime: Bool = true
     
     var body: some View{
         ZStack {
             RoundedRectangle(cornerRadius: 15)
-                .fill(Color.white)
+                .fill(isDaytime ? Color.gray : Color.white)
                 .padding(3)
                 .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 22))
-                .opacity(0.2)
+                .opacity(isDaytime ? 0.45 : 0.2)
                 .frame(width: screenWidth - 20, height: screenHeight / 7.9, alignment: .leading)
             
             ScrollView(.horizontal, showsIndicators: false) {

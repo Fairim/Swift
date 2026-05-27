@@ -9,6 +9,10 @@ struct FullWeatherView: View {
     var masDailyWeather: [DailyWeather] = []
     
     let ufIndex: Double = 1
+
+    private var isDaytime: Bool {
+        currentWeather.isDaytime
+    }
     
     var body: some View {
         ZStack {
@@ -22,8 +26,8 @@ struct FullWeatherView: View {
                 
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 12) {
-                        HourlySectionView(masHourlyWeather: masHourlyWeather)
-                        DailySectionView(masDailyWeather: masDailyWeather)
+                        HourlySectionView(masHourlyWeather: masHourlyWeather, isDaytime: isDaytime)
+                        DailySectionView(masDailyWeather: masDailyWeather, isDaytime: isDaytime)
                         extraInfoSectionView
                     }
                     .padding(.bottom, 16)
@@ -106,9 +110,9 @@ struct FullWeatherView: View {
         HStack(spacing: 8) {
             ZStack {
                 RoundedRectangle(cornerRadius: 8)
-                    .fill(Color.white)
+                    .fill(isDaytime ? Color.gray : Color.white)
                     .frame(width: screenWidth / 2 - 15, height: screenHeight / 5)
-                    .opacity(0.7)
+                    .opacity(isDaytime ? 0.6 : 0.7)
                 
                 VStack(alignment: .center) {
                     HStack {
@@ -141,9 +145,9 @@ struct FullWeatherView: View {
     private func metricCard(systemName: String, value: String, tint: Color) -> some View {
         ZStack {
             RoundedRectangle(cornerRadius: 8)
-                .fill(Color.white)
+                .fill(isDaytime ? Color.gray : Color.white)
                 .frame(width: screenWidth / 2 - 15, height: screenHeight / 10 - 5)
-                .opacity(0.7)
+                .opacity(isDaytime ? 0.6 : 0.7)
             
             HStack {
                 Image(systemName: systemName)

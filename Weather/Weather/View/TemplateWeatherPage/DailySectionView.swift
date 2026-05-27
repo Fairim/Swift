@@ -4,14 +4,15 @@ struct DailySectionView: View{
     private let screenWidth = UIScreen.main.bounds.size.width
     private let screenHeight = UIScreen.main.bounds.size.height
     var masDailyWeather: [DailyWeather] = []
+    var isDaytime: Bool = true
     
     var body: some View{
         ZStack(alignment: .top) {
             RoundedRectangle(cornerRadius: 15)
-                .fill(Color.white)
+                .fill(isDaytime ? Color.gray : Color.white)
                 .padding(3)
                 .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 22))
-                .opacity(0.2)
+                .opacity(isDaytime ? 0.45 : 0.2)
                 .frame(maxWidth: screenWidth - 10, alignment: .top)
             
             VStack(spacing: 6) {
@@ -32,10 +33,10 @@ struct DailySectionView: View{
         
         return ZStack {
             RoundedRectangle(cornerRadius: 8)
-                .fill(Color.white)
+                .fill(isDaytime ? Color.gray : Color.white)
                 .padding(.horizontal, 3)
                 .frame(width: screenWidth - 20, height: screenHeight / 20, alignment: .top)
-                .opacity(0.3)
+                .opacity(isDaytime ? 0.45 : 0.3)
             
             HStack(spacing: 2) {
                 Text(dayWeather.title)

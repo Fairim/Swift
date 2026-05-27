@@ -12,20 +12,25 @@ struct MainPanelView: View {
     @AppStorage(SettingsKeys.selectedCharacterType) private var selectedCharacterRawValue = CharacterType.man.rawValue
     @StateObject private var recommendedVM = OutfitRecommendationViewModel()
     @State private var isCharacterPickerPresented = false
+
+    private var isDaytime: Bool {
+        currentWeather.isDaytime
+    }
     
     var body: some View {
         VStack(spacing: 12) {
             Text(currentWeather.city.isEmpty ? "Город" : currentWeather.city)
                 .font(.system(size: 30, weight: .bold, design: .default))
+                .foregroundStyle(isDaytime ? .black : .white)
                 .frame(maxWidth: .infinity, alignment: .top)
                 .padding(.top, screenHeight / 15)
 
             ZStack {
                 RoundedRectangle(cornerRadius: 22)
-                    .fill(Color.white)
+                    .fill(isDaytime ? Color.gray : Color.white)
                     .padding(3)
                     .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 22))
-                    .opacity(0.6)
+                    .opacity(isDaytime ? 0.55 : 0.6)
                     .frame(maxWidth: screenWidth - 20, maxHeight: screenHeight / 4, alignment: .top)
                 
                 HStack(alignment: .center) {
@@ -39,7 +44,7 @@ struct MainPanelView: View {
                                 .fill(Color(temperatureColor(currTemp: Double(currentWeather.feelsLike))))
                                 .padding(3)
                                 .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 22))
-                                .opacity(0.3)
+                                .opacity(isDaytime ? 0.4 : 0.3)
                                 .frame(minWidth: screenWidth / 2, maxWidth: screenWidth / 1.5, maxHeight: screenHeight / 7, alignment: .leading)
                                 .padding(.leading, 20)
                             
