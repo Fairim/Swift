@@ -20,28 +20,20 @@ class NetworkManager {
     }
     
     func weatherRequest() async throws {
-        do {
-            let locationData = try await locationModel.getCurrentLocation()
-            lat = String(locationData.coordinate.latitude)
-            lon = String(locationData.coordinate.longitude)
-            weatherResponse = try await weatherService.fetchWeather(lat: lat!, lon: lon!)
-            currentCity = try await geoCoderService.reverseGeocode(lat: lat!, lon: lon!) ?? ""
-            try saveCurrentCitySnapshot()
-        } catch {
-            print(error)
-        }
+        let locationData = try await locationModel.getCurrentLocation()
+        lat = String(locationData.coordinate.latitude)
+        lon = String(locationData.coordinate.longitude)
+        weatherResponse = try await weatherService.fetchWeather(lat: lat!, lon: lon!)
+        currentCity = await bestEffortResolvedCity(lat: lat!, lon: lon!, fallbackCity: nil)
+        try saveCurrentCitySnapshot()
     }
     
-    func weatherRequest(_ lat: String, _ lon: String) async throws {
-        do {
-            self.lat = lat
-            self.lon = lon
-            weatherResponse = try await weatherService.fetchWeather(lat: lat, lon: lon)
-            currentCity = try await geoCoderService.reverseGeocode(lat: lat, lon: lon) ?? ""
-            try saveCurrentCitySnapshot()
-        } catch {
-            print(error)
-        }
+    func weatherRequest(_ lat: String, _ lon: String, fallbackCity: String? = nil) async throws {
+        self.lat = lat
+        self.lon = lon
+        weatherResponse = try await weatherService.fetchWeather(lat: lat, lon: lon)
+        currentCity = await bestEffortResolvedCity(lat: lat, lon: lon, fallbackCity: fallbackCity ?? currentCity)
+        try saveCurrentCitySnapshot()
     }
     
     
@@ -65,7 +57,7 @@ class NetworkManager {
         }
         return response.weeklyWeather()
     }
-    
+
     func coordinatesToCityRequest(_ lat: String, _ lon: String) async throws {
         do {
             currentCity = try await geoCoderService.reverseGeocode(lat: lat, lon: lon)
@@ -92,6 +84,16 @@ class NetworkManager {
         }
         return city
     }
+
+    private func bestEffortResolvedCity(lat: String, lon: String, fallbackCity: String?) async -> String? {
+        do {
+            if let resolvedCity = try await geoCoderService.reverseGeocode(lat: lat, lon: lon), !resolvedCity.isEmpty {
+                return resolvedCity
+            }
+        } catch {}
+
+        return fallbackCity
+    }
     
     private func saveCurrentCitySnapshot() throws {
         guard
@@ -106,7 +108,7 @@ class NetworkManager {
         
         let currentWeather = weatherResponse.currentWeather(city: currentCity ?? "")
         try cityStorageManager.upsertCity(
-            cityName: currentWeather.city,
+            cityName: currentWeather.city.isEmpty ? "Неизвестный город" : currentWeather.city,
             lat: latValue,
             lon: lonValue,
             currentTemperature: currentWeather.temperature,

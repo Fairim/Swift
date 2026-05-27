@@ -1,4 +1,5 @@
 import SwiftUI
+import Foundation
 
 struct FullWeatherView: View {
     private let screenWidth = UIScreen.main.bounds.size.width
@@ -11,13 +12,13 @@ struct FullWeatherView: View {
     
     var body: some View {
         ZStack {
-            Image("simpleCloudBack")
+            Image(backgroundAssetName)
                 .resizable()
                 .scaledToFill()
                 .ignoresSafeArea()
             
             VStack(spacing: 12) {
-                MainPanelView(currentWeather: currentWeather)
+                MainPanelView(currentWeather: currentWeather, hourlyWeather: masHourlyWeather)
                 
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 12) {
@@ -31,6 +32,69 @@ struct FullWeatherView: View {
             }
             .padding(.horizontal, 10)
         }
+    }
+
+    private var backgroundAssetName: String {
+        backgroundName(for: currentWeather.condition, isDay: isDaytime)
+    }
+
+    private var isDaytime: Bool {
+        if currentWeather.icon.contains("moon") || currentWeather.icon.contains("stars") {
+            return false
+        }
+
+        let currentHour = Calendar.current.component(.hour, from: .now)
+        return (6..<20).contains(currentHour)
+    }
+
+    private func backgroundName(for condition: String, isDay: Bool) -> String {
+        let normalizedCondition = condition.lowercased()
+
+        if normalizedCondition.contains("thunder") {
+            return isDay ? "strongRainBack" : "strongRainNightBack"
+        }
+
+        if normalizedCondition.contains("hail")
+            || normalizedCondition.contains("ice")
+            || normalizedCondition.contains("sleet") {
+            return isDay ? "rainIceBack" : "rainIceNightBack"
+        }
+
+        if normalizedCondition.contains("snow") {
+            if normalizedCondition.contains("heavy")
+                || normalizedCondition.contains("blizzard")
+                || normalizedCondition.contains("snowstorm") {
+                return isDay ? "strongSnowBack" : "strongSnowNightBack"
+            }
+
+            return isDay ? "simpleSnowBack" : "simpleSnowNightBack"
+        }
+
+        if normalizedCondition.contains("rain")
+            || normalizedCondition.contains("drizzle")
+            || normalizedCondition.contains("shower") {
+            if normalizedCondition.contains("heavy") {
+                return isDay ? "strongRainBack" : "strongRainNightBack"
+            }
+
+            return isDay ? "simpleRainBack" : "simpleRainNightBack"
+        }
+
+        if normalizedCondition == "clear" || normalizedCondition.contains("sunny") {
+            return isDay ? "sunnyBack" : "clearNightBack.png"
+        }
+
+        if normalizedCondition.contains("partly")
+            || normalizedCondition.contains("cloud")
+            || normalizedCondition.contains("overcast") {
+            return isDay ? "simpleCloudBack" : "cloudNightBack"
+        }
+
+        if normalizedCondition.contains("wind") {
+            return isDay ? "simpleCloudBack" : "windNightBack"
+        }
+
+        return isDay ? "simpleCloudBack" : "cloudNightBack"
     }
     
     private var extraInfoSectionView: some View {
@@ -86,6 +150,6 @@ struct FullWeatherView: View {
     }
 }
 
-#Preview {
-    FullWeatherView()
-}
+//#Preview {
+//    FullWeatherView()
+//}

@@ -23,6 +23,7 @@ class ListCityStorageManager {
         cityInfo.lastOpen = now
         cityInfo.lat = lat
         cityInfo.lon = lon
+        cityInfo.currentTemperature = Int16(currentTemperature)
         cityInfo.currentIcon = currentIcon
         
         if let position {
@@ -56,18 +57,13 @@ class ListCityStorageManager {
     private func existingCity(name: String, lat: Double, lon: Double) -> CityListToolbar? {
         let fetchRequest: NSFetchRequest<CityListToolbar> = CityListToolbar.fetchRequest()
         fetchRequest.fetchLimit = 1
-        
-        let normalizedName = name.trimmingCharacters(in: .whitespacesAndNewlines)
-        if !normalizedName.isEmpty {
-            fetchRequest.predicate = NSPredicate(format: "name =[c] %@", normalizedName)
-        } else {
-            let delta = 0.0001
-            fetchRequest.predicate = NSPredicate(
-                format: "lat >= %lf AND lat <= %lf AND lon >= %lf AND lon <= %lf",
-                lat - delta, lat + delta, lon - delta, lon + delta
-            )
-        }
-        
+
+        let delta = 0.0001
+        fetchRequest.predicate = NSPredicate(
+            format: "lat >= %lf AND lat <= %lf AND lon >= %lf AND lon <= %lf",
+            lat - delta, lat + delta, lon - delta, lon + delta
+        )
+
         return try? context.fetch(fetchRequest).first
     }
     

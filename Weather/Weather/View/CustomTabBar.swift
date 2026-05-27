@@ -46,45 +46,50 @@ final class CustomTabBar: UITabBar {
             }
         }
         
-        let tabBarWidth = bounds.width
-        let leftWidth = tabBarWidth * 0.2
-        let rightWidth = tabBarWidth * 0.2
-        let centerWidth = tabBarWidth * 0.6
-        
-        //Позиционируем левую группу
-        let leftButtonWidth = leftWidth / CGFloat(max(leftButtons.count, 1))
+        let horizontalInset: CGFloat = 18
+        let spacing: CGFloat = 8
+        let centerButtonWidth: CGFloat = 44
+        let trailingAccessoryWidth: CGFloat = 44
+        let trailingAccessorySpacing: CGFloat = 12
+        let buttonY = insetBounds.midY
+        let centerGroupWidth = centerButtonWidth * CGFloat(max(centerButtons.count, 1))
+        let centerStartX = bounds.midX - (centerGroupWidth / 2)
+        let leftAvailableWidth = max(centerStartX - horizontalInset - spacing, 0)
+        let rightStartX = centerStartX + centerGroupWidth + spacing
+        let rightBoundary = bounds.width - horizontalInset - trailingAccessoryWidth - trailingAccessorySpacing
+        let rightAvailableWidth = max(rightBoundary - rightStartX, 0)
+
+        let leftButtonWidth = leftAvailableWidth / CGFloat(max(leftButtons.count, 1))
         for (index, button) in leftButtons.enumerated() {
+            let buttonHeight = button.frame.height
             button.frame = CGRect(
-                x: CGFloat(index) * leftButtonWidth,
-                y: button.frame.origin.y,
+                x: horizontalInset + CGFloat(index) * leftButtonWidth,
+                y: buttonY - (buttonHeight / 2),
                 width: leftButtonWidth,
-                height: button.frame.height
+                height: buttonHeight
             )
         }
         
-        // Позиционируем центральную группу
-        //Нельзя так делать, нужно чтобы она сама регулировалась, но мы так сделаем:)
-        let centerButtonWidth = centerWidth / CGFloat(12)
-        let centerButtonX = leftWidth + (centerWidth / 2)
-        var startX = centerButtonX - (centerButtonWidth * CGFloat(centerButtons.count) / 2)
-        for (_, button) in centerButtons.enumerated() {
+        var currentCenterX = centerStartX
+        for button in centerButtons {
+            let buttonHeight = button.frame.height
             button.frame = CGRect(
-                x: startX,
-                y: button.frame.origin.y + 15,
+                x: currentCenterX,
+                y: buttonY - (buttonHeight / 2),
                 width: centerButtonWidth,
-                height: button.frame.height
+                height: buttonHeight
             )
-            startX += centerButtonWidth
+            currentCenterX += centerButtonWidth
         }
         
-        // Позиционируем правую группу
-        let rightButtonWidth = rightWidth / CGFloat(max(rightButtons.count, 1))
+        let rightButtonWidth = rightAvailableWidth / CGFloat(max(rightButtons.count, 1))
         for (index, button) in rightButtons.enumerated() {
+            let buttonHeight = button.frame.height
             button.frame = CGRect(
-                x: leftWidth + centerWidth + CGFloat(index) * rightButtonWidth,
-                y: button.frame.origin.y,
+                x: rightStartX + CGFloat(index) * rightButtonWidth,
+                y: buttonY - (buttonHeight / 2),
                 width: rightButtonWidth,
-                height: button.frame.height
+                height: buttonHeight
             )
         }
         

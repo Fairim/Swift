@@ -1,4 +1,5 @@
 struct DailyWeather {
+    let title: String
     let date: String
     let dayTemperature: Int?
     let nightTemperature: Int?

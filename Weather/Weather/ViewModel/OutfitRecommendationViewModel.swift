@@ -13,7 +13,7 @@ final class OutfitRecommendationViewModel: ObservableObject {
         characterType: CharacterType,
         currentWeather: CurrentWeather,
         hourlyWeather: [HourlyWeather]
-    ) {
+    ) async {
         isLoading = true
         errorMessage = nil
         let weatherSnapshot = adapter.makeInput(current: currentWeather, hourly: hourlyWeather)

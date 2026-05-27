@@ -1,3 +1,5 @@
+import Foundation
+
 struct WeatherResponse: Decodable {
     let now: Int
     let nowDt: String
@@ -191,21 +193,28 @@ extension WeatherResponse {
 
 extension WeatherResponse {
     func hourlyWeather24h() -> [HourlyWeather] {
-        guard let firstForecast = forecasts.first else { return [] }
-
-        return Array(firstForecast.hours.prefix(24)).map {
+        let allHours = forecasts
+            .flatMap(\.hours)
+            .sorted { $0.hourTs < $1.hourTs }
+        
+        let startOfCurrentHour = currentHourStartTimestamp()
+        let upcomingHours = allHours
+            .filter { $0.hourTs >= startOfCurrentHour }
+            .prefix(24)
+        
+        return Array(upcomingHours.enumerated()).map { index, hour in
             HourlyWeather(
-                time: $0.hour,
-                timestamp: $0.hourTs,
-                temperature: $0.temp,
-                feelsLike: $0.feelsLike,
-                condition: $0.condition,
-                humidity: $0.humidity,
-                windSpeed: $0.windSpeed,
-                windDirection: $0.windDir,
-                pressureMm: $0.pressureMm,
-                precipitationProbability: $0.precProb,
-                icon: mapWeatherIcon($0.icon)
+                time: index == 0 ? "Сейчас" : formattedHour(for: hour.hourTs),
+                timestamp: hour.hourTs,
+                temperature: hour.temp,
+                feelsLike: hour.feelsLike,
+                condition: hour.condition,
+                humidity: hour.humidity,
+                windSpeed: hour.windSpeed,
+                windDirection: hour.windDir,
+                pressureMm: hour.pressureMm,
+                precipitationProbability: hour.precProb,
+                icon: mapWeatherIcon(hour.icon)
             )
         }
     }
@@ -215,6 +224,7 @@ extension WeatherResponse {
     func weeklyWeather() -> [DailyWeather] {
         forecasts.map {
             DailyWeather(
+                title: dayTitle(for: $0.date),
                 date: $0.date,
                 dayTemperature: $0.parts.dayShort.temp,
                 nightTemperature: $0.parts.nightShort.temp,
@@ -226,5 +236,58 @@ extension WeatherResponse {
                 nightIcon: mapWeatherIcon($0.parts.nightShort.icon)
             )
         }
+    }
+}
+
+private extension WeatherResponse {
+    func weatherTimeZone() -> TimeZone {
+        TimeZone(identifier: info.tzinfo.name) ?? .current
+    }
+    
+    func currentHourStartTimestamp() -> Int {
+        let timeZone = weatherTimeZone()
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = timeZone
+        
+        let nowDate = Date(timeIntervalSince1970: TimeInterval(now))
+        let startOfHour = calendar.dateInterval(of: .hour, for: nowDate)?.start ?? nowDate
+        return Int(startOfHour.timeIntervalSince1970)
+    }
+    
+    func formattedHour(for timestamp: Int) -> String {
+        let formatter = DateFormatter()
+        formatter.timeZone = weatherTimeZone()
+        formatter.locale = Locale(identifier: "ru_RU")
+        formatter.dateFormat = "HH:mm"
+        return formatter.string(from: Date(timeIntervalSince1970: TimeInterval(timestamp)))
+    }
+    
+    func dayTitle(for dateString: String) -> String {
+        let formatter = DateFormatter()
+        formatter.calendar = Calendar(identifier: .gregorian)
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = weatherTimeZone()
+        formatter.dateFormat = "yyyy-MM-dd"
+        
+        guard let forecastDate = formatter.date(from: dateString) else {
+            return "День"
+        }
+        
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = weatherTimeZone()
+        
+        let currentDate = Date(timeIntervalSince1970: TimeInterval(now))
+        if calendar.isDate(forecastDate, inSameDayAs: currentDate) {
+            return "Сегодня"
+        }
+        
+        let weekdayFormatter = DateFormatter()
+        weekdayFormatter.locale = Locale(identifier: "ru_RU")
+        weekdayFormatter.timeZone = weatherTimeZone()
+        weekdayFormatter.dateFormat = "EE"
+        
+        let weekday = weekdayFormatter.string(from: forecastDate)
+            .replacingOccurrences(of: ".", with: "")
+        return weekday.prefix(1).uppercased() + weekday.dropFirst()
     }
 }

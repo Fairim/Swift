@@ -16,10 +16,16 @@ struct HourlySectionView: View{
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 2) {
-                    ForEach(Array(masHourlyWeather.enumerated()), id: \.offset) { _, hourInfo in
+                    ForEach(Array(masHourlyWeather.enumerated()), id: \.offset) { index, hourInfo in
                         VStack {
-                            Text(hourInfo.time)
-                                .font(.system(size: screenWidth / 22, weight: .bold, design: .default))
+                            if index != 0 {
+                                Text(hourInfo.time.prefix(2))
+                                    .font(.system(size: screenWidth / 22, weight: .bold, design: .default))
+                            } else {
+                                Text(hourInfo.time)
+                                    .font(.system(size: screenWidth / 22, weight: .bold, design: .default))
+                            }
+                            
                             Image(systemName: hourInfo.icon)
                                 .resizable()
                                 .scaledToFit()
@@ -28,8 +34,7 @@ struct HourlySectionView: View{
                                 .padding(2)
                             Text("\(hourInfo.temperature)°")
                                 .font(.system(size: screenWidth / 22, weight: .bold, design: .default))
-                        }
-                        .frame(minWidth: screenWidth / 7, maxWidth: screenWidth / 5, alignment: .leading)
+                        } .frame(minWidth: screenWidth / 7, maxWidth: screenWidth / 5, alignment: .leading)
                     }
                 }
             }

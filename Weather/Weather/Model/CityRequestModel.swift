@@ -78,6 +78,31 @@ final class DaDataGeocoder {
             throw LocationError.emptyResult
         }
 
-        return first.city
+        return preferredCityName(from: first)
+    }
+
+    private func preferredCityName(from address: DaDataAddress) -> String? {
+        if let city = normalized(address.city) {
+            return city
+        }
+        if let settlement = normalized(address.settlement) {
+            return settlement
+        }
+        if let result = normalized(address.result) {
+            return result
+                .components(separatedBy: ",")
+                .first?
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+        return nil
+    }
+
+    private func normalized(_ value: String?) -> String? {
+        guard let value else {
+            return nil
+        }
+
+        let trimmed = value.trimmingCharacters(in: .whitespacesAndNewlines)
+        return trimmed.isEmpty ? nil : trimmed
     }
 }

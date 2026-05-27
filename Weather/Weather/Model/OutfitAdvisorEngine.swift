@@ -12,7 +12,7 @@ final class OutfitAdvisorEngine {
             weather: WeatherSnapshot
         ) -> OutfitPreset? {
 
-        let category = makeWeatherCategory(feelsLike: weather.averageFeelsLike)
+        let category = makeWeatherCategory(feelsLike: recommendationFeelsLike(for: weather))
         let weatherTags = makeWeatherTags(from: weather)
 
         let candidates = presets.filter {
@@ -40,13 +40,31 @@ final class OutfitAdvisorEngine {
             return .cold
         case 8..<15:
             return .cool
-        case 15..<22:
+        case 15..<21:
             return .mild
-        case 22..<28:
+        case 21..<25:
             return .warm
         default:
             return .hot
         }
+    }
+
+    private func recommendationFeelsLike(for weather: WeatherSnapshot) -> Double {
+        var effectiveFeelsLike = Double(weather.currentFeelsLike)
+
+        if weather.maxWindSpeed >= 8 {
+            effectiveFeelsLike -= 2
+        }
+
+        if weather.hasRain {
+            effectiveFeelsLike -= 1
+        }
+
+        if weather.largeTemperatureDrop && weather.currentFeelsLike >= 18 {
+            effectiveFeelsLike -= 1
+        }
+
+        return effectiveFeelsLike
     }
     
     private func makeWeatherTags(from weather: WeatherSnapshot) -> Set<WeatherTag> {
@@ -58,10 +76,6 @@ final class OutfitAdvisorEngine {
 
         if weather.hasSnow {
             tags.insert(.snow)
-        }
-
-        if weather.maxWindSpeed >= 8 {
-            tags.insert(.windy)
         }
 
         if weather.uvIndex >= 6 {
@@ -91,10 +105,35 @@ final class OutfitAdvisorEngine {
     }
     
     private func fallbackPreset(for characterType: CharacterType, category: WeatherCategory) -> OutfitPreset? {
-        presets.first {
-            $0.characterType == characterType &&
-            $0.category == category &&
-            $0.tags.isEmpty
+        let fallbackOrder = fallbackCategories(for: category)
+
+        for fallbackCategory in fallbackOrder {
+            if let preset = presets.first(where: {
+                $0.characterType == characterType &&
+                $0.category == fallbackCategory &&
+                $0.tags.isEmpty
+            }) {
+                return preset
+            }
+        }
+
+        return presets.first { $0.characterType == characterType }
+    }
+
+    private func fallbackCategories(for category: WeatherCategory) -> [WeatherCategory] {
+        switch category {
+        case .freezing:
+            return [.freezing, .cold, .cool, .mild, .warm, .hot]
+        case .cold:
+            return [.cold, .cool, .mild, .freezing, .warm, .hot]
+        case .cool:
+            return [.cool, .mild, .cold, .warm, .freezing, .hot]
+        case .mild:
+            return [.mild, .cool, .warm, .cold, .hot, .freezing]
+        case .warm:
+            return [.warm, .hot, .mild, .cool, .cold, .freezing]
+        case .hot:
+            return [.hot, .warm, .mild, .cool, .cold, .freezing]
         }
     }
 }
