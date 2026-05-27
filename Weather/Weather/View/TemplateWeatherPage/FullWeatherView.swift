@@ -4,7 +4,7 @@ import Foundation
 struct FullWeatherView: View {
     private let screenWidth = UIScreen.main.bounds.size.width
     private let screenHeight = UIScreen.main.bounds.size.height
-    var currentWeather: CurrentWeather = CurrentWeather(city: "", temperature: 0, feelsLike: 0, condition: "", humidity: 0, windSpeed: 0, windDirection: "", pressureMm: 0, icon: "")
+    var currentWeather: CurrentWeather = CurrentWeather(city: "", temperature: 0, feelsLike: 0, condition: "", isDaytime: true, humidity: 0, windSpeed: 0, windDirection: "", pressureMm: 0, icon: "")
     var masHourlyWeather: [HourlyWeather] = []
     var masDailyWeather: [DailyWeather] = []
     
@@ -35,20 +35,34 @@ struct FullWeatherView: View {
     }
 
     private var backgroundAssetName: String {
-        backgroundName(for: currentWeather.condition, isDay: isDaytime)
-    }
-
-    private var isDaytime: Bool {
-        if currentWeather.icon.contains("moon") || currentWeather.icon.contains("stars") {
-            return false
-        }
-
-        let currentHour = Calendar.current.component(.hour, from: .now)
-        return (6..<20).contains(currentHour)
+        backgroundName(for: currentWeather.condition, isDay: currentWeather.isDaytime)
     }
 
     private func backgroundName(for condition: String, isDay: Bool) -> String {
         let normalizedCondition = condition.lowercased()
+
+        switch normalizedCondition {
+        case "clear":
+            return isDay ? "sunnyBack" : "clearNightBack.png"
+        case "partly-cloudy", "cloudy":
+            return isDay ? "simpleCloudBack" : "cloudNightBack"
+        case "overcast":
+            return isDay ? "simpleCloudBack" : "cloudNightBack"
+        case "drizzle", "light-rain", "rain":
+            return isDay ? "simpleRainBack" : "simpleRainNightBack"
+        case "heavy-rain", "showers", "continuous-heavy-rain":
+            return isDay ? "strongRainBack" : "strongRainNightBack"
+        case "wet-snow", "hail":
+            return isDay ? "rainIceBack" : "rainIceNightBack"
+        case "light-snow", "snow":
+            return isDay ? "simpleSnowBack" : "simpleSnowNightBack"
+        case "snow-showers", "heavy-snow":
+            return isDay ? "strongSnowBack" : "strongSnowNightBack"
+        case "thunderstorm", "thunderstorm-with-rain", "thunderstorm-with-hail":
+            return isDay ? "strongRainBack" : "strongRainNightBack"
+        default:
+            break
+        }
 
         if normalizedCondition.contains("thunder") {
             return isDay ? "strongRainBack" : "strongRainNightBack"
@@ -56,37 +70,28 @@ struct FullWeatherView: View {
 
         if normalizedCondition.contains("hail")
             || normalizedCondition.contains("ice")
-            || normalizedCondition.contains("sleet") {
+            || normalizedCondition.contains("sleet")
+            || normalizedCondition.contains("wet-snow") {
             return isDay ? "rainIceBack" : "rainIceNightBack"
         }
 
         if normalizedCondition.contains("snow") {
-            if normalizedCondition.contains("heavy")
-                || normalizedCondition.contains("blizzard")
-                || normalizedCondition.contains("snowstorm") {
-                return isDay ? "strongSnowBack" : "strongSnowNightBack"
-            }
-
-            return isDay ? "simpleSnowBack" : "simpleSnowNightBack"
+            return normalizedCondition.contains("heavy")
+                ? (isDay ? "strongSnowBack" : "strongSnowNightBack")
+                : (isDay ? "simpleSnowBack" : "simpleSnowNightBack")
         }
 
         if normalizedCondition.contains("rain")
             || normalizedCondition.contains("drizzle")
             || normalizedCondition.contains("shower") {
-            if normalizedCondition.contains("heavy") {
-                return isDay ? "strongRainBack" : "strongRainNightBack"
-            }
-
-            return isDay ? "simpleRainBack" : "simpleRainNightBack"
+            return normalizedCondition.contains("heavy")
+                ? (isDay ? "strongRainBack" : "strongRainNightBack")
+                : (isDay ? "simpleRainBack" : "simpleRainNightBack")
         }
 
-        if normalizedCondition == "clear" || normalizedCondition.contains("sunny") {
-            return isDay ? "sunnyBack" : "clearNightBack.png"
-        }
-
-        if normalizedCondition.contains("partly")
-            || normalizedCondition.contains("cloud")
-            || normalizedCondition.contains("overcast") {
+        if normalizedCondition.contains("cloud")
+            || normalizedCondition.contains("overcast")
+            || normalizedCondition.contains("partly") {
             return isDay ? "simpleCloudBack" : "cloudNightBack"
         }
 

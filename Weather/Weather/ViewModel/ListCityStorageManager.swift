@@ -53,14 +53,20 @@ class ListCityStorageManager {
         context.delete(city)
         try context.save()
     }
+
+    func hasCity(name: String, lat: Double, lon: Double) -> Bool {
+        existingCity(name: name, lat: lat, lon: lon) != nil
+    }
     
     private func existingCity(name: String, lat: Double, lon: Double) -> CityListToolbar? {
         let fetchRequest: NSFetchRequest<CityListToolbar> = CityListToolbar.fetchRequest()
         fetchRequest.fetchLimit = 1
 
+        let normalizedName = name.trimmingCharacters(in: .whitespacesAndNewlines)
         let delta = 0.0001
         fetchRequest.predicate = NSPredicate(
-            format: "lat >= %lf AND lat <= %lf AND lon >= %lf AND lon <= %lf",
+            format: "(name =[c] %@) OR (lat >= %lf AND lat <= %lf AND lon >= %lf AND lon <= %lf)",
+            normalizedName,
             lat - delta, lat + delta, lon - delta, lon + delta
         )
 

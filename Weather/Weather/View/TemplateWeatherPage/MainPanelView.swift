@@ -7,7 +7,7 @@ struct MainPanelView: View {
 
     private let screenWidth = UIScreen.main.bounds.size.width
     private let screenHeight = UIScreen.main.bounds.size.height
-    var currentWeather: CurrentWeather = CurrentWeather(city: "", temperature: 0, feelsLike: 0, condition: "", humidity: 0, windSpeed: 0, windDirection: "", pressureMm: 0, icon: "")
+    var currentWeather: CurrentWeather = CurrentWeather(city: "", temperature: 0, feelsLike: 0, condition: "", isDaytime: true, humidity: 0, windSpeed: 0, windDirection: "", pressureMm: 0, icon: "")
     var hourlyWeather: [HourlyWeather] = []
     @AppStorage(SettingsKeys.selectedCharacterType) private var selectedCharacterRawValue = CharacterType.man.rawValue
     @StateObject private var recommendedVM = OutfitRecommendationViewModel()
@@ -55,13 +55,13 @@ struct MainPanelView: View {
                                     .font(.system(size: screenWidth / 10, weight: .bold, design: .default))
                                 
                                 Text(summaryText)
-                                    .font(.system(size: screenWidth / 25, weight: .medium, design: .default))
+                                    .font(.system(size: screenWidth / 28, weight: .medium, design: .default))
                                     .multilineTextAlignment(.center)
-                                    .lineLimit(2)
-                                    .minimumScaleFactor(0.7)
-                                    .frame(maxWidth: screenWidth / 2.1)
-                                    .padding(.horizontal, 8)
-                                    .padding(.bottom, 8)
+                                    .lineLimit(3)
+                                    .minimumScaleFactor(0.6)
+                                    .frame(width: screenWidth / 2.35)
+                                    .padding(.horizontal, 6)
+                                    .padding(.bottom, 10)
                             }
                         }
                     }

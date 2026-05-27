@@ -3,6 +3,7 @@ import SwiftUI
 struct ListCityiesView: View {
     private let citiesManager = ListCityStorageManager.shared
     private let networkManager = NetworkManager.shared
+    private let weatherService = WeatherService()
     @State private var listCityies: [CityListToolbar] = []
     @State private var isAddCitySheetPresented = false
     @State private var newCityName = ""
@@ -21,14 +22,7 @@ struct ListCityiesView: View {
                     )
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else {
-                    ScrollView{
-                        LazyVStack(spacing: 12) {
-                            ForEach(listCityies) { city in
-                                cityRow(for: city)
-                            }
-                        }
-                        .padding()
-                    }
+                    cityListView
                 }
             }
             
@@ -103,6 +97,27 @@ struct ListCityiesView: View {
                 .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16))
         )
     }
+
+    private var cityListView: some View {
+        List {
+            ForEach(listCityies) { city in
+                cityRow(for: city)
+                    .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
+                    .listRowBackground(Color.clear)
+                    .listRowSeparator(.hidden)
+                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                        Button(role: .destructive) {
+                            delete(city: city)
+                        } label: {
+                            Label("Удалить", systemImage: "trash")
+                        }
+                    }
+            }
+        }
+        .listStyle(.plain)
+        .scrollContentBackground(.hidden)
+        .background(Color.clear)
+    }
     
     private func refreshCities() {
         listCityies = citiesManager.fetchAllCities()
@@ -169,7 +184,25 @@ struct ListCityiesView: View {
 
         do {
             let coordinates = try await networkManager.cityToCoordinatesRequest(with: cityName)
-            try await networkManager.weatherRequest(String(coordinates[0]), String(coordinates[1]))
+            if citiesManager.hasCity(name: cityName, lat: coordinates[0], lon: coordinates[1]) {
+                errorMessage = "Этот город уже есть в списке."
+                return
+            }
+
+            let weatherResponse = try await weatherService.fetchWeather(
+                lat: String(coordinates[0]),
+                lon: String(coordinates[1])
+            )
+            let currentWeather = weatherResponse.currentWeather(city: cityName)
+
+            try citiesManager.upsertCity(
+                cityName: cityName,
+                lat: coordinates[0],
+                lon: coordinates[1],
+                currentTemperature: currentWeather.temperature,
+                currentIcon: currentWeather.icon
+            )
+
             refreshCities()
             NotificationCenter.default.post(name: .citiesDidChange, object: nil)
             resetAddCityState()
@@ -181,6 +214,16 @@ struct ListCityiesView: View {
     private func resetAddCityState() {
         newCityName = ""
         isAddCitySheetPresented = false
+    }
+
+    private func delete(city: CityListToolbar) {
+        do {
+            try citiesManager.delete(city: city)
+            refreshCities()
+            NotificationCenter.default.post(name: .citiesDidChange, object: nil)
+        } catch {
+            errorMessage = "Не удалось удалить город."
+        }
     }
 
     private func userFriendlyMessage(for error: Error) -> String {
@@ -200,7 +243,7 @@ struct ListCityiesView: View {
         if let networkError = error as? NetworkErrors {
             switch networkError {
             case .clientError, .serverError, .unexpectedStatusCode, .networkError, .invalidResponse, .invalidURL:
-                return "Не удалось загрузить погоду для выбранного города."
+                return "Не удалось загрузить прогноз для города. Попробуйте ещё раз."
             case .decodingError:
                 return "Получен некорректный ответ сервера."
             case .notInitializedWeather:
@@ -208,7 +251,7 @@ struct ListCityiesView: View {
             }
         }
 
-        return "Произошла ошибка. Попробуйте ещё раз."
+        return "Не удалось добавить город. Проверьте название и попробуйте ещё раз."
     }
 }
 

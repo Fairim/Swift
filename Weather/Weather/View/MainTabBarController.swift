@@ -9,11 +9,20 @@ final class MainTabBarController: UITabBarController{
     let networkManager = NetworkManager.shared
     private let citiesManager = ListCityStorageManager.shared
     private var buttonList: UIButton?
+    private var needsTabReload = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configTabBar()
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTabsNotification), name: .citiesDidChange, object: nil)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if needsTabReload {
+            reloadTabs()
+        }
     }
 
     deinit {
@@ -35,15 +44,16 @@ final class MainTabBarController: UITabBarController{
         
         let buttonList = UIButton(configuration: config)
         buttonList.tintColor = UIColor(red: 0.11, green: 0.1, blue: 0.2, alpha: 0.92)
-        self.tabBar.isTranslucent = false
+        self.tabBar.isTranslucent = true
         buttonList.translatesAutoresizingMaskIntoConstraints = false
         buttonList.addTarget(self, action: #selector(listButtonTapped), for: .touchUpInside)
         tabBar.addSubview(buttonList)
         self.buttonList = buttonList
         NSLayoutConstraint.activate([
+            buttonList.centerYAnchor.constraint(equalTo: tabBar.centerYAnchor, constant: -15),
             buttonList.widthAnchor.constraint(equalToConstant: 50),
             buttonList.heightAnchor.constraint(equalToConstant: 36),
-            buttonList.trailingAnchor.constraint(equalTo: tabBar.trailingAnchor, constant: -25),
+            buttonList.trailingAnchor.constraint(equalTo: tabBar.trailingAnchor, constant: -25)
         ])
 
         reloadTabs()
@@ -57,14 +67,21 @@ final class MainTabBarController: UITabBarController{
     }
 
     @objc private func reloadTabsNotification() {
-        reloadTabs()
+        needsTabReload = true
+
+        if presentedViewController == nil && view.window != nil {
+            reloadTabs()
+        }
     }
 
     private func reloadTabs() {
         Task {
             let controllers = await buildViewControllers()
             await MainActor.run {
+                self.needsTabReload = false
                 self.setViewControllers(controllers, animated: false)
+                self.tabBar.setNeedsLayout()
+                self.tabBar.layoutIfNeeded()
                 if let buttonList = self.buttonList {
                     self.tabBar.bringSubviewToFront(buttonList)
                 }
@@ -114,7 +131,10 @@ final class MainTabBarController: UITabBarController{
         let mDailyWeather = try await networkManager.fetchWeeklyWeather()
         let weatherUISwift = FullWeatherView(currentWeather: currWeather, masHourlyWeather: mHourlyWeather, masDailyWeather: mDailyWeather)
         let weatherHostingController = UIHostingController(rootView: weatherUISwift)
+        weatherHostingController.view.backgroundColor = .clear
         let weatherNav = UINavigationController(rootViewController: weatherHostingController)
+        weatherNav.view.backgroundColor = .clear
+        weatherNav.navigationBar.backgroundColor = .clear
         weatherNav.setNavigationBarHidden(true, animated: false)
         weatherNav.tabBarItem = CustomTabBarItem(
             title: "",
@@ -151,7 +171,10 @@ final class MainTabBarController: UITabBarController{
                 masDailyWeather: dailyWeather
             )
             let hostingController = UIHostingController(rootView: weatherView)
+            hostingController.view.backgroundColor = .clear
             let navigationController = UINavigationController(rootViewController: hostingController)
+            navigationController.view.backgroundColor = .clear
+            navigationController.navigationBar.backgroundColor = .clear
             navigationController.setNavigationBarHidden(true, animated: false)
             navigationController.tabBarItem = CustomTabBarItem(
                 title: "",

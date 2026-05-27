@@ -132,6 +132,7 @@ extension WeatherResponse {
             temperature: fact.temp,
             feelsLike: fact.feelsLike,
             condition: fact.condition,
+            isDaytime: currentIsDaytime(),
             humidity: fact.humidity,
             windSpeed: fact.windSpeed,
             windDirection: fact.windDir,
@@ -240,6 +241,23 @@ extension WeatherResponse {
 }
 
 private extension WeatherResponse {
+    func currentIsDaytime() -> Bool {
+        if fact.icon.hasSuffix("_d") {
+            return true
+        }
+
+        if fact.icon.hasSuffix("_n") {
+            return false
+        }
+
+        let timeZone = weatherTimeZone()
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = timeZone
+        let nowDate = Date(timeIntervalSince1970: TimeInterval(now))
+        let currentHour = calendar.component(.hour, from: nowDate)
+        return (7..<20).contains(currentHour)
+    }
+
     func weatherTimeZone() -> TimeZone {
         TimeZone(identifier: info.tzinfo.name) ?? .current
     }

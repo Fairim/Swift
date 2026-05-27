@@ -3,6 +3,7 @@ struct CurrentWeather {
     let temperature: Int
     let feelsLike: Int
     let condition: String
+    let isDaytime: Bool
     let humidity: Int
     let windSpeed: Double
     let windDirection: String

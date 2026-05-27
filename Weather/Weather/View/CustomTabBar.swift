@@ -16,7 +16,12 @@ final class CustomTabBar: UITabBar {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let insetBounds = bounds.insetBy(dx: 10, dy: 8)
+        let insetBounds = CGRect(
+            x: 10,
+            y: -12,
+            width: bounds.width - 20,
+            height: bounds.height - 8
+        )
         backgroundLayer.path = UIBezierPath(
             roundedRect: insetBounds,
             cornerRadius: 24

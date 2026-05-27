@@ -34,15 +34,13 @@ final class OutfitAdvisorEngine {
     
     func makeWeatherCategory(feelsLike: Double) -> WeatherCategory {
         switch feelsLike {
-        case ..<0:
+        case ..<3:
             return .freezing
-        case 0..<8:
+        case 3..<7:
             return .cold
-        case 8..<15:
-            return .cool
-        case 15..<21:
+        case 7..<17:
             return .mild
-        case 21..<25:
+        case 17..<24:
             return .warm
         default:
             return .hot
@@ -52,15 +50,15 @@ final class OutfitAdvisorEngine {
     private func recommendationFeelsLike(for weather: WeatherSnapshot) -> Double {
         var effectiveFeelsLike = Double(weather.currentFeelsLike)
 
-        if weather.maxWindSpeed >= 8 {
-            effectiveFeelsLike -= 2
-        }
-
-        if weather.hasRain {
+        if weather.maxWindSpeed >= 11 {
             effectiveFeelsLike -= 1
         }
 
-        if weather.largeTemperatureDrop && weather.currentFeelsLike >= 18 {
+        if weather.hasRain && weather.currentFeelsLike <= 12 {
+            effectiveFeelsLike -= 1
+        }
+
+        if weather.largeTemperatureDrop && weather.currentFeelsLike >= 20 {
             effectiveFeelsLike -= 1
         }
 
@@ -123,17 +121,17 @@ final class OutfitAdvisorEngine {
     private func fallbackCategories(for category: WeatherCategory) -> [WeatherCategory] {
         switch category {
         case .freezing:
-            return [.freezing, .cold, .cool, .mild, .warm, .hot]
+            return [.freezing, .cold, .mild, .warm, .hot]
         case .cold:
-            return [.cold, .cool, .mild, .freezing, .warm, .hot]
+            return [.cold, .mild, .freezing, .warm, .hot]
         case .cool:
-            return [.cool, .mild, .cold, .warm, .freezing, .hot]
+            return [.mild, .cold, .warm, .freezing, .hot]
         case .mild:
-            return [.mild, .cool, .warm, .cold, .hot, .freezing]
+            return [.mild, .warm, .cold, .hot, .freezing]
         case .warm:
-            return [.warm, .hot, .mild, .cool, .cold, .freezing]
+            return [.warm, .mild, .hot, .cold, .freezing]
         case .hot:
-            return [.hot, .warm, .mild, .cool, .cold, .freezing]
+            return [.hot, .warm, .mild, .cold, .freezing]
         }
     }
 }
