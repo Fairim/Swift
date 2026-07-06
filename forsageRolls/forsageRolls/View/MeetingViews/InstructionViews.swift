@@ -1,44 +1,26 @@
-//
-//  WideSelectionView.swift
-//  forsageRolls
-//
-//  Created by Руслан Ахметсафин on 01.07.2026.
-//
-
 import SwiftUI
 
-struct WideSelectionView: View {
+
+struct InstructionViews: View {
     @State private var currentIndex = 0
     
     var body: some View {
         VStack {
-            Spacer()
-            Image("wideSelection")
-                .resizable()
-                .frame(height: 300)
-            Spacer()
-            
-            VStack(spacing: 14){
-                Text("Широкий выбор")
-                    .foregroundStyle(LinearGradient.gradientOrange)
-                    .font(.system(size: 26, weight: .bold))
-                Text("Более 100 позиций.")
-                    .foregroundStyle(LinearGradient.gradientOrange)
-                    .font(.system(size: 21, weight: .medium))
-            }
-            .padding(.vertical, 40)
+            MainInformationInstrionView(currentIndex: $currentIndex)
             CustomPageIndicator(currentPage: $currentIndex)
             
             VStack(spacing: 10) {
                 Button(action: {
-                    
+                    if currentIndex < 3{
+                        currentIndex += 1
+                    }
                 }) {
                     ZStack {
                         Rectangle()
                             .fill(LinearGradient.gradientOrange)
                             .frame(width: 350, height: 50)
                             .clipShape(RoundedRectangle(cornerRadius: 30))
-                        Text("Далее")
+                        Text( currentIndex < 3 ? "Далее" : "Начать наслаждаться" )
                             .foregroundColor(Color.white)
                             .font(.system(size: 18, weight: .medium))
                     }
@@ -52,14 +34,18 @@ struct WideSelectionView: View {
                 
                 
                 Button(action: {
-                    
+                    if currentIndex < 3 {
+                        currentIndex = 3
+                    } else {
+                        //Будет переключение на новую страницу входа или регистрации
+                    }
                 }, label: {
                     ZStack {
                         Rectangle()
                             .fill(Color(.clear))
                             .frame(width: 350, height: 50)
                             .clipShape(RoundedRectangle(cornerRadius: 30))
-                        Text("Пропустить")
+                        Text(currentIndex < 3 ? "Пропустить" : "Вход / Регистрация")
                             .foregroundColor(Color.gray.opacity(0.8))
                             .font(.system(size: 18, weight: .medium))
                     }
@@ -72,5 +58,5 @@ struct WideSelectionView: View {
 }
 
 #Preview {
-    WideSelectionView()
+    InstructionViews()
 }

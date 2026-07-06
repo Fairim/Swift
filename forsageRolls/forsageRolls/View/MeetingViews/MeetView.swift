@@ -42,7 +42,7 @@ struct MeetView: View {
             }
             
             .navigationDestination(isPresented: $isPressed) {
-                WideSelectionView()
+                InstructionViews()
             }
             
         }
